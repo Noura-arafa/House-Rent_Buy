@@ -7,9 +7,12 @@ package Logical_layer;
 
 import Classes.Contactinformation;
 import Classes.House;
+import Classes.Interest;
 import Classes.User;
 import Model.HouseIO;
+import Model.InterestIO;
 import Model.UserIO;
+import Model.UserInterestIO;
 import java.io.InputStream;
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -66,6 +69,21 @@ public class UserLogic {
 
     public Contactinformation RequestContactData(String Uname) {
         return userio.getContactData(Uname);
+    }
+    public void createAlert(String userName,Interest interest) throws ClassNotFoundException, SQLException{
+        UserIO user =new UserIO();
+        InterestIO interestIO=new InterestIO();
+        int userID=user.getUserID(userName);
+        int InterestID=-1;
+        InterestID=interestIO.findInterest(interest.getSize(),interest.getStatus(),interest.getType());
+        if(InterestID==-1){
+            interestIO.insert(interest.getSize(),interest.getStatus(),interest.getType());
+        }
+        InterestID=interestIO.findInterest(interest.getSize(),interest.getStatus(),interest.getType());
+        UserInterestIO userInterest=new UserInterestIO();
+        userInterest.insert(userID, InterestID);
+        
+        
     }
 
     public static void main(String[] args) throws ClassNotFoundException, SQLException {

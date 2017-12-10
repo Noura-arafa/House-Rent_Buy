@@ -3,15 +3,16 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-<<<<<<< HEAD
-            <file>file:/C:/Users/hassan%20ali/Documents/House-Rent_Buy/src/java/Model/HouseIO.java</file>
-=======
-            <file>file:/home/maryam/IdeaProjects/HouseBuyAndRent/src/java/Model/HouseIO.java</file>
-            <file>file:/home/maryam/IdeaProjects/HouseBuyAndRent/src/java/Logical_layer/AdminLogic.java</file>
-            <file>file:/home/maryam/IdeaProjects/HouseBuyAndRent/src/java/Classes/Admin.java</file>
-            <file>file:/home/maryam/IdeaProjects/HouseBuyAndRent/src/java/Classes/House.java</file>
-            <file>file:/home/maryam/IdeaProjects/HouseBuyAndRent/src/java/Logical_layer/HouseLogic.java</file>
->>>>>>> 312d7caf252c9ac35ef9e9c943410cbb788741c9
+            <file>file:/E:/FOURTH%20YEAR/IA/project/House-Rent_Buy/src/java/Classes/User.java</file>
+            <file>file:/E:/FOURTH%20YEAR/IA/project/House-Rent_Buy/src/java/Classes/House.java</file>
+            <file>file:/E:/FOURTH%20YEAR/IA/project/House-Rent_Buy/src/java/Model/UserIO.java</file>
+            <file>file:/E:/FOURTH%20YEAR/IA/project/House-Rent_Buy/src/java/Model/CommentIO.java</file>
+            <file>file:/E:/FOURTH%20YEAR/IA/project/House-Rent_Buy/src/java/Model/InterestIO.java</file>
+            <file>file:/E:/FOURTH%20YEAR/IA/project/House-Rent_Buy/src/java/Model/NotificationIO.java</file>
+            <file>file:/E:/FOURTH%20YEAR/IA/project/House-Rent_Buy/src/java/Model/ImageIO.java</file>
+            <file>file:/E:/FOURTH%20YEAR/IA/project/House-Rent_Buy/src/java/Logical_layer/NotificationLogic.java</file>
+            <file>file:/E:/FOURTH%20YEAR/IA/project/House-Rent_Buy/src/java/Model/HouseIO.java</file>
+            <file>file:/E:/FOURTH%20YEAR/IA/project/House-Rent_Buy/src/java/Logical_layer/UserLogic.java</file>
         </group>
     </open-files>
 </project-private>

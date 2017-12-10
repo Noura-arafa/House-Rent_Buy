@@ -23,7 +23,24 @@ public class HouseIO {
     
 
     
-
+    public int getUser(int houseID) throws ClassNotFoundException, SQLException{
+        Class.forName("com.mysql.jdbc.Driver");
+        String url = "jdbc:mysql://localhost:3306/house_buy_rent";
+        String username = "root";
+        String password = "12345678a";
+        ResultSet RS = null;
+        int userID=-1;
+        Connection Con =  DriverManager.getConnection(url, username, password);
+        String selsectTableSQL = "SELECT hUserID FROM house WHERE houseID="+"(?)";
+        PreparedStatement preparedStatement = Con.prepareStatement(selsectTableSQL);
+        preparedStatement.setInt(1, houseID);
+        RS=preparedStatement.executeQuery();
+        while(RS.next()){
+            userID=RS.getInt("hUserID");
+            
+        }
+        return userID;
+    }
     public static int getHouseID(House house) throws SQLException, ClassNotFoundException
 
     {
