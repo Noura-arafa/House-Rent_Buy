@@ -5,23 +5,25 @@
  */
 package Classes;
 
+import java.io.InputStream;
 /**
  *
  * @author lenovo
  */
 public class Image {
-    private String link;
+    private InputStream photo;
 
-    public Image(String link) {
-        this.link = link;
+    public Image(InputStream photo) {
+        this.photo = photo;
     }
 
-    public void setLink(String link) {
-        this.link = link;
+    public void setPhoto(InputStream photo) {
+        this.photo = photo;
     }
 
-    public String getLink() {
-        return link;
+    public InputStream getPhoto() {
+        return photo;
     }
+    
     
 }
