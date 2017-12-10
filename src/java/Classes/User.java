@@ -5,6 +5,7 @@
  */
 package Classes;
 
+import java.io.InputStream;
 import java.util.ArrayList;
 
 /**
@@ -12,21 +13,36 @@ import java.util.ArrayList;
  * @author lenovo
  */
 public class User {
-    private String fName, lName, userName, pass, email;
+    private String fName, lName, userName, pass, email,address;
     private int phoneNumber;
     private ArrayList <House> houses;
     private ArrayList <Notification> notifications;
     private ArrayList <Interest> interests;
-    
-    public User(String fN, String lN, String pw, int phN, String mail, String username)
+    private InputStream photo;
+    public User(String fN, String lN, String pw, int phN, String mail, String username,String address,InputStream photo)
     {
-        fName = fN;
-        lName = lN;
-        pass = pw;
-        phoneNumber = phN;
-        email = mail;
-        userName = username;
-        
+        this.fName = fN;
+       this. lName = lN;
+       this. pass = pw;
+        this.phoneNumber = phN;
+       this. email = mail;
+        this.userName = username;
+        this.address=address;
+        this.photo = photo;
+    }
+     public void setPhoto(InputStream photo) {
+        this.photo = photo;
+    }
+
+    public InputStream getPhoto() {
+        return photo;
+    }
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
     }
     
     //Setters

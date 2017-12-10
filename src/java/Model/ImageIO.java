@@ -19,7 +19,7 @@ import java.sql.*;
 public class ImageIO {
     String url ="jdbc:mysql://localhost:3306/house_buy_rent";
     String sqluser = "root";
-    String password = "n33333";
+    String password = "zombie96";
     
     public void addImage(Image image, int houseId) throws ClassNotFoundException, SQLException
     {

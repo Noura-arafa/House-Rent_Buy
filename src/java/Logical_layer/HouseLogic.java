@@ -30,7 +30,7 @@ public class HouseLogic {
     }
     
     public void rate(House house, int newRate) throws SQLException, ClassNotFoundException{
-        int houseID=houseIo.gethouseID(house);
+        int houseID=houseIo.getHouseID(house);
         double averageRate=calculateAverage(house, newRate);
         int sum=house.getRate();
         int count=house.getCount();
@@ -51,7 +51,7 @@ public class HouseLogic {
         House house = new House("villa with garden", "rent" , 200, 1, 0 , "status", "villa", "6 octobar", 0, "first villa");
         house.setRate(1);
         //House house1 = new House("roof with 2 bed rooms", "rent" , 100, 1, 4 , "status", "Roof", "Shekh Zaid", 0);
-        User user = new User("Noura", "Arafa", "noura95", 01113600147, "nouraarafa95@gmil.com", "nouraArafa");
+//        User user = new User("Noura", "Arafa", "noura95", 01113600147, "nouraarafa95@gmil.com", "nouraArafa");
         //houselogic.addHouse(house, user);
         houselogic.rate(house, 3);
        
