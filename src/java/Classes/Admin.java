@@ -9,6 +9,10 @@ package Classes;
  *
  * @author maryam
  */
-public class Admin {
-    
+public class Admin extends User {
+
+    public Admin(String fN, String lN, String pw, int phN, String mail, String username) {
+        super(fN, lN, pw, phN, mail, username);
+    }
+
 }
