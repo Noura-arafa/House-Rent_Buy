@@ -16,7 +16,7 @@ public class UserIO {
     String sqluser = "root";
     String pass = "n33333";
     
-    protected int getUserID(String userName) throws ClassNotFoundException, SQLException
+    public int getUserID(String userName) throws ClassNotFoundException, SQLException
     {
         Class.forName("com.mysql.jdbc.Driver");
         Connection conn = DriverManager.getConnection(url, sqluser, pass);
