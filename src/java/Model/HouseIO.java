@@ -74,7 +74,7 @@ public class HouseIO {
         prst.setString(7, house.getType());
         prst.setString(8, house.getLocation());
         prst.setInt(9, house.getRate());
-        prst.setInt(10, userid);
+        prst.setInt(10, 1);
         prst.executeUpdate();
         
         
@@ -238,7 +238,10 @@ public class HouseIO {
 
 
     }
-
+    
+    
+    
+    //TODO finish it
     public ArrayList<House> selectAllHouses () throws ClassNotFoundException, SQLException {
 
         Class.forName("com.mysql.jdbc.Driver");
@@ -257,6 +260,8 @@ public class HouseIO {
         }
         stmt.close();
         conn.close();
+        
+        return houses;
     }
    
 }
