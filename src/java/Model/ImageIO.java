@@ -4,11 +4,15 @@
  * and open the template in the editor.
  */
 package Model;
+import Classes.House;
 import Classes.Image;
+import static Model.HouseIO.url;
+import java.io.InputStream;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.sql.*;
+import java.util.ArrayList;
 
 
 
@@ -31,5 +35,34 @@ public class ImageIO {
         pstmt.executeUpdate();
         
         conn.close();
+    }
+    
+    public ArrayList<Image> selectImages(int houseID) throws SQLException, ClassNotFoundException{
+        
+        ArrayList<Image> images = new ArrayList<>();
+        
+        Class.forName("com.mysql.jdbc.Driver");
+        Connection conn = DriverManager.getConnection(url, sqluser, password);
+
+        if (conn == null) System.out.println("conn is not working");
+        
+        String sql = "select photo from image where houseID = ? ";
+        PreparedStatement prst = conn.prepareStatement(sql);
+        prst.setInt(1, houseID);
+        ResultSet rs = prst.executeQuery();
+
+        prst.close();
+        conn.close();
+        
+        while (rs.next()){
+            
+            Image image = new Image();
+            image.setPhoto((InputStream) rs.getObject("photo"));
+            images.add(image);
+            
+        }
+        
+        return images;
+        
     }
 }

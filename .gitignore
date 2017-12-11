@@ -1,15 +1,5 @@
-<<<<<<< HEAD
-<<<<<<< HEAD
-/build/
-/nbproject/private/
-=======
-<<<<<<< HEAD
-*.idea
-=======
-/build/
->>>>>>> 85fb38ac7f796ed22fbbcb367d4ec7fe90e07ed5
->>>>>>> 9e5d36a68f796f1514d9ceefb4698b5d632fe3d6
-=======
-.idea
 
->>>>>>> 312d7caf252c9ac35ef9e9c943410cbb788741c9
+
+/nbproject/*
+/.idea/*
+

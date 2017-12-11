@@ -17,7 +17,7 @@ public class House {
     private int size;
     
     //gededa
-    int count=0;
+    int countRate=0;
     //
     
     // active 0 ot 1 
@@ -26,12 +26,14 @@ public class House {
     private String status;
     private String type;
     private String location;
-    private int rate=0;
+    private Double rate;
+    private int totalRates;
     private String adName;
     private ArrayList<Comment> comments;
     private ArrayList<Image> images;
+    private Double price;
 
-    public House(String description, String adType, int size, int active, int floor, String status, String type, String location, int rate, String adName) {
+    public House(String description, String adType, int size, int active, int floor, String status, String type, String location, Double rate, String adName) {
         this.description = description;
         this.adType = adType;
         this.size = size;
@@ -48,7 +50,17 @@ public class House {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
+    public void setCountRate(int countRate) {
+        this.countRate = countRate;
+    }
     
+    public void setTotalRates(int totalRates){
+        this.totalRates = totalRates;
+    }
+    
+    public void setPrice (Double price) {
+        this.price = price;
+    }
 
     public void setDescription(String description) {
         this.description = description;
@@ -82,9 +94,8 @@ public class House {
         this.location = location;
     }
 
-    public void setRate(int rate) {
-        this.rate += rate;
-        count++;
+    public void setRate(Double rate) {
+        this.rate = rate;
     }
 
     public void setAdName(String adName) {
@@ -96,8 +107,16 @@ public class House {
         this.comments.add(comment);
     }
 
-    public void setImages(Image image) {
+    public void setImage(Image image) {
         this.images.add(image);
+    }
+    
+    public void setImages(ArrayList<Image> images) {
+        this.images = images;
+    }
+    
+    public void setComments(ArrayList<Comment> comments){
+        this.comments = comments;
     }
     
     public String getDescription() {
@@ -132,7 +151,7 @@ public class House {
         return location;
     }
 
-    public int getRate() {
+    public Double getRate() {
         return rate;
     }
 
@@ -149,11 +168,26 @@ public class House {
         return images;
     }
 
-    public int getCount() {
-        return count;
+    public int getCountRate() {
+        return countRate;
     }
     
-   
+    public int getTotalRates(){
+        return totalRates;
+    }
+    public Double getPrice(){
+        return price;
+    }
+    
+    public Double addRate(Double newRate){
+        totalRates+=newRate;
+        ++countRate;
+        this.rate = totalRates/(countRate*1.0);
+        return rate;
+    }
+    
+    
+    
     
     
     

@@ -30,6 +30,10 @@ public class User {
         this.address=address;
         this.photo = photo;
     }
+
+    public User() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
      public void setPhoto(InputStream photo) {
         this.photo = photo;
     }

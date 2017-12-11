@@ -17,6 +17,9 @@ public class Image {
         this.photo = photo;
     }
 
+    public Image() {
+    }
+
     public void setPhoto(InputStream photo) {
         this.photo = photo;
     }
