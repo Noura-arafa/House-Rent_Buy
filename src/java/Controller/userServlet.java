@@ -32,32 +32,41 @@ public class userServlet extends HttpServlet {
      *
      * @param request servlet request
      * @param response servlet response
-     * @throws ServletHttpServletRequestException if a servlet-specific error occurs
+     * @throws ServletHttpServletRequestException if a servlet-specific error
+     * occurs
      * @throws IOException if an I/O error occurs
      */
-    public void login(HttpServletRequest request, HttpServletResponse response,UserLogic userlogic) throws SQLException, ClassNotFoundException{
-        String username=request.getParameter("Uname");
-        String password=request.getParameter("password");
+    public User login(HttpServletRequest request, HttpServletResponse response, UserLogic userlogic) throws SQLException, ClassNotFoundException {
+        String username = request.getParameter("Uname");
+        String password = request.getParameter("password");
         //boolean check=userlogic.UserLogin(username, password);
         //System.out.println("checck"+check);
-      
+        return userlogic.UserLogin(username, password);
+
     }
-    public void Signup(HttpServletRequest request, HttpServletResponse response,UserLogic userlogic) throws ClassNotFoundException, SQLException{
-        String username=request.getParameter("Uname");
-        String email=request.getParameter("email");
-        String password=request.getParameter("password");
-        User user=new User("", "", password, 0, email, username,"",null);
-        boolean check=userlogic.Signup(user);
-         System.out.println("check"+check);
+
+    public boolean Signup(HttpServletRequest request, HttpServletResponse response, UserLogic userlogic) throws ClassNotFoundException, SQLException {
+        String username = request.getParameter("Uname");
+        String email = request.getParameter("email");
+        String password = request.getParameter("password");
+        User user = new User("", "", password, 0, email, username, "", null);
+        return userlogic.Signup(user);
     }
+
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException, SQLException, ClassNotFoundException {
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
             /* TODO output your page here. You may use following sample code. */
-          UserLogic userlogic=new UserLogic();
-          //login(request,response,userlogic);
-          Signup(request,response,userlogic);
+            UserLogic userlogic = new UserLogic();
+            User user = null;
+            int function = (int) request.getAttribute("function");
+            if (function == 1) {
+                user = login(request, response, userlogic);
+            } else if (function == 2) {
+                boolean check = Signup(request, response, userlogic);
+
+            }
         }
     }
 

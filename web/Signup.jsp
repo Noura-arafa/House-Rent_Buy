@@ -116,5 +116,8 @@
 <script src="js/waypoints.js"></script> 
 <script src="js/custom.js" type="text/javascript"></script> 
 <script src="js/owl-carousel/owl.carousel.js"></script>
+<% 
+request.setAttribute("function", 2);
+%>
 </body>
 </html>
