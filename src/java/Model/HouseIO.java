@@ -236,5 +236,28 @@ public class HouseIO {
        // System.out.println(houseio.gethouseID(house));
         
     }
+    //TODO finish it
+    public ArrayList<House> selectAllHouses () throws ClassNotFoundException, SQLException {
+
+        Class.forName("com.mysql.jdbc.Driver");
+        Connection conn = DriverManager.getConnection(url, sqluser, password);
+
+        ArrayList<House> houses = new ArrayList<>();
+
+        if (conn == null) System.out.println("conn is not working");
+
+        Statement stmt = conn.createStatement();
+        String sql = "select description, adtype, size, active, floor, status, type, location, rate,  from house;";
+        ResultSet rs =stmt.executeQuery(sql);
+        while(rs.next()){
+
+
+        }
+        stmt.close();
+        conn.close();
+        
+        return houses;
+    }
+
 
 }
