@@ -167,8 +167,8 @@ public class HouseIO {
         HouseIO houseio = new HouseIO();
         House house = new House("villa with garden", "rent" , 200, 1, 0 , "status", "villa", "6 octobar", 0);
         House house1 = new House("roof with 2 bed rooms", "rent" , 100, 1, 4 , "status", "Roof", "Shekh Zaid", 0);
-        User user = new User("Noura", "Arafa", "noura95", 01113600147, "nouraarafa95@gmil.com", "nouraArafa");
-        houseio.addhouse(house1, user);
+       // User user = new User("Noura", "Arafa", "noura95", 01113600147, "nouraarafa95@gmil.com", "nouraArafa");
+        //houseio.addhouse(house1, user);
         /*ArrayList<String> newpr = new ArrayList<>();
         ArrayList<String> pr = new ArrayList<>();
         newpr.add("villa with garden");
