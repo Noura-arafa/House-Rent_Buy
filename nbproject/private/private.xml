@@ -5,9 +5,9 @@
         <group>
             <file>file:/home/maryam/IdeaProjects/HouseBuyAndRent/src/java/Model/HouseIO.java</file>
             <file>file:/home/maryam/IdeaProjects/HouseBuyAndRent/src/java/Logical_layer/AdminLogic.java</file>
-            <file>file:/home/maryam/IdeaProjects/HouseBuyAndRent/src/java/Classes/Admin.java</file>
+            <file>file:/home/maryam/IdeaProjects/HouseBuyAndRent/web/WEB-INF/glassfish-web.xml</file>
             <file>file:/home/maryam/IdeaProjects/HouseBuyAndRent/src/java/Classes/House.java</file>
-            <file>file:/home/maryam/IdeaProjects/HouseBuyAndRent/src/java/Logical_layer/HouseLogic.java</file>
+            <file>file:/home/maryam/IdeaProjects/HouseBuyAndRent/src/java/Classes/Admin.java</file>
         </group>
     </open-files>
 </project-private>
