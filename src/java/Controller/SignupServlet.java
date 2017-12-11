@@ -8,7 +8,6 @@ package Controller;
 import Classes.User;
 import Logical_layer.UserLogic;
 import java.io.IOException;
-import java.io.InputStream;
 import java.io.PrintWriter;
 import java.sql.SQLException;
 import java.util.logging.Level;
@@ -18,13 +17,14 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 /**
  *
  * @author lenovo
  */
-@WebServlet(name = "userServlet", urlPatterns = {"/userServlet"})
-public class userServlet extends HttpServlet {
+@WebServlet(name = "SignupServlet", urlPatterns = {"/SignupServlet"})
+public class SignupServlet extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -32,40 +32,35 @@ public class userServlet extends HttpServlet {
      *
      * @param request servlet request
      * @param response servlet response
-     * @throws ServletHttpServletRequestException if a servlet-specific error
-     * occurs
+     * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
      */
-    public User login(HttpServletRequest request, HttpServletResponse response, UserLogic userlogic) throws SQLException, ClassNotFoundException {
-        String username = request.getParameter("Uname");
-        String password = request.getParameter("password");
-        //boolean check=userlogic.UserLogin(username, password);
-        //System.out.println("checck"+check);
-        return userlogic.UserLogin(username, password);
-
-    }
-
-    public boolean Signup(HttpServletRequest request, HttpServletResponse response, UserLogic userlogic) throws ClassNotFoundException, SQLException {
+        public User Signup(HttpServletRequest request, HttpServletResponse response, UserLogic userlogic) throws ClassNotFoundException, SQLException {
         String username = request.getParameter("Uname");
         String email = request.getParameter("email");
         String password = request.getParameter("password");
         User user = new User("", "", password, 0, email, username, "", null);
-        return userlogic.Signup(user);
+       // System.out.println("blabla");
+       
+       if(userlogic.Signup(user))
+          return user;
+       else
+           return null;
     }
-
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException, SQLException, ClassNotFoundException {
+            throws ServletException, IOException, ClassNotFoundException, SQLException {
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
             /* TODO output your page here. You may use following sample code. */
-            UserLogic userlogic = new UserLogic();
-            User user = null;
-            int function = (int) request.getAttribute("function");
-            if (function == 1) {
-                user = login(request, response, userlogic);
-            } else if (function == 2) {
-                boolean check = Signup(request, response, userlogic);
-
+              UserLogic userlogic = new UserLogic();
+    
+            User theuser=Signup(request,response,userlogic);
+            HttpSession session=request.getSession(true);
+            session.setMaxInactiveInterval(10*60);
+            if(theuser!=null){
+            session.setAttribute("TheUser", theuser);
+            request.getServletContext().setAttribute("thesession", session);
+            response.sendRedirect("Createprofile.jsp");
             }
         }
     }
@@ -82,13 +77,13 @@ public class userServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        try {
-            processRequest(request, response);
-        } catch (SQLException ex) {
-            Logger.getLogger(userServlet.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (ClassNotFoundException ex) {
-            Logger.getLogger(userServlet.class.getName()).log(Level.SEVERE, null, ex);
-        }
+            try {
+                processRequest(request, response);
+            } catch (ClassNotFoundException ex) {
+                Logger.getLogger(SignupServlet.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (SQLException ex) {
+                Logger.getLogger(SignupServlet.class.getName()).log(Level.SEVERE, null, ex);
+            }
     }
 
     /**
@@ -102,13 +97,13 @@ public class userServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        try {
-            processRequest(request, response);
-        } catch (SQLException ex) {
-            Logger.getLogger(userServlet.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (ClassNotFoundException ex) {
-            Logger.getLogger(userServlet.class.getName()).log(Level.SEVERE, null, ex);
-        }
+            try {
+                processRequest(request, response);
+            } catch (ClassNotFoundException ex) {
+                Logger.getLogger(SignupServlet.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (SQLException ex) {
+                Logger.getLogger(SignupServlet.class.getName()).log(Level.SEVERE, null, ex);
+            }
     }
 
     /**
