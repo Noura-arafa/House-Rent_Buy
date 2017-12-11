@@ -38,14 +38,16 @@ public class CommentIO {
         preparedStatement.setInt(4, userID);
         preparedStatement .executeUpdate();
     }
+  
     
-    public ArrayList<Comment> selectAllComments () throws ClassNotFoundException, SQLException{
+    public ArrayList<Comment> selectAllComments (int houseID) throws ClassNotFoundException, SQLException{
         ArrayList<Comment> comments=new ArrayList<>();
         Class.forName("com.mysql.jdbc.Driver");
         Connection Con =DriverManager.getConnection(url, sqluser, password);
         Statement Stmt = Con.createStatement();
-        String selectTableSQL =  "SELECT * from comment ";
+        String selectTableSQL =  "SELECT * from comment where cHouseID = ? ";
         PreparedStatement preparedStatement = Con.prepareStatement(selectTableSQL);
+        preparedStatement.setInt(1, houseID);
         ResultSet RS=null;
         RS = preparedStatement.executeQuery();
         while(RS.next()){
