@@ -5,6 +5,9 @@
  */
 package Classes;
 
+
+import java.io.InputStream;
+
 import java.util.ArrayList;
 
 /**
@@ -12,6 +15,11 @@ import java.util.ArrayList;
  * @author maryam
  */
 public class Admin extends User {
+
+
+    public Admin(String fN, String lN, String pw, int phN, String mail, String username, String address, InputStream photo) {
+        super(fN, lN, pw, phN, mail, username, address, photo);
+    }
 
     private ArrayList<House> suspendedHouses;
 
@@ -25,8 +33,7 @@ public class Admin extends User {
     }
 
 
-    public Admin(String fN, String lN, String pw, int phN, String mail, String username) {
-        super(fN, lN, pw, phN, mail, username);
-    }
+    
 
+    
 }

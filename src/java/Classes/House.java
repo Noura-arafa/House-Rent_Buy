@@ -15,17 +15,23 @@ public class House {
     private String description;
     private String adType;
     private int size;
+    
+    //gededa
+    int count=0;
+    //
+    
     // active 0 ot 1 
     private int active;
     private int floor;
     private String status;
     private String type;
     private String location;
-    private int rate;
+    private int rate=0;
+    private String adName;
     private ArrayList<Comment> comments;
     private ArrayList<Image> images;
 
-    public House(String description, String adType, int size, int active, int floor, String status, String type, String location, int rate) {
+    public House(String description, String adType, int size, int active, int floor, String status, String type, String location, int rate, String adName) {
         this.description = description;
         this.adType = adType;
         this.size = size;
@@ -35,8 +41,14 @@ public class House {
         this.type = type;
         this.location = location;
         this.rate = rate;
-        
+        this.adName = adName;
     }
+
+    public House() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    
 
     public void setDescription(String description) {
         this.description = description;
@@ -71,8 +83,14 @@ public class House {
     }
 
     public void setRate(int rate) {
-        this.rate = rate;
+        this.rate += rate;
+        count++;
     }
+
+    public void setAdName(String adName) {
+        this.adName = adName;
+    }
+    
 
     public void setComment(Comment comment) {
         this.comments.add(comment);
@@ -118,6 +136,11 @@ public class House {
         return rate;
     }
 
+    public String getAdName() {
+        return adName;
+    }
+    
+
     public ArrayList<Comment> getComments() {
         return comments;
     }
@@ -125,6 +148,12 @@ public class House {
     public ArrayList<Image> getImages() {
         return images;
     }
+
+    public int getCount() {
+        return count;
+    }
+    
+   
     
     
     
