@@ -30,19 +30,21 @@ public class UserLogic {
     UserIO userio = new UserIO();
 
     public boolean Signup(User user) throws ClassNotFoundException, SQLException {
-
+         System.out.println("username "+user.getuserName());
         if (userio.checkusers(user)) {
+            System.out.println("in checkusers ");
             userio.insertUser(user);
             return true;
         }
         return false;
     }
 
-    public boolean UserLogin(String Uname, String pass) throws SQLException, ClassNotFoundException {
-        if (userio.getUser(Uname, pass)) {
-            return true;
-        }
-        return false;
+    public User UserLogin(String Uname, String pass) throws SQLException, ClassNotFoundException {
+        User user=userio.getUser(Uname, pass);
+        if(user==null)
+            return null;
+        else
+            return user;
     }
 
     public boolean AdminLogin(String Uname, String pass) {
@@ -55,6 +57,7 @@ public class UserLogic {
 
     public void Createprofile(User user) {
         userio.updateuser(user);
+        //return user
     }
 
     public void Adminchangepassword(String Uname, String changedpassword, String changeduser) {
