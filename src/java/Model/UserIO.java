@@ -49,7 +49,7 @@ public class UserIO {
     public boolean checkusers(User user) throws SQLException, ClassNotFoundException {
         String url = "jdbc:mysql://localhost:3306/house_buy_rent";
         String theuser = "root";
-        String password = "";
+        String password = "12345678a";
         String Line;
         Connection Con = null;
         Statement Stmt = null;
@@ -59,8 +59,9 @@ public class UserIO {
         Stmt = Con.createStatement();
         RS = Stmt.executeQuery("SELECT * FROM user;");
         while (RS.next()) {
-            String Uname = RS.getString("userName");
-            //System.out.println("Uname " + Uname);
+            
+            String Uname = RS.getString("username");
+           // System.out.println("Uname " + Uname+" the user name"+user.getuserName());
             if (user.getuserName().equals(Uname)) {
                 return false;
             }
@@ -70,27 +71,31 @@ public class UserIO {
         return true;
     }
 
-    public boolean getUser(String Uname, String thepassword) {
+    public User getUser(String Uname, String thepassword) {
         try {
+          //  System.out.println("");
             String url = "jdbc:mysql://localhost:3306/house_buy_rent";
             String theuser = "root";
-            String password = "";
+            String password = "12345678a";
             String Line;
             Connection Con = null;
             Statement Stmt = null;
             ResultSet RS = null;
             if (Uname.equals("Admin")) {
-                return false;
+                return null;
             }
             Class.forName("com.mysql.jdbc.Driver");
             Con = DriverManager.getConnection(url, theuser, password);
             Stmt = Con.createStatement();
             RS = Stmt.executeQuery("SELECT * FROM user;");
             while (RS.next()) {
-                String theusername = RS.getString("userName");
-                String thepass = RS.getString("pass");
+                //change
+                String theusername = RS.getString("username");
+                //change
+                String thepass = RS.getString("password");
                 if (theusername.equals(Uname) && thepass.equals(thepassword)) {
-                    return true;
+                   User user=new User(RS.getString("fName"), RS.getString("lName"),RS.getString("password"), RS.getInt("phoneNum"), RS.getString("email"), RS.getString("username"),RS.getString("address"), (InputStream) RS.getBlob("picture"));
+                   return user;
                 }
             }
             RS.close();
@@ -99,7 +104,7 @@ public class UserIO {
             System.err.println("Exception: " + cnfe);
             System.out.println("tryagain");
         }
-        return false;
+        return null;
     }
 
     public Contactinformation getContactData(String Uname) {
@@ -134,9 +139,10 @@ public class UserIO {
     }
 
     public void insertUser(User user) throws SQLException, ClassNotFoundException {
+        System.out.println("in insert user");
         String url = "jdbc:mysql://localhost:3306/house_buy_rent";
         String theuser = "root";
-        String password = "";
+        String password = "12345678a";
         String Line;
         Connection Con = null;
         Statement Stmt = null;
@@ -145,7 +151,8 @@ public class UserIO {
         Con = DriverManager.getConnection(url, theuser, password);
         Stmt = Con.createStatement();
        // System.out.println("the user"+user.getpass());
-        String query = "INSERT INTO user (fName,LName,pass,phoneNum,email,userName,address,picture)"
+       //change
+        String query = "INSERT INTO user (fName,LName,password,phoneNum,email,username,picture,address)"
                 + "VALUES(?,?,?,?,?,?,?,?);";
         PreparedStatement preparedStmt = Con.prepareStatement(query);
         preparedStmt.setString(1, user.getfName());
@@ -154,8 +161,8 @@ public class UserIO {
         preparedStmt.setInt(4, user.getphoneNumber());
         preparedStmt.setString(5, user.getemail());
         preparedStmt.setString(6, user.getuserName());
-        preparedStmt.setString(7, user.getAddress());
-        preparedStmt.setBlob(8, user.getPhoto());
+        preparedStmt.setBlob(7, user.getPhoto());
+        preparedStmt.setString(8, user.getAddress());
         preparedStmt.executeUpdate();
         //RS.close();
         //preparedStmt.close();
