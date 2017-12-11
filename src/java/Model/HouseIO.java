@@ -4,8 +4,10 @@
  * and open the template in the editor.
  */
 package Model;
+import Classes.Comment;
 import Classes.User;
 import Classes.House;
+import Classes.Image;
 import java.io.InputStream;
 import java.sql.*;
 import java.sql.DriverManager;
@@ -86,7 +88,7 @@ public class HouseIO {
         prst.setString(6, house.getStatus());
         prst.setString(7, house.getType());
         prst.setString(8, house.getLocation());
-        prst.setInt(9, house.getRate());
+        prst.setDouble(9, house.getRate());
 
         prst.setInt(10, userid);
         prst.setString(11, house.getAdName());
@@ -248,7 +250,7 @@ public class HouseIO {
         return RS;
     }
     
-    public void rate(double rate,int houseID, int totalRate, int countRate) throws ClassNotFoundException, SQLException{
+    public void rate(Double rate,int houseID, int totalRate, int countRate) throws ClassNotFoundException, SQLException{
         Connection Con =DriverManager.getConnection(url, sqluser, password);
         Statement Stmt =Con.createStatement();
         String insertTableSQL = "UPDATE house set rate =? , totalRates =?  , countRate = ? where houseID = ?";
@@ -304,7 +306,7 @@ public class HouseIO {
         prst.setString(6, house.getStatus());
         prst.setString(7, house.getType());
         prst.setString(8, house.getLocation());
-        prst.setInt(9, house.getRate());
+        prst.setDouble(9, house.getRate());
         prst.executeUpdate();
 
         prst.close();
@@ -329,7 +331,7 @@ public class HouseIO {
         prst.setString(6, house.getStatus());
         prst.setString(7, house.getType());
         prst.setString(8, house.getLocation());
-        prst.setInt(9, house.getRate());
+        prst.setDouble(9, house.getRate());
         prst.setInt(10, id);
         prst.executeUpdate();
 
@@ -339,21 +341,50 @@ public class HouseIO {
 
     }
 
-    //TODO finish it
     public ArrayList<House> selectAllHouses () throws ClassNotFoundException, SQLException {
 
         Class.forName("com.mysql.jdbc.Driver");
         Connection conn = DriverManager.getConnection(url, sqluser, password);
 
         ArrayList<House> houses = new ArrayList<>();
+        CommentIO commentIO = new CommentIO();
+        ImageIO imageIO = new ImageIO();
 
         if (conn == null) System.out.println("conn is not working");
 
         Statement stmt = conn.createStatement();
-        String sql = "select description, adtype, size, active, floor, status, type, location, rate,  from house;";
+        String sql = "select houseID, adname, description, adtype, size, active, floor, status, type,"
+                + " location, rate, countRate, totalRates, price  from house;";
         ResultSet rs =stmt.executeQuery(sql);
+        
         while(rs.next()){
-
+                
+            House house = new House();
+            ArrayList<Comment> comments = new ArrayList<Comment>();
+            ArrayList<Image> images = new ArrayList<Image>();
+            int houseID = rs.getInt("houseID");
+            house.setAdName(rs.getString("adname"));
+            house.setDescription(rs.getString("description"));
+            house.setAdType(rs.getString("adtype"));
+            house.setSize(rs.getInt("size"));
+            house.setActive(rs.getInt("type"));
+            house.setFloor(rs.getInt("floor"));
+            house.setStatus(rs.getString("status"));
+            house.setType(rs.getString("type"));
+            house.setLocation(rs.getString("location"));
+            house.setRate(rs.getDouble("rate"));
+            house.setCountRate(rs.getInt("countRate"));
+            house.setTotalRates(rs.getInt("toatRates"));
+            house.setPrice(rs.getDouble("price"));
+            comments = commentIO.selectAllComments(houseID);
+            images = imageIO.selectImages(houseID);
+            
+            house.setComments(comments);
+            house.setImages(images);
+            
+            houses.add(house);
+            
+            
 
         }
         stmt.close();
@@ -361,5 +392,59 @@ public class HouseIO {
         
         return houses;
     }
+    
+    
+    
+    public House selectHouses (int houseID) throws ClassNotFoundException, SQLException {
+
+        Class.forName("com.mysql.jdbc.Driver");
+        Connection conn = DriverManager.getConnection(url, sqluser, password);
+
+        CommentIO commentIO = new CommentIO();
+        ImageIO imageIO = new ImageIO();
+
+        if (conn == null) System.out.println("conn is not working");
+
+        
+        String sql = "select houseID, adname, description, adtype, size, active, floor, status, type,"
+                + " location, rate, countRate, totalRates, price  from house where houseId = ?;";
+
+        PreparedStatement prst = conn.prepareStatement(sql);
+        prst.setInt(1, houseID);
+        ResultSet rs = prst.executeQuery();
+        
+                
+        House house = new House();
+        ArrayList<Comment> comments = new ArrayList<Comment>();
+        ArrayList<Image> images = new ArrayList<Image>();
+        house.setAdName(rs.getString("adname"));
+        house.setDescription(rs.getString("description"));
+        house.setAdType(rs.getString("adtype"));
+        house.setSize(rs.getInt("size"));
+        house.setActive(rs.getInt("type"));
+        house.setFloor(rs.getInt("floor"));
+        house.setStatus(rs.getString("status"));
+        house.setType(rs.getString("type"));
+        house.setLocation(rs.getString("location"));
+        house.setRate(rs.getDouble("rate"));
+        house.setCountRate(rs.getInt("countRate"));
+        house.setTotalRates(rs.getInt("toatRates"));
+        house.setPrice(rs.getDouble("price"));
+        comments = commentIO.selectAllComments(houseID);
+        images = imageIO.selectImages(houseID);
+
+        house.setComments(comments);
+        house.setImages(images);
+            
+            
+            
+        prst.close();
+        conn.close();
+        
+        return house;
+    }
+    
+    
+    
 
 }

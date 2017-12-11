@@ -32,24 +32,25 @@ public class HouseLogic {
     public void rate(House house, int newRate) throws SQLException, ClassNotFoundException{
         int houseID=houseIo.getHouseID(house);
         double averageRate=calculateAverage(house, newRate);
-        int sum=house.getRate();
-        int count=house.getCount();
+        int sum=house.getTotalRates();
+        int count=house.getCountRate();
         houseIo.rate(averageRate, houseID,sum, count );
     }
     
     public double calculateAverage( House house, int newrate){
-        house.setRate(newrate);
-         int sum=house.getRate();
-         int count=house.getCount();
-         double avRate=(double)sum/count;
+        int sum=house.getTotalRates();
+        int count=house.getCountRate();
+        double avRate=(double)sum/count;
+        house.setRate(avRate);
+
         return avRate;
     }
     
     public  static void main(String[] args) throws ClassNotFoundException, SQLException{
         HouseLogic houselogic = new HouseLogic();
         //House house = new House("departement with roof", "buy" , 300, 1, 0 , "finished", "departement", "6 octobar", 0, "first departement");
-        House house = new House("villa with garden", "rent" , 200, 1, 0 , "status", "villa", "6 octobar", 0, "first villa");
-        house.setRate(1);
+        House house = new House("villa with garden", "rent" , 200, 1, 0 , "status", "villa", "6 octobar", 0.0, "first villa");
+        house.setRate(1.0);
         //House house1 = new House("roof with 2 bed rooms", "rent" , 100, 1, 4 , "status", "Roof", "Shekh Zaid", 0);
 //        User user = new User("Noura", "Arafa", "noura95", 01113600147, "nouraarafa95@gmil.com", "nouraArafa");
         //houselogic.addHouse(house, user);
