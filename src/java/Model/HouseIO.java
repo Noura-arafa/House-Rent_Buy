@@ -76,7 +76,7 @@ public class HouseIO {
         prst.setString(7, house.getType());
         prst.setString(8, house.getLocation());
         prst.setInt(9, house.getRate());
-        prst.setInt(10, userid);
+        prst.setInt(10, 1);
         prst.executeUpdate();
         
         System.out.println("Menna");
@@ -215,6 +215,7 @@ public class HouseIO {
 
 
     }
+
    public  static void main(String[] args) throws ClassNotFoundException, SQLException{
         
         
@@ -236,6 +237,7 @@ public class HouseIO {
        // System.out.println(houseio.gethouseID(house));
         
     }
+
     //TODO finish it
     public ArrayList<House> selectAllHouses () throws ClassNotFoundException, SQLException {
 
@@ -258,6 +260,5 @@ public class HouseIO {
         
         return houses;
     }
-
 
 }

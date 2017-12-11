@@ -10,6 +10,19 @@ import java.util.ArrayList;
  * Created by maryam on 12/10/17.
  */
 public class AdminLogic {
+    
+    
+    private ArrayList<House> suspendedHouses;
+
+
+    public ArrayList<House> getSuspendedHouses() {
+        return suspendedHouses;
+    }
+
+    public void setSuspendedHouses(ArrayList<House> suspendedHouses) {
+        this.suspendedHouses = suspendedHouses;
+    }
+
 
     public void removeHouse(ArrayList<House> houses, House house) throws ClassNotFoundException, SQLException{
 
