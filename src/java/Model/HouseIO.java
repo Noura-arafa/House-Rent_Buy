@@ -6,8 +6,8 @@
 package Model;
 import Classes.User;
 import Classes.House;
+import java.io.InputStream;
 import java.sql.*;
-import java.io.IOException;
 import java.sql.DriverManager;
 import java.util.ArrayList;
 
@@ -16,13 +16,12 @@ import java.util.ArrayList;
  * @author lenovo
  */
 
-
 public class HouseIO {
-    String url ="jdbc:mysql://localhost:3306/house_buy_rent";
-    String sqluser = "root";
-    String password = "n33333";
+        static String url = "jdbc:mysql://localhost:3306/house_buy_rent";
+        static String sqluser = "root";
+        static String password = "";
     
-    protected int gethouseID(House house) throws SQLException, ClassNotFoundException
+    public static int getHouseID(House house) throws SQLException, ClassNotFoundException
     {
         Class.forName("com.mysql.jdbc.Driver");
         Connection conn = DriverManager.getConnection(url, sqluser, password);
@@ -50,13 +49,14 @@ public class HouseIO {
         conn.close();
         return id;
     }
-    protected void addhouse(House house, User user) throws ClassNotFoundException, SQLException
+    public void addhouse(House house, User user) throws ClassNotFoundException, SQLException
     {
+        System.out.println("blabla");
         Class.forName("com.mysql.jdbc.Driver");
-        Connection conn = DriverManager.getConnection(url, sqluser, password); 
+        Connection conn = DriverManager.getConnection(url, sqluser, password);
         UserIO uio = new UserIO();
         int userid = uio.getUserID(user.getuserName()) ;
-        int testid = gethouseID(house);
+        int testid = getHouseID(house);
         if (testid != 0)
         {
             System.out.println("exist");
@@ -79,13 +79,14 @@ public class HouseIO {
         prst.setInt(10, userid);
         prst.executeUpdate();
         
+        System.out.println("Menna");
        prst.close();
        conn.close();
     }
-    protected void edit(ArrayList<String> newprop, ArrayList<String> propName, int houseId) throws ClassNotFoundException, SQLException
+    public void edit(ArrayList<String> newprop, ArrayList<String> propName, int houseId) throws ClassNotFoundException, SQLException
     {
         Class.forName("com.mysql.jdbc.Driver");
-        Connection conn = DriverManager.getConnection(url, sqluser, password); 
+        Connection conn = DriverManager.getConnection(url, sqluser, password);
          
         for(int i=0; i<newprop.size(); i++)
         {
@@ -163,12 +164,60 @@ public class HouseIO {
     }
     
 
-    public  static void main(String[] args) throws ClassNotFoundException, SQLException{
-        HouseIO houseio = new HouseIO();
-        House house = new House("villa with garden", "rent" , 200, 1, 0 , "status", "villa", "6 octobar", 0);
-        House house1 = new House("roof with 2 bed rooms", "rent" , 100, 1, 4 , "status", "Roof", "Shekh Zaid", 0);
-       // User user = new User("Noura", "Arafa", "noura95", 01113600147, "nouraarafa95@gmil.com", "nouraArafa");
-        //houseio.addhouse(house1, user);
+    
+    public void deleteHouse(House house) throws ClassNotFoundException, SQLException {
+
+        Class.forName("com.mysql.jdbc.Driver");
+        Connection conn = DriverManager.getConnection(url, sqluser, password);
+        String query = "delete from house where "
+                + "(description, adtype, size, active, floor, status, type, location, rate)"
+                + "VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?)";
+        PreparedStatement prst = conn.prepareStatement(query);
+        prst.setString(1, house.getDescription());
+        prst.setString(2, house.getAdType());
+        prst.setInt(3, house.getSize());
+        prst.setInt(4, house.getActive());
+        prst.setInt(5, house.getFloor());
+        prst.setString(6, house.getStatus());
+        prst.setString(7, house.getType());
+        prst.setString(8, house.getLocation());
+        prst.setInt(9, house.getRate());
+        prst.executeUpdate();
+
+        prst.close();
+        conn.close();
+
+    }
+
+    public void updateHouse (House house) throws ClassNotFoundException, SQLException {
+        Class.forName("com.mysql.jdbc.Driver");
+        Connection conn = DriverManager.getConnection(url, sqluser, password);
+        String query = "update house set "
+                + "(description, adtype, size, active, floor, status, type, location, rate)"
+                + "VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?)"
+                + "where houseID = ?";
+        int id = getHouseID(house);
+        PreparedStatement prst = conn.prepareStatement(query);
+        prst.setString(1, house.getDescription());
+        prst.setString(2, house.getAdType());
+        prst.setInt(3, house.getSize());
+        prst.setInt(4, house.getActive());
+        prst.setInt(5, house.getFloor());
+        prst.setString(6, house.getStatus());
+        prst.setString(7, house.getType());
+        prst.setString(8, house.getLocation());
+        prst.setInt(9, house.getRate());
+        prst.setInt(10, id);
+        prst.executeUpdate();
+
+        prst.close();
+        conn.close();
+
+
+    }
+   public  static void main(String[] args) throws ClassNotFoundException, SQLException{
+        
+        
         /*ArrayList<String> newpr = new ArrayList<>();
         ArrayList<String> pr = new ArrayList<>();
         newpr.add("villa with garden");
@@ -187,5 +236,5 @@ public class HouseIO {
        // System.out.println(houseio.gethouseID(house));
         
     }
-   
+
 }
