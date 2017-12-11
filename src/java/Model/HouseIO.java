@@ -260,7 +260,7 @@ public class HouseIO {
         preparedStatement .executeUpdate();
     }
     
-
+    
 
     public  static void main(String[] args) throws ClassNotFoundException, SQLException{
         HouseIO houseio = new HouseIO();

@@ -1,6 +1,6 @@
 <%-- 
-    Document   : houseJSP
-    Created on : Dec 11, 2017, 5:11:43 PM
+    Document   : specificHouseJSP
+    Created on : Dec 11, 2017, 6:45:38 PM
     Author     : lenovo
 --%>
 
@@ -20,6 +20,7 @@
 <title>WebThemez - Single page website</title>
 <meta name="description" content="">
 <meta name="author" content="WebThemez">
+
 <!--[if lt IE 9]>
         <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
     <![endif]-->
@@ -64,43 +65,84 @@
 </header>
 <!--/.header-->
 <div id="#top"></div>
+<script>
+// When the user clicks on <div>, open the popup
+function myFunction() {
+    var popup = document.getElementById("myPopup");
+    popup.classList.toggle("show");
+}
+</script>
+<section id="aboutUs">
+  <div class="container">
+    <div class="heading text-center"> 
+      <!-- Heading -->
+      <h2>About Us</h2>
+    </div>
+  
+    <div class="row dataTxt">	
+						<div class="col-md-6 col-sm-6">
+            <ul class="listArrow">
+                <li><h4>Type</h4></li>
+                <p></p>
+                <li><h4>Description</h4>
+              <p>Lorem ipsum dolor consectetursit amet, consectetur adipiscing elit consectetur euismod </p>
+                            <p>Lorem ipsum dolor sit amet, ea eum labitur scsstie percipitoleat fabulas complectitur deterruisset at pro. Odio quaeque reformidans est eu, expetendis intellegebat has ut, viderer invenire ut his. Has molestie percipit an. Falli volumus efficiantur sed id, ad vel noster propriae. Ius ut etiam vivendo, graeci iudicabit constituto at mea.</p>
+              </li>
+                <li><h4>Size</h4></li>
+                <p></p>
+                <li><h4>Floor</h4></li>
+                <p></p>
+                <li><h4>Status</h4></li>
+                <p></p>
+                <li><h4>Location</h4></li>
+                <p></p>
+                <li><h4>Rate</h4></li>
+                <p></p>
+              </ul>
+						<div class="popup" onclick="myFunction()" ><div class="btn">Request Contacts!</div>
+            <span class="popuptext" id="myPopup">Email:
+                                            <br> Phone:
+            </span>
+            </div>
+            <br>
+              <label for="comments"><h4>Comments</h4></label>
+              <p></p>
+              <textarea name="comment" class="form-control" id="comments" cols="3" rows="5" placeholder="Enter your message?" title="Please enter your message (at least 10 characters)"></textarea>
+              <button name="submit" type="submit" class="btn btn-lg btn-primary" id="submit">Add comment</button>
 
-<section id="work" class="page-section page">
-  <div class="container text-center">
-    <div class="heading">
-      <h2>Projects</h2>
-      <h2>Advertisements</h2>
-    </div>
-    <div class="row">
-      <div class="col-md-12">
-        <div id="portfolio">
-          <ul class="filters list-inline">
-            <li> <a class="active" data-filter="*" href="#">All</a> </li>
-          </ul>
-          <ul class="items list-unstyled clearfix animated fadeInRight showing" data-animation="fadeInRight" style="position: relative; height: 438px;">
-            <li class="item branding" style="position: absolute; left: 0px; top: 0px;"> 
-								 			 
-			  <figure class="effect-bubba">
-                              
-						<img src="images/work/1.jpg" alt="img02"/>
-						<figcaption>
-							<h2>Trends</h2> 
-								<a href="adsDetails.html" class="fancybox">More details</a> 
-							
-						</figcaption>			
-					</figure> 
-					
-			  </li>  
-           
-          </ul>
-        </div>
-      </div>
-    </div>
+						</div>
+
+            
+<div class="col-md-6 col-sm-12"> 
+<section id="home">
+  <div class="banner-container"> 
+    <div id="carousel" class="carousel slide carousel-fade" data-ride="carousel">
+  <ol class="carousel-indicators">
+    <li data-target="#carousel" data-slide-to="0" class="active"></li>
+    <li data-target="#carousel" data-slide-to="1"></li>
+    <li data-target="#carousel" data-slide-to="2"></li>
+  </ol>
+  <!-- Carousel items -->
+  <div class="carousel-inner">
+    <div class="active item"><img src="images/banner-bg.jpg" alt="banner" /></div>
+    <div class="item"><img src="images/banner-bg2.jpg" alt="banner" /></div>
+    <div class="item"><img src="images/banner-bg3.jpg" alt="banner" /></div>
+  </div>
+  <!-- Carousel nav -->
+  <a class="carousel-control left" href="#carousel" data-slide="prev">&lsaquo;</a>
+  <a class="carousel-control right" href="#carousel" data-slide="next">&rsaquo;</a>
+</div>
+  
+  </div>  
+  
+  <div class="container hero-text2">
   </div>
 </section>
+  </div>
+</section> 
 
 <!--/.page-section-->
-<section class="LastTab">
+<section class="copyright">
   <div class="container">
     <div class="row">
       <div class="col-sm-12 text-center"> </div>
@@ -121,5 +163,25 @@
 <script src="js/waypoints.js"></script> 
 <script src="js/custom.js" type="text/javascript"></script> 
 <script src="js/owl-carousel/owl.carousel.js"></script>
+<script>
+var slideIndex = 1;
+showDivs(slideIndex);
+
+function plusDivs(n) {
+  showDivs(slideIndex += n);
+}
+
+function showDivs(n) {
+  var i;
+  var x = document.getElementsByClassName("mySlides");
+  if (n > x.length) {slideIndex = 1}    
+  if (n < 1) {slideIndex = x.length}
+  for (i = 0; i < x.length; i++) {
+     x[i].style.display = "none";  
+  }
+  x[slideIndex-1].style.display = "block";  
+}
+</script>
 </body>
 </html>
+

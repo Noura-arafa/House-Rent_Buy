@@ -230,5 +230,26 @@ public class UserIO {
             System.out.println("tryagain");
         }
     }
+    
+    
+    public User selectUser (int userID) throws ClassNotFoundException, SQLException{
+         String url = "jdbc:mysql://localhost:3306/house_buy_rent";
+        String theuser = "root";
+        String password = "";
+        Connection Con = null;
+        Statement Stmt = null;
+        ResultSet RS = null;
+        Class.forName("com.mysql.jdbc.Driver");
+        Con = DriverManager.getConnection(url, theuser, password);
+        Stmt = Con.createStatement();
+         PreparedStatement statement = Con.prepareStatement("select * FROM user WHERE  userID = ?");
+        statement.setInt(1, userID);
+        RS = statement.executeQuery();
+        User user = null;
+        while(RS.next()){
+            user =new User(RS.getString("fName"),RS.getString("lName"),RS.getString("pass"),RS.getInt("phoneNum"),RS.getString("email"),RS.getString("userName"),RS.getString("address"), (InputStream) RS.getObject("picture"));
+        }
+        return user;
+    }
 
 }

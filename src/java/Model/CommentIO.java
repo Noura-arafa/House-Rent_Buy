@@ -5,13 +5,16 @@
  */
 package Model;
 
+import Classes.Comment;
 import Classes.House;
+import Classes.User;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
 import java.util.Date;
 
 /**
@@ -34,6 +37,28 @@ public class CommentIO {
         preparedStatement.setInt(3, houseID);
         preparedStatement.setInt(4, userID);
         preparedStatement .executeUpdate();
+    }
+    
+    public ArrayList<Comment> selectAllComments () throws ClassNotFoundException, SQLException{
+        ArrayList<Comment> comments=new ArrayList<>();
+        Class.forName("com.mysql.jdbc.Driver");
+        Connection Con =DriverManager.getConnection(url, sqluser, password);
+        Statement Stmt = Con.createStatement();
+        String selectTableSQL =  "SELECT * from comment ";
+        PreparedStatement preparedStatement = Con.prepareStatement(selectTableSQL);
+        ResultSet RS=null;
+        RS = preparedStatement.executeQuery();
+        while(RS.next()){
+            int userID=RS.getInt("cUserID");
+            UserIO userIO = new UserIO();
+            User user = userIO.selectUser(userID);
+            Comment comment= new Comment(RS.getString("comment"),user, RS.getDate("date"));
+            comments.add(comment);
+        }
+        return comments;
+        
+         
+        
     }
     
 }
