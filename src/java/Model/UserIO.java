@@ -19,7 +19,7 @@ public class UserIO {
 
     String url = "jdbc:mysql://localhost:3306/house_buy_rent";
     String sqluser = "root";
-    String pass = "n33333";
+    String pass = "";
 
     public int getUserID(String userName) throws ClassNotFoundException, SQLException {
         Class.forName("com.mysql.jdbc.Driver");
