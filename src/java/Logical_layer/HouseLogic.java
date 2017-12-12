@@ -30,8 +30,11 @@ public class HouseLogic {
     }
     
     public House getHouseByID (int houseID) throws ClassNotFoundException, SQLException{
+        System.out.println("herrrrrrreeeeeeeeeeeeeeeeeeeeeee");
         HouseIO houseIO = new HouseIO();
         House house = houseIO.selectHouses(houseID);
+                System.out.println("herrrrrrreeeeeeeeeeeeeeeeeeeeeee");
+
         return house;
     }
     

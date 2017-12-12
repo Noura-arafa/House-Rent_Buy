@@ -23,7 +23,7 @@ import java.util.ArrayList;
 public class ImageIO {
     String url ="jdbc:mysql://localhost:3306/house_buy_rent";
     String sqluser = "root";
-    String password = "zombie96";
+    String password = "n33333";
     
     public void addImage(Image image, int houseId) throws ClassNotFoundException, SQLException
     {
@@ -51,8 +51,7 @@ public class ImageIO {
         prst.setInt(1, houseID);
         ResultSet rs = prst.executeQuery();
 
-        prst.close();
-        conn.close();
+    
         
         while (rs.next()){
             
@@ -61,6 +60,9 @@ public class ImageIO {
             images.add(image);
             
         }
+        
+        prst.close();
+        conn.close();
         
         return images;
         

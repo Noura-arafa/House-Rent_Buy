@@ -21,7 +21,7 @@ import java.util.ArrayList;
 public class HouseIO {
         static String url = "jdbc:mysql://localhost:3306/house_buy_rent";
         static String sqluser = "root";
-        static String password = "";
+        static String password = "n33333";
     
 
     
@@ -353,7 +353,7 @@ public class HouseIO {
         if (conn == null) System.out.println("conn is not working");
 
         Statement stmt = conn.createStatement();
-        String sql = "select houseID, adname, description, adtype, size, active, floor, status, type,"
+        String sql = "select houseID, adName, description, adtype, size, active, floor, status, type,"
                 + " location, rate, countRate, totalRates, price  from house;";
         ResultSet rs =stmt.executeQuery(sql);
         
@@ -363,7 +363,7 @@ public class HouseIO {
             ArrayList<Comment> comments = new ArrayList<Comment>();
             ArrayList<Image> images = new ArrayList<Image>();
             int houseID = rs.getInt("houseID");
-            house.setAdName(rs.getString("adname"));
+            house.setAdName(rs.getString("adName"));
             house.setDescription(rs.getString("description"));
             house.setAdType(rs.getString("adtype"));
             house.setSize(rs.getInt("size"));
@@ -406,8 +406,8 @@ public class HouseIO {
         if (conn == null) System.out.println("conn is not working");
 
         
-        String sql = "select houseID, adname, description, adtype, size, active, floor, status, type,"
-                + " location, rate, countRate, totalRates, price  from house where houseId = ?;";
+        String sql = "select adName, description, adtype, size, active, floor, status, type,"
+                + " location, rate, countRate, totalRates, price  from house where houseID = ?;";
 
         PreparedStatement prst = conn.prepareStatement(sql);
         prst.setInt(1, houseID);
@@ -417,26 +417,29 @@ public class HouseIO {
         House house = new House();
         ArrayList<Comment> comments = new ArrayList<Comment>();
         ArrayList<Image> images = new ArrayList<Image>();
-        house.setAdName(rs.getString("adname"));
-        house.setDescription(rs.getString("description"));
-        house.setAdType(rs.getString("adtype"));
-        house.setSize(rs.getInt("size"));
-        house.setActive(rs.getInt("type"));
-        house.setFloor(rs.getInt("floor"));
-        house.setStatus(rs.getString("status"));
-        house.setType(rs.getString("type"));
-        house.setLocation(rs.getString("location"));
-        house.setRate(rs.getDouble("rate"));
-        house.setCountRate(rs.getInt("countRate"));
-        house.setTotalRates(rs.getInt("toatRates"));
-        house.setPrice(rs.getDouble("price"));
-        comments = commentIO.selectAllComments(houseID);
-        images = imageIO.selectImages(houseID);
+        
+        while (rs.next()){
+            house.setAdName(rs.getString("adName"));
+            house.setDescription(rs.getString("description"));
 
-        house.setComments(comments);
-        house.setImages(images);
-            
-            
+            house.setAdType(rs.getString("adtype"));
+            house.setSize(rs.getInt("size"));
+            house.setActive(rs.getInt("active"));
+            house.setFloor(rs.getInt("floor"));
+            house.setStatus(rs.getString("status"));
+            house.setType(rs.getString("type"));
+            house.setLocation(rs.getString("location"));
+            house.setRate(rs.getDouble("rate"));
+            house.setCountRate(rs.getInt("countRate"));
+            house.setTotalRates(rs.getInt("totalRates"));
+            house.setPrice(rs.getDouble("price"));
+            comments = commentIO.selectAllComments(houseID);
+            images = imageIO.selectImages(houseID);
+
+            house.setComments(comments);
+            house.setImages(images);
+
+        }
             
         prst.close();
         conn.close();
