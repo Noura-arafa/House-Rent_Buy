@@ -60,7 +60,7 @@ public class UserIO {
         RS = Stmt.executeQuery("SELECT * FROM user;");
         while (RS.next()) {
             
-            String Uname = RS.getString("username");
+            String Uname = RS.getString("userName");
            // System.out.println("Uname " + Uname+" the user name"+user.getuserName());
             if (user.getuserName().equals(Uname)) {
                 return false;
@@ -90,11 +90,11 @@ public class UserIO {
             RS = Stmt.executeQuery("SELECT * FROM user;");
             while (RS.next()) {
                 //change
-                String theusername = RS.getString("username");
+                String theusername = RS.getString("userName");
                 //change
-                String thepass = RS.getString("password");
+                String thepass = RS.getString("pass");
                 if (theusername.equals(Uname) && thepass.equals(thepassword)) {
-                   User user=new User(RS.getString("fName"), RS.getString("lName"),RS.getString("password"), RS.getInt("phoneNum"), RS.getString("email"), RS.getString("username"),RS.getString("address"), (InputStream) RS.getBlob("picture"));
+                   User user=new User(RS.getString("fName"), RS.getString("lName"),RS.getString("pass"), RS.getInt("phoneNum"), RS.getString("email"), RS.getString("username"),RS.getString("address"), (InputStream) RS.getBlob("picture"));
                    return user;
                 }
             }
@@ -152,7 +152,7 @@ public class UserIO {
         Stmt = Con.createStatement();
        // System.out.println("the user"+user.getpass());
        //change
-        String query = "INSERT INTO user (fName,LName,password,phoneNum,email,username,picture,address)"
+        String query = "INSERT INTO user (fName,LName,pass,phoneNum,email,userName,picture,address)"
                 + "VALUES(?,?,?,?,?,?,?,?);";
         PreparedStatement preparedStmt = Con.prepareStatement(query);
         preparedStmt.setString(1, user.getfName());
@@ -172,7 +172,7 @@ public class UserIO {
     public void updateuser(User user) {
         String url = "jdbc:mysql://localhost:3306/house_buy_rent";
         String theuser = "root";
-        String password = "";
+        String password = "12345678a";
         String Line;
         Connection Con = null;
         Statement Stmt = null;
@@ -182,6 +182,7 @@ public class UserIO {
             Class.forName("com.mysql.jdbc.Driver");
             Con = DriverManager.getConnection(url, theuser, password);
             Stmt = Con.createStatement();
+            //change
             String query = "UPDATE user set fName=?,lName=?,pass=?,phoneNum=?,email=?,userName=?,address = ?,picture=? WHERE userName = ?";
             PreparedStatement preparedStmt = Con.prepareStatement(query);
            preparedStmt.setString(1, user.getfName());

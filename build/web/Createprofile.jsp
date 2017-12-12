@@ -69,23 +69,29 @@
       <div class="row">
         <div class="heading text-center"> 
           <!-- Heading -->
-          <h2>signup</h2>
+          <h2>Profile</h2>
         </div>
       </div>
       <div class="row mrgn30">
-        <form method="post" action="SignupServlet" id="contactfrm" role="form">
+        <form method="post" action="profileServlet" id="contactfrm" role="form"  enctype="multipart/form-data">
           <div class="col-sm-12">
             <div class="form-group">
-              <label for="name">Username</label>
-              <input type="text" class="form-control" name="Uname" id="name" placeholder="Enter name" title="Please enter your name (at least 2 characters)">
-              <label for="email">Email</label>
-              <input type="email" class="form-control" name="email" id="email" placeholder="Enter email" title="Please enter a valid email address">
+              <label for="name">First Name</label>
+              <input type="text" class="form-control" name="First Name" id="name" placeholder="First name" title="Please enter your name (at least 2 characters)">
+              <label for="name">Last Name</label>
+              <input type="text" class="form-control" name="Last Name" id="name" placeholder="Last email" title="Please enter a valid email address">
+              <label for="name">Address</label>
+              <input type="text" class="form-control" name="Address" id="name" placeholder="Address" title="Please enter a valid email address">
+              <label for="name">Phone Number</label>
+              <input type="text" class="form-control" name="phoneNumber" id="name" placeholder="Phone Number" title="Please enter a valid email address">
+              <input class="btn btn-lg btn-primary" id="submit" type="file" id="myFile" name="photo">
+              <br>
+              <button name="submit" type="submit" class="btn btn-lg btn-primary" id="submit">Submit</button>
+              <input class="btn btn-lg btn-primary" id="submit" type="button" onclick="location.href=''" name="" value="not Now">
             </div>
             
-            <div class="form-group">
-              <label for="email">Password</label>
-              <input type="password" class="form-control" name="password" id="password" minlength="6" placeholder="Enter password" title="Please enter a password size not less than 6">
-              <button name="submit" type="submit" class="btn btn-lg btn-primary" id="submit">Submit</button>
+            
+              
               
               
 
@@ -116,6 +122,5 @@
 <script src="js/waypoints.js"></script> 
 <script src="js/custom.js" type="text/javascript"></script> 
 <script src="js/owl-carousel/owl.carousel.js"></script>
-
 </body>
 </html>
