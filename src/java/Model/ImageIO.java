@@ -27,9 +27,10 @@ public class ImageIO {
     
     public void addImage(Image image, int houseId) throws ClassNotFoundException, SQLException
     {
+        System.out.println("add image in IO");
         Class.forName("com.mysql.jdbc.Driver");
         Connection conn = DriverManager.getConnection(url, sqluser, password); 
-        PreparedStatement pstmt = conn.prepareStatement("INSERT INTO image photo, houseID VALUES(?, ?)");
+        PreparedStatement pstmt = conn.prepareStatement("INSERT INTO image (photo, houseID) VALUES(?, ?)");
         pstmt.setBlob(1, image.getPhoto());
         pstmt.setInt(2, houseId);
         pstmt.executeUpdate();

@@ -119,16 +119,15 @@ function myFunction() {
               <% ArrayList <Comment> comments = house.getComments();
                 for (int i = 0; i < comments.size(); i++){
                     %>
-                    <p> <%=  comments.get(i).getUser().getfName()%></p>
-                    <br>
-                    <p><%= comments.get(i).getcomment()%></p>
+                    <p> <%=  comments.get(i).getUser().getfName()%> : <%= comments.get(i).getcomment()%></p>
+                    
                     <br>
                 <%} %>
-              
-              <textarea name="comment" class="form-control" id="comments" cols="3" rows="5" placeholder="Enter your message?" title="Please enter your message (at least 10 characters)"></textarea>
-              <button name="submit" type="submit" class="btn btn-lg btn-primary" id="submit">Add comment</button>
-
-						</div>
+               <form method="post" action="AddCommentServlet" id="contactfrm" role="form">
+              <textarea name="comment" class="form-control" id="comments" cols="3" rows="5" placeholder="Enter your Comment?" title="Please enter your message (at least 10 characters)"></textarea>
+              <input type="submit"  value="Add comment"  class="btn btn-lg btn-primary">
+               </form>
+            </div>
 
             
 <div class="col-md-6 col-sm-12"> 

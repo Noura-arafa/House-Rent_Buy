@@ -64,20 +64,14 @@ public class HouseIO {
     }
     public void addhouse(House house, User user) throws ClassNotFoundException, SQLException
     {
-        System.out.println("blabla");
+        System.out.println("bla " + house.getPrice());
         Class.forName("com.mysql.jdbc.Driver");
         Connection conn = DriverManager.getConnection(url, sqluser, password);
         UserIO uio = new UserIO();
         int userid = uio.getUserID(user.getuserName()) ;
-        int testid = getHouseID(house);
-        if (testid != 0)
-        {
-            System.out.println("exist");
-            return ;
-        }
         
         String insertQuery = "Insert INTO house "
-                + "(description, adtype, size, active, floor, status, type, location, rate, hUserID, adName)"
+                + "(description, adtype, size, active, floor, status, type, location, hUserID, adName, price)"
                 + "VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
         PreparedStatement prst = conn.prepareStatement(insertQuery);
         prst.setString(1, house.getDescription());
@@ -88,10 +82,9 @@ public class HouseIO {
         prst.setString(6, house.getStatus());
         prst.setString(7, house.getType());
         prst.setString(8, house.getLocation());
-        prst.setDouble(9, house.getRate());
-
-        prst.setInt(10, userid);
-        prst.setString(11, house.getAdName());
+        prst.setInt(9, userid);
+        prst.setString(10, house.getAdName());
+        prst.setDouble(11, house.getPrice());
 
         prst.executeUpdate();
         
@@ -434,7 +427,7 @@ public class HouseIO {
             house.setTotalRates(rs.getInt("totalRates"));
             house.setPrice(rs.getDouble("price"));
             comments = commentIO.selectAllComments(houseID);
-            images = imageIO.selectImages(houseID);
+            //images = imageIO.selectImages(houseID);
 
             house.setComments(comments);
             house.setImages(images);
