@@ -121,7 +121,12 @@
               <input type="text" class="form-control" name="Location" id="Location" placeholder="By Maryam" title="Please enter the Location">
               <input type ="submit" value ="View on map" id ="submitLocation">
             </div>
-              
+                <style>
+       #map {
+        height: 400px;
+        width: 100%;
+       }
+    </style>
              <div id="map"></div>
 <script>
       function initMap() {
