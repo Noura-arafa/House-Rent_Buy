@@ -119,7 +119,41 @@
             <div class="form-group">
               <label for="name">Location </label>
               <input type="text" class="form-control" name="Location" id="Location" placeholder="By Maryam" title="Please enter the Location">
+              <input type ="submit" value ="View on map" id ="submitLocation">
             </div>
+              
+             <div id="map"></div>
+<script>
+      function initMap() {
+        var map = new google.maps.Map(document.getElementById('map'), {
+          zoom: 10,
+          center: {lat: 30.0444, lng: 31.2357}
+        });
+        var geocoder = new google.maps.Geocoder();
+
+        document.getElementById('submitLocation').addEventListener('click', function() {
+          geocodeAddress(geocoder, map);
+        });
+      }
+
+      function geocodeAddress(geocoder, resultsMap) {
+        var address = document.getElementById('Location').value;
+        geocoder.geocode({'address': address}, function(results, status) {
+          if (status === 'OK') {
+            resultsMap.setCenter(results[0].geometry.location);
+            var marker = new google.maps.Marker({
+              map: resultsMap,
+              position: results[0].geometry.location
+            });
+          } else {
+            alert('Geocode was not successful for the following reason: ' + status);
+          }
+        });
+      }
+    </script>
+    <script async defer
+    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyApNZIr1Y8z16FL8--iEnirsSzhZqNMqCw&callback=initMap">
+    </script>
     
             <div class="form-group">
               <button name="submit" type="submit" class="btn btn-lg btn-primary" id="submit">Submit</button>  
