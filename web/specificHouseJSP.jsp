@@ -109,6 +109,44 @@ function myFunction() {
                 <h4><li>Price</li></h4>
                 <p><%=house.getPrice()%></p>
               </ul>
+<style>
+       #map {
+        height: 400px;
+        width: 100%;
+       }
+    </style>
+
+    <div id="map"></div>
+<script>
+      function initMap() {
+        var map = new google.maps.Map(document.getElementById('map'), {
+          zoom: 10,
+          center: {lat: 30.0444, lng: 31.2357}
+        });
+        var geocoder = new google.maps.Geocoder();
+          geocodeAddress(geocoder, map);
+       
+      }
+
+      function geocodeAddress(geocoder, resultsMap) {
+	<%String adr=house.getLocation();%>
+        var address ="<%=adr%>";
+        geocoder.geocode({'address': address}, function(results, status) {
+          if (status === 'OK') {
+            resultsMap.setCenter(results[0].geometry.location);
+            var marker = new google.maps.Marker({
+              map: resultsMap,
+              position: results[0].geometry.location
+            });
+          } else {
+            alert('Geocode was not successful for the following reason: ' + status);
+          }
+        });
+      }
+    </script>
+    <script async defer
+    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyApNZIr1Y8z16FL8--iEnirsSzhZqNMqCw&callback=initMap">
+    </script>
 						<div class="popup" onclick="myFunction()" ><div class="btn">Request Contacts!</div>
             <span class="popuptext" id="myPopup">Email:
                                             <br> Phone:
