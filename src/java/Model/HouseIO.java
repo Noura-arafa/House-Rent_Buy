@@ -333,6 +333,47 @@ public class HouseIO {
 
 
     }
+    
+    public ArrayList<House> selectUserHouse(int userID) throws SQLException, ClassNotFoundException{
+        Class.forName("com.mysql.jdbc.Driver");
+        Connection conn = DriverManager.getConnection(url, sqluser, password);
+        CommentIO commentIO = new CommentIO();
+        ImageIO imageIO = new ImageIO();
+        ArrayList<House> userHouses = new ArrayList<>();
+        String sql = "select houseID, adName, description, adtype, size, active, floor, status, type,"
+                + " location, rate, countRate, totalRates, price  from house where hUserID=?;";
+        PreparedStatement pr=conn.prepareStatement(sql);
+        pr.setInt(1, userID);
+        ResultSet rs =pr.executeQuery(sql);
+        while(rs.next())
+        {
+            House house = new House();
+            ArrayList<Comment> comments = new ArrayList<Comment>();
+            ArrayList<Image> images = new ArrayList<Image>();
+            house.setAdName(rs.getString("adName"));
+            house.setDescription(rs.getString("description"));
+            house.setAdType(rs.getString("adtype"));
+            house.setSize(rs.getInt("size"));
+            house.setActive(rs.getInt("active"));
+            house.setFloor(rs.getInt("floor"));
+            house.setStatus(rs.getString("status"));
+            house.setType(rs.getString("type"));
+            house.setLocation(rs.getString("location"));
+            house.setRate(rs.getDouble("rate"));
+            house.setCountRate(rs.getInt("countRate"));
+            house.setTotalRates(rs.getInt("totalRates"));
+            house.setPrice(rs.getDouble("price"));
+            comments = commentIO.selectAllComments(rs.getInt("houseID"));
+            images = imageIO.selectImages(rs.getInt("houseID"));
+            
+            house.setComments(comments);
+            house.setImages(images);
+            
+            userHouses.add(house);
+            userHouses.add(house);
+        }
+        return userHouses;
+    }
 
     public ArrayList<House> selectAllHouses () throws ClassNotFoundException, SQLException {
 
@@ -360,14 +401,14 @@ public class HouseIO {
             house.setDescription(rs.getString("description"));
             house.setAdType(rs.getString("adtype"));
             house.setSize(rs.getInt("size"));
-            house.setActive(rs.getInt("type"));
+            house.setActive(rs.getInt("active"));
             house.setFloor(rs.getInt("floor"));
             house.setStatus(rs.getString("status"));
             house.setType(rs.getString("type"));
             house.setLocation(rs.getString("location"));
             house.setRate(rs.getDouble("rate"));
             house.setCountRate(rs.getInt("countRate"));
-            house.setTotalRates(rs.getInt("toatRates"));
+            house.setTotalRates(rs.getInt("totalRates"));
             house.setPrice(rs.getDouble("price"));
             comments = commentIO.selectAllComments(houseID);
             images = imageIO.selectImages(houseID);
@@ -376,8 +417,6 @@ public class HouseIO {
             house.setImages(images);
             
             houses.add(house);
-            
-            
 
         }
         stmt.close();
@@ -440,7 +479,4 @@ public class HouseIO {
         return house;
     }
     
-    
-    
-
 }

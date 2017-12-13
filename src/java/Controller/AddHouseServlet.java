@@ -12,8 +12,10 @@ import java.awt.BorderLayout;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.annotation.WebServlet;
@@ -40,6 +42,8 @@ public class AddHouseServlet extends HttpServlet {
      */
     public void addHouse(HttpServletRequest request, HttpServletResponse response) throws ClassNotFoundException, SQLException, IOException
     {
+        ServletContext application = request.getServletContext();
+        ArrayList<House> houses = (ArrayList<House>) application.getAttribute("Houses");
         House house = new House();
         HouseLogic houselogic = new HouseLogic();
         house.setAdName(request.getParameter("adname"));
@@ -60,7 +64,8 @@ public class AddHouseServlet extends HttpServlet {
         User user = new User("Noura", "Arafa", "noura95", 01113600147, "nouraarafa95@gmil.com", "nouraArafa","El mmm", null);
        
         houselogic.addHouse(house, user);
-       
+        houses.add(house);
+        application.setAttribute("Houses", houses);
         String photo_descission = request.getParameter("addPhoto");    
         
         if(photo_descission.equals("Yes"))

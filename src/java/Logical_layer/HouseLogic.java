@@ -53,6 +53,11 @@ public class HouseLogic {
         return avRate;
     }
     
+    public ArrayList<House> selectUserHouse(int userID) throws SQLException, ClassNotFoundException{
+        ArrayList<House> houses = houseIo.selectUserHouse(userID);
+        return houses;
+    }
+    
     public  static void main(String[] args) throws ClassNotFoundException, SQLException{
         HouseLogic houselogic = new HouseLogic();
         //House house = new House("departement with roof", "buy" , 300, 1, 0 , "finished", "departement", "6 octobar", 0, "first departement");
