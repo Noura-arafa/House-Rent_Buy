@@ -30,6 +30,7 @@ public class User {
         this.address=address;
         this.photo = photo;
     }
+    
      public void setPhoto(InputStream photo) {
         this.photo = photo;
     }

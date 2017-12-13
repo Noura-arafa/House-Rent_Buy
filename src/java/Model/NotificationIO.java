@@ -20,7 +20,7 @@ public class NotificationIO {
         Class.forName("com.mysql.jdbc.Driver");
         String url = "jdbc:mysql://localhost:3306/house_buy_rent";
         String username = "root";
-        String password = "12345678a";
+        String password = "n33333";
         ResultSet RS = null;
         String content=commentOwner+" added a comment on your advertisment";
         Connection Con =  DriverManager.getConnection(url, username, password);

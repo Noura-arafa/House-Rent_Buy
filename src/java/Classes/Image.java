@@ -13,12 +13,11 @@ import java.io.InputStream;
 public class Image {
     private InputStream photo;
 
+    public Image(){
+        
+    }
     public Image(InputStream photo) {
         this.photo = photo;
-    }
-
-    public Image() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     public void setPhoto(InputStream photo) {

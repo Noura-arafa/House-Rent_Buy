@@ -73,7 +73,7 @@
         </div>
       </div>
       <div class="row mrgn30">
-        <form method="post" action="userServlet" id="contactfrm" role="form">
+        <form method="post" action="LoginServlet" id="contactfrm" role="form">
           <div class="col-sm-12">
             <div class="form-group">
               <label for="name">Username</label>
@@ -83,7 +83,7 @@
               <label for="email">Password</label>
               <input type="password" class="form-control" name="password" id="password" minlength="6" placeholder="Enter password" title="Please enter a password size not less than 6">
               <button name="submit" type="submit" class="btn btn-lg btn-primary" id="submit">Submit</button>
-              <input class="btn btn-lg btn-primary" id="submit" type="button" onclick="location.href='file:///E:/FOURTH%20YEAR/IA/template/New%20folder%20(3)/Free-Real-Estate-HTML5-Website-Templates-Eden/signuppage1.html'" name="" value="
+              <input class="btn btn-lg btn-primary" id="submit" type="button" onclick="location.href='Signup.jsp'" name="" value="
               Create new account">
               
 
@@ -114,8 +114,6 @@
 <script src="js/waypoints.js"></script> 
 <script src="js/custom.js" type="text/javascript"></script> 
 <script src="js/owl-carousel/owl.carousel.js"></script>
-<% 
-request.setAttribute("function", 1);
-%>
+
 </body>
 </html>

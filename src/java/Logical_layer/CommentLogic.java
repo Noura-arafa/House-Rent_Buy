@@ -5,6 +5,7 @@
  */
 package Logical_layer;
 
+import Classes.Comment;
 import Classes.House;
 import Classes.User;
 import Model.CommentIO;
@@ -14,6 +15,7 @@ import java.sql.SQLException;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 
 /**
@@ -35,9 +37,15 @@ public class CommentLogic {
         
     }
     
+    public ArrayList<Comment> selectAllComments (int houseID) throws ClassNotFoundException, SQLException{
+        ArrayList<Comment> comments=new ArrayList<>();
+        comments=commentIo.selectAllComments(houseID);
+        return comments;
+    }
+    
     public  static void main(String[] args) throws ClassNotFoundException, SQLException, ParseException{
       CommentLogic com=new CommentLogic();
-      House house = new House("villa with garden", "rent" , 200, 1, 0 , "status", "villa", "6 octobar", 0.0, "first villa");
+      House house = new House("villa with garden", "rent" , 200, 1, 0 , "status", "villa", "6 octobar", 0.0, "first villa",100.500);
        //User user = new User("Noura", "Arafa", "noura95", 01113600147, "nouraarafa95@gmil.com", "nouraArafa");
        //com.comment(house, "7elw el 7elw", user.getuserName());
     }
