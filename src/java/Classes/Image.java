@@ -17,6 +17,10 @@ public class Image {
         this.photo = photo;
     }
 
+    public Image() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
     public void setPhoto(InputStream photo) {
         this.photo = photo;
     }
