@@ -20,7 +20,7 @@ public class InterestIO {
         Class.forName("com.mysql.jdbc.Driver");
         String url = "jdbc:mysql://localhost:3306/house_buy_rent";
         String user = "root";
-        String password = "12345678a";
+        String password = "n33333";
         ResultSet RS = null;
         Connection Con =(Connection) DriverManager.getConnection(url, user, password);
         String selsectTableSQL = "SELECT interestID FROM interest WHERE type="+"(?)"+"and size="+"(?)"+"and status="+"(?)";

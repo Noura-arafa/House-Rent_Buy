@@ -33,7 +33,7 @@ public class House {
     private ArrayList<Image> images;
     private Double price;
 
-    public House(String description, String adType, int size, int active, int floor, String status, String type, String location, Double rate, String adName) {
+    public House(String description, String adType, int size, int active, int floor, String status, String type, String location, Double rate, String adName, Double price) {
         this.description = description;
         this.adType = adType;
         this.size = size;
@@ -44,10 +44,10 @@ public class House {
         this.location = location;
         this.rate = rate;
         this.adName = adName;
+        this.price = price;
     }
 
     public House() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     public void setCountRate(int countRate) {

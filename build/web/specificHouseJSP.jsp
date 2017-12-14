@@ -4,6 +4,11 @@
     Author     : lenovo
 --%>
 
+<%@page import="Classes.Comment"%>
+<%@page import="Classes.Comment"%>
+<%@page import="java.util.ArrayList"%>
+<%@page import="java.util.ArrayList"%>
+<%@page import="Classes.House"%>
 <!doctype html>
 <!--[if IE 7 ]>    <html lang="en-gb" class="isie ie7 oldie no-js"> <![endif]-->
 <!--[if IE 8 ]>    <html lang="en-gb" class="isie ie8 oldie no-js"> <![endif]-->
@@ -82,22 +87,27 @@ function myFunction() {
     <div class="row dataTxt">	
 						<div class="col-md-6 col-sm-6">
             <ul class="listArrow">
-                <li><h4>Type</h4></li>
-                <p></p>
+                <% House house=(House)application.getAttribute("house");%>
+                <h2><li><%=house.getAdName()%></li></h2>
+                <h4><li>Type</li></h4>
+                <p><%=house.getType()%></p>
                 <li><h4>Description</h4>
-              <p>Lorem ipsum dolor consectetursit amet, consectetur adipiscing elit consectetur euismod </p>
-                            <p>Lorem ipsum dolor sit amet, ea eum labitur scsstie percipitoleat fabulas complectitur deterruisset at pro. Odio quaeque reformidans est eu, expetendis intellegebat has ut, viderer invenire ut his. Has molestie percipit an. Falli volumus efficiantur sed id, ad vel noster propriae. Ius ut etiam vivendo, graeci iudicabit constituto at mea.</p>
+              <p><%=house.getDescription()%></p>
               </li>
-                <li><h4>Size</h4></li>
-                <p></p>
-                <li><h4>Floor</h4></li>
-                <p></p>
-                <li><h4>Status</h4></li>
-                <p></p>
-                <li><h4>Location</h4></li>
-                <p></p>
-                <li><h4>Rate</h4></li>
-                <p></p>
+              <h4><li>For </li></h4>
+                <p><%=house.getAdType()%></p>
+              <h4><li>Size</li></h4>
+                <p><%=house.getSize()%></p>
+                <h4><li>Floor</li></h4>
+                <p><%=house.getFloor()%></p>
+                <h4><li>Status</li></h4>
+                <p><%=house.getStatus()%></p>
+                <h4><li>Location</li></h4>
+                <p><%=house.getLocation()%></p>
+                <h4><li>Rate</li></h4>
+                <p><%=house.getRate()%></p>
+                <h4><li>Price</li></h4>
+                <p><%=house.getPrice()%></p>
               </ul>
 						<div class="popup" onclick="myFunction()" ><div class="btn">Request Contacts!</div>
             <span class="popuptext" id="myPopup">Email:
@@ -106,11 +116,18 @@ function myFunction() {
             </div>
             <br>
               <label for="comments"><h4>Comments</h4></label>
-              <p></p>
-              <textarea name="comment" class="form-control" id="comments" cols="3" rows="5" placeholder="Enter your message?" title="Please enter your message (at least 10 characters)"></textarea>
-              <button name="submit" type="submit" class="btn btn-lg btn-primary" id="submit">Add comment</button>
-
-						</div>
+              <% ArrayList <Comment> comments = house.getComments();
+                for (int i = 0; i < comments.size(); i++){
+                    %>
+                    <p> <%=  comments.get(i).getUser().getfName()%> : <%= comments.get(i).getcomment()%></p>
+                    
+                    <br>
+                <%} %>
+               <form method="post" action="AddCommentServlet" id="contactfrm" role="form">
+              <textarea name="comment" class="form-control" id="comments" cols="3" rows="5" placeholder="Enter your Comment?" title="Please enter your message (at least 10 characters)"></textarea>
+              <input type="submit"  value="Add comment"  class="btn btn-lg btn-primary">
+               </form>
+            </div>
 
             
 <div class="col-md-6 col-sm-12"> 

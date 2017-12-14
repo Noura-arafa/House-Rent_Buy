@@ -41,24 +41,21 @@ public class specificHouseServlet extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
             /* TODO output your page here. You may use following sample code. */
-            ServletContext application = getServletContext();
+            ServletContext application = request.getServletContext();
             //dah el mafrod ely gylena mn el page ely feha kol el houses
-            int houseID=(int) request.getAttribute("houseID");
+           // int houseID=(int) request.getAttribute("houseID");
+            
+            //to be removed!!!
+            int houseID = houseID = 5;
+            
+            
             HouseLogic HouseLogic = new HouseLogic();
             
             House house = HouseLogic.getHouseByID(houseID);
             application.setAttribute("house", house);
+            response.sendRedirect("specificHouseJSP.jsp");
             
             
-            out.println("<!DOCTYPE html>");
-            out.println("<html>");
-            out.println("<head>");
-            out.println("<title>Servlet specificHouseServlet</title>");            
-            out.println("</head>");
-            out.println("<body>");
-            out.println("<h1>Servlet specificHouseServlet at " + request.getContextPath() + "</h1>");
-            out.println("</body>");
-            out.println("</html>");
         }
     }
 

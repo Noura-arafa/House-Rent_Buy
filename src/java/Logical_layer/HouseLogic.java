@@ -20,6 +20,7 @@ public class HouseLogic {
     
     public void addHouse( House house, User user) throws ClassNotFoundException, SQLException
     {
+        System.out.println("I am here ");
        houseIo.addhouse(house, user);
     }
     
@@ -55,7 +56,7 @@ public class HouseLogic {
     public  static void main(String[] args) throws ClassNotFoundException, SQLException{
         HouseLogic houselogic = new HouseLogic();
         //House house = new House("departement with roof", "buy" , 300, 1, 0 , "finished", "departement", "6 octobar", 0, "first departement");
-        House house = new House("villa with garden", "rent" , 200, 1, 0 , "status", "villa", "6 octobar", 0.0, "first villa");
+        House house = new House("villa with garden", "rent" , 200, 1, 0 , "status", "villa", "6 octobar", 0.0, "first villa",10000.500);
         house.setRate(1.0);
         //House house1 = new House("roof with 2 bed rooms", "rent" , 100, 1, 4 , "status", "Roof", "Shekh Zaid", 0);
 //        User user = new User("Noura", "Arafa", "noura95", 01113600147, "nouraarafa95@gmil.com", "nouraArafa");

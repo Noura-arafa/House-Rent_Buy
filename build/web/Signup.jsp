@@ -73,7 +73,7 @@
         </div>
       </div>
       <div class="row mrgn30">
-        <form method="post" action="userServlet" id="contactfrm" role="form">
+        <form method="post" action="SignupServlet" id="contactfrm" role="form">
           <div class="col-sm-12">
             <div class="form-group">
               <label for="name">Username</label>
@@ -116,8 +116,6 @@
 <script src="js/waypoints.js"></script> 
 <script src="js/custom.js" type="text/javascript"></script> 
 <script src="js/owl-carousel/owl.carousel.js"></script>
-<% 
-request.setAttribute("function", 2);
-%>
+
 </body>
 </html>
