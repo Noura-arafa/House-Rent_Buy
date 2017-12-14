@@ -28,6 +28,12 @@ import java.sql.Statement;
 public class UserLogic {
 
     UserIO userio = new UserIO();
+    
+     public int getUserID(String userName) throws ClassNotFoundException, SQLException
+    {
+       int ID = userio.getUserID(userName);
+       return ID;
+    }
 
     public boolean Signup(User user) throws ClassNotFoundException, SQLException {
          System.out.println("username "+user.getuserName());

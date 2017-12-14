@@ -57,7 +57,8 @@ public class ImageIO {
         while (rs.next()){
             
             Image image = new Image();
-            image.setPhoto((InputStream) rs.getObject("photo"));
+            InputStream inputStream = rs.getBinaryStream("photo");
+            image.setPhoto(inputStream);
             images.add(image);
             
         }

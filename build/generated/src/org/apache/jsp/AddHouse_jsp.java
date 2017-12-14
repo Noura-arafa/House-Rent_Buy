@@ -164,7 +164,12 @@ public final class AddHouse_jsp extends org.apache.jasper.runtime.HttpJspBase
       out.write("              <input type=\"text\" class=\"form-control\" name=\"Location\" id=\"Location\" placeholder=\"By Maryam\" title=\"Please enter the Location\">\r\n");
       out.write("              <input type =\"submit\" value =\"View on map\" id =\"submitLocation\">\r\n");
       out.write("            </div>\r\n");
-      out.write("              \r\n");
+      out.write("                <style>\r\n");
+      out.write("       #map {\r\n");
+      out.write("        height: 400px;\r\n");
+      out.write("        width: 100%;\r\n");
+      out.write("       }\r\n");
+      out.write("    </style>\r\n");
       out.write("             <div id=\"map\"></div>\r\n");
       out.write("<script>\r\n");
       out.write("      function initMap() {\r\n");

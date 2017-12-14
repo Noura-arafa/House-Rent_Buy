@@ -335,16 +335,16 @@ public class HouseIO {
     }
     
     public ArrayList<House> selectUserHouse(int userID) throws SQLException, ClassNotFoundException{
+        System.out.println("user id " + userID);
         Class.forName("com.mysql.jdbc.Driver");
         Connection conn = DriverManager.getConnection(url, sqluser, password);
         CommentIO commentIO = new CommentIO();
         ImageIO imageIO = new ImageIO();
         ArrayList<House> userHouses = new ArrayList<>();
-        String sql = "select houseID, adName, description, adtype, size, active, floor, status, type,"
-                + " location, rate, countRate, totalRates, price  from house where hUserID=?;";
-        PreparedStatement pr=conn.prepareStatement(sql);
+        String sql = "SELECT * FROM house WHERE hUserID = ?";
+        PreparedStatement pr = conn.prepareStatement(sql);
         pr.setInt(1, userID);
-        ResultSet rs =pr.executeQuery(sql);
+        ResultSet rs =pr.executeQuery();
         while(rs.next())
         {
             House house = new House();
@@ -388,7 +388,7 @@ public class HouseIO {
 
         Statement stmt = conn.createStatement();
         String sql = "select houseID, adName, description, adtype, size, active, floor, status, type,"
-                + " location, rate, countRate, totalRates, price  from house;";
+                + " location, rate, countRate, totalRates, price  from house";
         ResultSet rs =stmt.executeQuery(sql);
         
         while(rs.next()){
