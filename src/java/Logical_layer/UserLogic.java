@@ -73,6 +73,21 @@ public class UserLogic {
     public Contactinformation RequestContactData(String Uname) {
         return userio.getContactData(Uname);
     }
+    public void editfname(String Uname,String changedfirstname){
+        userio.updatefname(Uname, changedfirstname);
+    }
+    public void editlname(String Uname,String changedlastname){
+        userio.updatelname(Uname, changedlastname);
+    }
+    public void editaddress(String Uname,String changedaddress){
+        userio.updateaddress(Uname, changedaddress);
+    }
+    public void editemail(String Uname,String changedemail){
+        userio.updateemail(Uname, changedemail);
+    }
+    public void editpicture(String Uname,){
+        
+    }
     public void createAlert(String userName,Interest interest) throws ClassNotFoundException, SQLException{
         UserIO user =new UserIO();
         InterestIO interestIO=new InterestIO();
@@ -85,10 +100,7 @@ public class UserLogic {
         InterestID=interestIO.findInterest(interest.getSize(),interest.getStatus(),interest.getType());
         UserInterestIO userInterest=new UserInterestIO();
         userInterest.insert(userID, InterestID);
-        
-        
-    }
-
+   }
     public static void main(String[] args) throws ClassNotFoundException, SQLException {
         InputStream photo = null;
         User user = new User("Menna", "Ali", "1234", 011411, "mennaali365@gmail.com", "MennaAli", "maddi", photo);

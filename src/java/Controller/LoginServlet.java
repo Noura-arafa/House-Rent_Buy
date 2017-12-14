@@ -18,6 +18,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 /**
  *
@@ -55,6 +56,13 @@ public class LoginServlet extends HttpServlet {
             UserLogic userlogic = new UserLogic();
             User user = null;
             user =login(request,response,userlogic);
+            HttpSession session=request.getSession(true);
+            session.setMaxInactiveInterval(10*60);
+            if(user!=null){
+            session.setAttribute("TheUser", user);
+            request.getServletContext().setAttribute("thesession", session);
+            //response.sendRedirect("Createprofile.jsp");
+            }
         }
     }
 

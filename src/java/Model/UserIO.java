@@ -204,7 +204,111 @@ public class UserIO {
             System.out.println("tryagain");
         }
     }
-
+    public void updatefname(String Uname,String changedfirstname){
+        String url = "jdbc:mysql://localhost:3306/house_buy_rent";
+        String theuser = "root";
+        String password = "";
+        String Line;
+        Connection Con = null;
+        Statement Stmt = null;
+        ResultSet RS = null;
+        //System.out.println("user "+user.getfName());
+        try {
+            Class.forName("com.mysql.jdbc.Driver");
+            Con = DriverManager.getConnection(url, theuser, password);
+            Stmt = Con.createStatement();
+            //change
+            String query = "UPDATE user set fName=? WHERE userName = ?";
+            PreparedStatement preparedStmt = Con.prepareStatement(query);
+           preparedStmt.setString(1, changedfirstname);
+            preparedStmt.setString(2, Uname);
+              preparedStmt.close();
+            Con.close();
+        }
+        catch (Exception cnfe) {
+            System.err.println("Exception: " + cnfe);
+            System.out.println("tryagain");
+        }
+        
+    }
+    public void updatelname(String Uname,String changedlastname){
+                String url = "jdbc:mysql://localhost:3306/house_buy_rent";
+        String theuser = "root";
+        String password = "";
+        String Line;
+        Connection Con = null;
+        Statement Stmt = null;
+        ResultSet RS = null;
+        //System.out.println("user "+user.getfName());
+        try {
+            Class.forName("com.mysql.jdbc.Driver");
+            Con = DriverManager.getConnection(url, theuser, password);
+            Stmt = Con.createStatement();
+            //change
+            String query = "UPDATE user set lName=? WHERE userName = ?";
+            PreparedStatement preparedStmt = Con.prepareStatement(query);
+           preparedStmt.setString(1, changedlastname);
+            preparedStmt.setString(2, Uname);
+              preparedStmt.close();
+            Con.close();
+        }
+        catch (Exception cnfe) {
+            System.err.println("Exception: " + cnfe);
+            System.out.println("tryagain");
+        }
+    }
+    public void updateaddress(String Uname,String changedaddress){
+                String url = "jdbc:mysql://localhost:3306/house_buy_rent";
+        String theuser = "root";
+        String password = "";
+        String Line;
+        Connection Con = null;
+        Statement Stmt = null;
+        ResultSet RS = null;
+        //System.out.println("user "+user.getfName());
+        try {
+            Class.forName("com.mysql.jdbc.Driver");
+            Con = DriverManager.getConnection(url, theuser, password);
+            Stmt = Con.createStatement();
+            //change
+            String query = "UPDATE user set address=? WHERE userName = ?";
+            PreparedStatement preparedStmt = Con.prepareStatement(query);
+           preparedStmt.setString(1, changedaddress);
+            preparedStmt.setString(2, Uname);
+              preparedStmt.close();
+            Con.close();
+        }
+        catch (Exception cnfe) {
+            System.err.println("Exception: " + cnfe);
+            System.out.println("tryagain");
+        }
+    }
+    public void updateemail(String Uname,String changedemail){
+                  String url = "jdbc:mysql://localhost:3306/house_buy_rent";
+        String theuser = "root";
+        String password = "";
+        String Line;
+        Connection Con = null;
+        Statement Stmt = null;
+        ResultSet RS = null;
+        //System.out.println("user "+user.getfName());
+        try {
+            Class.forName("com.mysql.jdbc.Driver");
+            Con = DriverManager.getConnection(url, theuser, password);
+            Stmt = Con.createStatement();
+            //change
+            String query = "UPDATE user set email=? WHERE userName = ?";
+            PreparedStatement preparedStmt = Con.prepareStatement(query);
+           preparedStmt.setString(1, changedemail);
+            preparedStmt.setString(2, Uname);
+              preparedStmt.close();
+            Con.close();
+        }
+        catch (Exception cnfe) {
+            System.err.println("Exception: " + cnfe);
+            System.out.println("tryagain");
+        }
+    }
     public void updatepassword(String changedpassword, String changeduser) {
         String url = "jdbc:mysql://localhost:3306/house_buy_rent";
         String theuser = "root";
