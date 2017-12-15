@@ -84,11 +84,12 @@ public class UserLogic {
         InterestIO interestIO=new InterestIO();
         int userID=user.getUserID(userName);
         int InterestID=-1;
-        InterestID=interestIO.findInterest(interest.getSize(),interest.getStatus(),interest.getType());
+        InterestID=interestIO.findInterest(interest);
         if(InterestID==-1){
-            interestIO.insert(interest.getSize(),interest.getStatus(),interest.getType());
+            interestIO.insertInterest(interest);
+            //interestIO.insert(interest.getSize(),interest.getStatus(),interest.getType());
         }
-        InterestID=interestIO.findInterest(interest.getSize(),interest.getStatus(),interest.getType());
+        InterestID=interestIO.findInterest(interest);
         UserInterestIO userInterest=new UserInterestIO();
         userInterest.insert(userID, InterestID);
         

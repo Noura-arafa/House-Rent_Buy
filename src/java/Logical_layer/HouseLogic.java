@@ -103,4 +103,10 @@ public class HouseLogic {
        // System.out.println(houseio.gethouseID(house));
         
     }
+    
+    public ArrayList<House> search(House house) throws ClassNotFoundException, SQLException{
+        HouseIO houseIo=new HouseIO();
+        ArrayList<House> houses=houseIo.search(house);
+        return houses;
+    }
 }

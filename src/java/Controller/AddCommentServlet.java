@@ -5,9 +5,12 @@
  */
 package Controller;
 
+import Classes.Comment;
 import Classes.House;
+import Classes.User;
 import Logical_layer.CommentLogic;
 import Logical_layer.HouseLogic;
+import Logical_layer.NotificationLogic;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.SQLException;
@@ -39,14 +42,21 @@ public class AddCommentServlet extends HttpServlet {
      public void AddComment(HttpServletRequest request, HttpServletResponse response) throws ClassNotFoundException, SQLException, ParseException, IOException{
         System.out.println("in addd coment");
         CommentLogic commentlogic =new CommentLogic();
-        int houseID=5;
+        int houseID=3;
         HouseLogic houselogic=new HouseLogic();
         //House house =houselogic.getHouseByID(houseID);
-         House house = new House("villa with garden", "rent" , 200, 1, 0 , "status", "villa", "6 octobar", 0.0, "first villa",1000.500);
-        String username="nouraArafa";
+        //to be changed
+         House house = new House("gg", "Rent" , 800, 0, 7 , "finished", "va", "ee", 0.0, "bla",1000.500);
+        String username="khadegaosman";
         String content=request.getParameter("comment");
-        System.out.println("hhhhhh  "+content);
         commentlogic.comment(house, content, username);
+        NotificationLogic notification = new NotificationLogic();
+        
+        
+        User user = new User();
+        user.setuserName(username);
+        Comment comment= new Comment(content, user, null);
+        notification.commentNotification(houseID,comment);
         response.sendRedirect("specificHouseJSP.jsp");
         
     }

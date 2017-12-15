@@ -1519,3 +1519,16 @@ nav#filter li {
     from {opacity: 0;}
     to {opacity:1 ;}
 }
+.newbutton{
+	background:none;
+	border:none;
+}
+#khadega{
+	background:none;
+	border:none;
+	color: black;
+
+}
+khadega.hover{
+	color: red;
+}

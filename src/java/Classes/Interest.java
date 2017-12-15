@@ -5,27 +5,64 @@
  */
 package Classes;
 
+import java.util.ArrayList;
+
 /**
  *
  * @author lenovo
  */
 public class Interest {
-    private String type;
+    private String adType;
     private int size;
-    private String status;
+    
+    //gededa
+    //
+    
+    // active 0 ot 1 
+    private int floor;
 
-    public Interest(String type, int size, String status) {
-        this.type = type;
+    public Interest(String adType, int size, int floor, String status, String type, String location, Double rate, Double price) {
+        this.adType = adType;
         this.size = size;
+        this.floor = floor;
         this.status = status;
+        this.type = type;
+        this.location = location;
+        this.rate = rate;
+        this.price = price;
+    }
+    private String status;
+    private String type;
+    private String location;
+    private Double rate;
+    private Double price;
+
+    public String getAdType() {
+        return adType;
     }
 
-    public void setType(String type) {
-        this.type = type;
+    public void setAdType(String adType) {
+        this.adType = adType;
+    }
+
+    public int getSize() {
+        return size;
     }
 
     public void setSize(int size) {
         this.size = size;
+    }
+
+    public int getFloor() {
+        return floor;
+    }
+
+    public void setFloor(int floor) {
+        this.floor = floor;
+    }
+
+    public String getStatus() {
+        return status;
     }
 
     public void setStatus(String status) {
@@ -36,12 +73,34 @@ public class Interest {
         return type;
     }
 
-    public int getSize() {
-        return size;
+    public void setType(String type) {
+        this.type = type;
     }
 
-    public String getStatus() {
-        return status;
+    public String getLocation() {
+        return location;
     }
+
+    public void setLocation(String location) {
+        this.location = location;
+    }
+
+    public Double getRate() {
+        return rate;
+    }
+
+    public void setRate(Double rate) {
+        this.rate = rate;
+    }
+
+    public Double getPrice() {
+        return price;
+    }
+
+    public void setPrice(Double price) {
+        this.price = price;
+    }
+
+    
     
 }

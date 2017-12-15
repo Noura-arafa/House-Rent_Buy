@@ -19,7 +19,7 @@ public class UserIO {
 
     String url = "jdbc:mysql://localhost:3306/house_buy_rent";
     String sqluser = "root";
-    String pass = "n33333";
+    String pass = "12345678a";
     
 
 
@@ -236,7 +236,7 @@ public class UserIO {
     public User selectUser (int userID) throws ClassNotFoundException, SQLException{
          String url = "jdbc:mysql://localhost:3306/house_buy_rent";
         String theuser = "root";
-        String password = "n33333";
+        String password = "12345678a";
         Connection Con = null;
         Statement Stmt = null;
         ResultSet RS = null;

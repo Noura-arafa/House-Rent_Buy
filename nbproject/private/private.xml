@@ -3,13 +3,16 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/E:/Fourth%20Year/WebApplications/House%20RB/src/java/Controller/AddCommentServlet.java</file>
-            <file>file:/E:/Fourth%20Year/WebApplications/House%20RB/src/java/Logical_layer/HouseLogic.java</file>
-            <file>file:/E:/Fourth%20Year/WebApplications/House%20RB/src/java/Controller/specificHouseServlet.java</file>
-            <file>file:/E:/Fourth%20Year/WebApplications/House%20RB/src/java/Model/ImageIO.java</file>
-            <file>file:/E:/Fourth%20Year/WebApplications/House%20RB/src/java/Model/HouseIO.java</file>
-            <file>file:/E:/Fourth%20Year/WebApplications/House%20RB/src/java/Controller/UserAdsServlet.java</file>
-            <file>file:/E:/Fourth%20Year/WebApplications/House%20RB/web/UserAds.jsp</file>
+            <file>file:/E:/FOURTH%20YEAR/IA/newProject/House-Rent_Buy/src/java/Model/InterestIO.java</file>
+            <file>file:/E:/FOURTH%20YEAR/IA/newProject/House-Rent_Buy/src/java/Logical_layer/NotificationLogic.java</file>
+            <file>file:/E:/FOURTH%20YEAR/IA/newProject/House-Rent_Buy/src/java/Model/HouseIO.java</file>
+            <file>file:/E:/FOURTH%20YEAR/IA/newProject/House-Rent_Buy/src/java/Controller/searchServlet.java</file>
+            <file>file:/E:/FOURTH%20YEAR/IA/newProject/House-Rent_Buy/src/java/Logical_layer/UserLogic.java</file>
+            <file>file:/E:/FOURTH%20YEAR/IA/newProject/House-Rent_Buy/src/java/Classes/House.java</file>
+            <file>file:/E:/FOURTH%20YEAR/IA/newProject/House-Rent_Buy/src/java/Controller/SignupServlet.java</file>
+            <file>file:/E:/FOURTH%20YEAR/IA/newProject/House-Rent_Buy/web/searchHouse.jsp</file>
+            <file>file:/E:/FOURTH%20YEAR/IA/newProject/House-Rent_Buy/src/java/Logical_layer/InterestLogic.java</file>
+            <file>file:/E:/FOURTH%20YEAR/IA/newProject/House-Rent_Buy/src/java/Classes/Interest.java</file>
         </group>
     </open-files>
 </project-private>
