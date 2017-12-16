@@ -47,12 +47,8 @@ public class UserLogic {
             return user;
     }
 
-    public boolean AdminLogin(String Uname, String pass) {
-        if (Uname.equals("Admin") && pass.equals("1234")) {
-            return true;
-        } else {
-            return false;
-        }
+    public boolean AdminLogin(String Uname, String pass) throws ClassNotFoundException, SQLException {
+      return userio.checkAdmin(Uname, pass);
     }
 
     public void Createprofile(User user) {
@@ -80,13 +76,18 @@ public class UserLogic {
         userio.updatelname(Uname, changedlastname);
     }
     public void editaddress(String Uname,String changedaddress){
+        System.out.println("ya5tay");
         userio.updateaddress(Uname, changedaddress);
     }
     public void editemail(String Uname,String changedemail){
         userio.updateemail(Uname, changedemail);
     }
-    public void editpicture(String Uname,){
-        
+    public void editphonenumber(String Uname,int phonenum){
+        userio.updatephonenum(Uname, phonenum);
+    }
+    //edit picture 
+    public void editpicture(String Uname,InputStream photo){
+        userio.updatepicture(Uname, photo);
     }
     public void createAlert(String userName,Interest interest) throws ClassNotFoundException, SQLException{
         UserIO user =new UserIO();

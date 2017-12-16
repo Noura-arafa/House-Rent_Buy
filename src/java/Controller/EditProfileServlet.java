@@ -8,7 +8,6 @@ package Controller;
 import Classes.User;
 import Logical_layer.UserLogic;
 import java.io.IOException;
-import java.io.InputStream;
 import java.io.PrintWriter;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.MultipartConfig;
@@ -21,11 +20,11 @@ import javax.servlet.http.Part;
 
 /**
  *
- * @author lenovo
+ * @author hassan ali
  */
-@WebServlet(name = "profileServlet", urlPatterns = {"/profileServlet"})
-@MultipartConfig(maxFileSize = 16177215) 
-public class profileServlet extends HttpServlet {
+@WebServlet(name = "EditProfileServlet", urlPatterns = {"/EditProfileServlet"})
+@MultipartConfig
+public class EditProfileServlet extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -36,30 +35,44 @@ public class profileServlet extends HttpServlet {
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
      */
-    public void createprofile(HttpServletRequest request, HttpServletResponse response,UserLogic userlogic,User user) throws IOException, ServletException{
-        String fname = request.getParameter("First Name");
-        String lname = request.getParameter("Last Name");
-        String address = request.getParameter("Address");
-        String phonenumber=request.getParameter("phoneNumber");
-        int phonenum=Integer.parseInt(phonenumber);
-        Part photo=request.getPart("photo");
-        user.setAddress(address);
-        user.setPhoto(photo.getInputStream());
-        user.setfName(fname);
-        user.setlName(lname);
-        user.setphoneNumber(phonenum);
-        userlogic.Createprofile(user);
-    }
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
             /* TODO output your page here. You may use following sample code. */
-             UserLogic userlogic=new UserLogic();
-             HttpSession session=(HttpSession) request.getServletContext().getAttribute("thesession");
-             
-             User theuser=(User) session.getAttribute("TheUser");
-             createprofile(request,response,userlogic,theuser);
+          UserLogic userlogic=new UserLogic();
+          HttpSession session=(HttpSession) request.getServletContext().getAttribute("thesession");
+          User user=(User) session.getAttribute("TheUser");
+          String fname=request.getParameter("First Name");
+          String lname=request.getParameter("Last Name");
+          String address=request.getParameter("Address");
+          String phonenumber=request.getParameter("phoneNumber");
+          Part photo=request.getPart("photo");
+          int phonenum=0;
+          if(!phonenumber.equals("")){
+              phonenum=Integer.parseInt(phonenumber);
+          }
+            System.out.println("fname "+fname+" lname "+lname+" address "+address+" phonenumber "+phonenumber);
+            if(!fname.equals("")){
+                userlogic.editfname(user.getuserName(), fname);
+                user.setfName(fname);
+            }
+            if(!lname.equals("")){
+                userlogic.editlname(user.getuserName(), lname);
+                user.setlName(lname);
+            }
+            if(!address.equals("")){
+                userlogic.editaddress(user.getuserName(), address);
+                user.setAddress(address);
+            }
+            if(!phonenumber.equals("")){
+                userlogic.editphonenumber(user.getuserName(), phonenum);
+                user.setphoneNumber(phonenum);
+            }
+            if(photo!=null){
+                userlogic.editpicture(user.getuserName(), photo.getInputStream());
+                user.setPhoto(photo.getInputStream());
+                        }
         }
     }
 

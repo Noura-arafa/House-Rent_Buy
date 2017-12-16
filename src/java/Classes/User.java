@@ -19,6 +19,7 @@ public class User {
     private ArrayList <Notification> notifications;
     private ArrayList <Interest> interests;
     private InputStream photo;
+    
     public User(String fN, String lN, String pw, int phN, String mail, String username,String address,InputStream photo)
     {
         this.fName = fN;

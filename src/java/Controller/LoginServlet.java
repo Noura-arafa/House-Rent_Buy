@@ -5,6 +5,7 @@
  */
 package Controller;
 
+import Classes.Admin;
 import Classes.User;
 import Logical_layer.UserLogic;
 import java.io.IOException;
@@ -39,9 +40,7 @@ public class LoginServlet extends HttpServlet {
      */
     public User login(HttpServletRequest request, HttpServletResponse response, UserLogic userlogic) throws SQLException, ClassNotFoundException {
         String username = request.getParameter("Uname");
-        String password = request.getParameter("password");
-        //boolean check=userlogic.UserLogin(username, password);
-        //System.out.println("checck"+check);
+        String password = request.getParameter("pass");
         return userlogic.UserLogin(username, password);
 
     }
@@ -61,7 +60,16 @@ public class LoginServlet extends HttpServlet {
             if(user!=null){
             session.setAttribute("TheUser", user);
             request.getServletContext().setAttribute("thesession", session);
-            //response.sendRedirect("Createprofile.jsp");
+            response.sendRedirect("viewprofile.jsp");
+            }
+            else{
+                 String username = request.getParameter("Uname");
+                 String password = request.getParameter("password");
+                 if(userlogic.AdminLogin(username, password)){
+                     Admin admin =new Admin("","", password, 0, "", username, "", null);
+                      session.setAttribute("TheUser", admin);
+                      request.getServletContext().setAttribute("thesession", session);
+                 }
             }
         }
     }

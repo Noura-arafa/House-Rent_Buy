@@ -1,7 +1,9 @@
 package Logical_layer;
 
 import Classes.House;
+import Classes.User;
 import Model.HouseIO;
+import Model.UserIO;
 import java.sql.SQLException;
 
 import java.util.ArrayList;
@@ -40,6 +42,13 @@ public class AdminLogic {
         HouseIO houseIO = new HouseIO();
         houseIO.updateHouse(house);
         
+    }
+    public ArrayList<User> viewusers() throws ClassNotFoundException, SQLException{
+        UserIO userio=new UserIO();
+        ArrayList<User> users=new ArrayList<User>();
+        users=userio.viewAllusers();
+        System.out.println("adminlogic");
+        return users;
     }
 
 }
