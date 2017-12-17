@@ -21,18 +21,15 @@ import java.util.ArrayList;
 public class HouseIO {
         static String url = "jdbc:mysql://localhost:3306/house_buy_rent";
         static String sqluser = "root";
-        static String password = "";
+        static String password = "n33333";
     
 
     
     public int getUser(int houseID) throws ClassNotFoundException, SQLException{
         Class.forName("com.mysql.jdbc.Driver");
-        String url = "jdbc:mysql://localhost:3306/house_buy_rent";
-        String username = "root";
-        String password = "12345678a";
         ResultSet RS = null;
         int userID=-1;
-        Connection Con =  DriverManager.getConnection(url, username, password);
+        Connection Con =  DriverManager.getConnection(url, sqluser, password);
         String selsectTableSQL = "SELECT hUserID FROM house WHERE houseID="+"(?)";
         PreparedStatement preparedStatement = Con.prepareStatement(selsectTableSQL);
         preparedStatement.setInt(1, houseID);

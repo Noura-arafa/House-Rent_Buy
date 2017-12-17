@@ -9,7 +9,7 @@
         <servlet-class>Controller.UserAdsServlet</servlet-class>
     </servlet>
     <servlet>
-<<<<<<< HEAD
+
         <servlet-name>HouseImage</servlet-name>
         <servlet-class>Controller.HouseImage</servlet-class>
     </servlet>
@@ -36,10 +36,7 @@
     <servlet>
         <servlet-name>rateServlet</servlet-name>
         <servlet-class>Controller.rateServlet</servlet-class>
-=======
-        <servlet-name>searchServlet</servlet-name>
-        <servlet-class>Controller.searchServlet</servlet-class>
->>>>>>> 68e46a9e48c5488dbefa1cc9aadb088e363189ec
+
     </servlet>
     <servlet-mapping>
         <servlet-name>NewServlet</servlet-name>
@@ -50,7 +47,7 @@
         <url-pattern>/UserAdsServlet</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
-<<<<<<< HEAD
+
         <servlet-name>HouseImage</servlet-name>
         <url-pattern>/HouseImage</url-pattern>
     </servlet-mapping>
@@ -77,10 +74,7 @@
     <servlet-mapping>
         <servlet-name>rateServlet</servlet-name>
         <url-pattern>/rateServlet</url-pattern>
-=======
-        <servlet-name>searchServlet</servlet-name>
-        <url-pattern>/searchServlet</url-pattern>
->>>>>>> 68e46a9e48c5488dbefa1cc9aadb088e363189ec
+
     </servlet-mapping>
     <session-config>
         <session-timeout>

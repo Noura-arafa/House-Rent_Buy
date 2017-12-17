@@ -22,11 +22,11 @@ public class UserIO {
     String url = "jdbc:mysql://localhost:3306/house_buy_rent";
     String sqluser = "root";
 
-    String pass = "n33333";
+    String password = "n33333";
 
     public int getUserID(String userName) throws ClassNotFoundException, SQLException {
         Class.forName("com.mysql.jdbc.Driver");
-        Connection conn = DriverManager.getConnection(url, sqluser, pass);
+        Connection conn = DriverManager.getConnection(url, sqluser, password);
         PreparedStatement pstmt = conn.prepareStatement("Select userId FROM user WHERE userName = ?");
         pstmt.setString(1, userName);
         ResultSet rs = pstmt.executeQuery();
@@ -43,15 +43,12 @@ public class UserIO {
     }
 
     public Admin checkAdmin(String Uname, String pass) throws ClassNotFoundException, SQLException {
-        String url = "jdbc:mysql://localhost:3306/house_buy_rent";
-        String theuser = "root";
-        String password = "";
         String Line;
         Connection Con = null;
         Statement Stmt = null;
         ResultSet RS = null;
         Class.forName("com.mysql.jdbc.Driver");
-        Con = DriverManager.getConnection(url, theuser, password);
+        Con = DriverManager.getConnection(url, sqluser, password);
         Stmt = Con.createStatement();
         RS = Stmt.executeQuery("SELECT * FROM user;");
         while (RS.next()) {
@@ -71,15 +68,12 @@ public class UserIO {
     }
 
     public boolean checkusers(User user) throws SQLException, ClassNotFoundException {
-        String url = "jdbc:mysql://localhost:3306/house_buy_rent";
-        String theuser = "root";
-        String password = "";
         String Line;
         Connection Con = null;
         Statement Stmt = null;
         ResultSet RS = null;
         Class.forName("com.mysql.jdbc.Driver");
-        Con = DriverManager.getConnection(url, theuser, password);
+        Con = DriverManager.getConnection(url, sqluser, password);
         Stmt = Con.createStatement();
         RS = Stmt.executeQuery("SELECT * FROM user;");
         while (RS.next()) {
@@ -96,16 +90,12 @@ public class UserIO {
 
     public User getUser(String Uname, String thepassword) throws ClassNotFoundException, ClassNotFoundException, ClassNotFoundException, ClassNotFoundException {
         try {
-
-            String url = "jdbc:mysql://localhost:3306/house_buy_rent";
-            String theuser = "root";
-            String password = "";
             String Line;
             Connection Con = null;
             Statement Stmt = null;
             ResultSet RS = null;
             Class.forName("com.mysql.jdbc.Driver");
-            Con = DriverManager.getConnection(url, theuser, password);
+            Con = DriverManager.getConnection(url, sqluser, password);
             Stmt = Con.createStatement();
             RS = Stmt.executeQuery("SELECT * FROM user;");
             while (RS.next()) {
@@ -130,9 +120,6 @@ public class UserIO {
     }
 
     public Contactinformation getContactData(String Uname) {
-        String url = "jdbc:mysql://localhost:3306/house_buy_rent";
-        String theuser = "root";
-        String password = "";
         String Line;
         Connection Con = null;
         Statement Stmt = null;
@@ -140,7 +127,7 @@ public class UserIO {
         Contactinformation contactinfo = null;
         try {
             Class.forName("com.mysql.jdbc.Driver");
-            Con = DriverManager.getConnection(url, theuser, password);
+            Con = DriverManager.getConnection(url, sqluser, password);
             Stmt = Con.createStatement();
             RS = Stmt.executeQuery("SELECT * FROM user;");
             while (RS.next()) {
@@ -161,15 +148,12 @@ public class UserIO {
     }
 
     public void insertUser(User user) throws SQLException, ClassNotFoundException {
-        String url = "jdbc:mysql://localhost:3306/house_buy_rent";
-        String theuser = "root";
-        String password = "";
         String Line;
         Connection Con = null;
         Statement Stmt = null;
         ResultSet RS = null;
         Class.forName("com.mysql.jdbc.Driver");
-        Con = DriverManager.getConnection(url, theuser, password);
+        Con = DriverManager.getConnection(url, sqluser, password);
         Stmt = Con.createStatement();
         String query = "INSERT INTO user (fName,LName,pass,phoneNum,email,userName,picture,address)"
                 + "VALUES(?,?,?,?,?,?,?,?);";
@@ -189,16 +173,14 @@ public class UserIO {
     }
 
     public void updateuser(User user) {
-        String url = "jdbc:mysql://localhost:3306/house_buy_rent";
-        String theuser = "root";
-        String password = "";
+      
         String Line;
         Connection Con = null;
         Statement Stmt = null;
         ResultSet RS = null;
         try {
             Class.forName("com.mysql.jdbc.Driver");
-            Con = DriverManager.getConnection(url, theuser, password);
+            Con = DriverManager.getConnection(url, sqluser, password);
             Stmt = Con.createStatement();
             //change
             String query = "UPDATE user set fName=?,lName=?,pass=?,phoneNum=?,email=?,userName=?,address = ?,picture=? WHERE userName = ?";
@@ -224,9 +206,6 @@ public class UserIO {
     }
 
     public void updatefname(String Uname, String changedfirstname) {
-        String url = "jdbc:mysql://localhost:3306/house_buy_rent";
-        String theuser = "root";
-        String password = "";
         String Line;
         Connection Con = null;
         Statement Stmt = null;
@@ -234,7 +213,7 @@ public class UserIO {
 
         try {
             Class.forName("com.mysql.jdbc.Driver");
-            Con = DriverManager.getConnection(url, theuser, password);
+            Con = DriverManager.getConnection(url, sqluser, password);
             Stmt = Con.createStatement();
             //change
             String query = "UPDATE user set fName=? WHERE userName = ?";
@@ -252,16 +231,14 @@ public class UserIO {
     }
 
     public void updatelname(String Uname, String changedlastname) {
-        String url = "jdbc:mysql://localhost:3306/house_buy_rent";
-        String theuser = "root";
-        String password = "";
+       
         String Line;
         Connection Con = null;
         Statement Stmt = null;
         ResultSet RS = null;
         try {
             Class.forName("com.mysql.jdbc.Driver");
-            Con = DriverManager.getConnection(url, theuser, password);
+            Con = DriverManager.getConnection(url, sqluser, password);
             Stmt = Con.createStatement();
             //change
             String query = "UPDATE user set lName=? WHERE userName = ?";
@@ -278,16 +255,13 @@ public class UserIO {
     }
 
     public void updateaddress(String Uname, String changedaddress) {
-        String url = "jdbc:mysql://localhost:3306/house_buy_rent";
-        String theuser = "root";
-        String password = "";
         String Line;
         Connection Con = null;
         Statement Stmt = null;
         ResultSet RS = null;
         try {
             Class.forName("com.mysql.jdbc.Driver");
-            Con = DriverManager.getConnection(url, theuser, password);
+            Con = DriverManager.getConnection(url, sqluser, password);
             Stmt = Con.createStatement();
             //change
             String query = "UPDATE user set address=? WHERE userName = ?";
@@ -304,9 +278,6 @@ public class UserIO {
     }
 
     public void updateemail(String Uname, String changedemail) {
-        String url = "jdbc:mysql://localhost:3306/house_buy_rent";
-        String theuser = "root";
-        String password = "";
         String Line;
         Connection Con = null;
         Statement Stmt = null;
@@ -314,7 +285,7 @@ public class UserIO {
 
         try {
             Class.forName("com.mysql.jdbc.Driver");
-            Con = DriverManager.getConnection(url, theuser, password);
+            Con = DriverManager.getConnection(url, sqluser, password);
             Stmt = Con.createStatement();
             //change
             String query = "UPDATE user set email=? WHERE userName = ?";
@@ -331,16 +302,13 @@ public class UserIO {
     }
 
     public void updatephonenum(String Uname, int changedphonenum) {
-        String url = "jdbc:mysql://localhost:3306/house_buy_rent";
-        String theuser = "root";
-        String password = "";
         String Line;
         Connection Con = null;
         Statement Stmt = null;
         ResultSet RS = null;
         try {
             Class.forName("com.mysql.jdbc.Driver");
-            Con = DriverManager.getConnection(url, theuser, password);
+            Con = DriverManager.getConnection(url, sqluser, password);
             Stmt = Con.createStatement();
             //change
             String query = "UPDATE user set phoneNum=? WHERE userName = ?";
@@ -357,16 +325,13 @@ public class UserIO {
     }
 
     public void updatepicture(String Uname, InputStream changedphoto) {
-        String url = "jdbc:mysql://localhost:3306/house_buy_rent";
-        String theuser = "root";
-        String password = "";
         String Line;
         Connection Con = null;
         Statement Stmt = null;
         ResultSet RS = null;
         try {
             Class.forName("com.mysql.jdbc.Driver");
-            Con = DriverManager.getConnection(url, theuser, password);
+            Con = DriverManager.getConnection(url, sqluser, password);
             Stmt = Con.createStatement();
             //change
             String query = "UPDATE user set picture=? WHERE userName = ?";
@@ -383,9 +348,6 @@ public class UserIO {
     }
 
     public void updatepassword(String changedpassword, String changeduser) {
-        String url = "jdbc:mysql://localhost:3306/house_buy_rent";
-        String theuser = "root";
-        String password = "";
         String Line;
         Connection Con = null;
         Statement Stmt = null;
@@ -393,7 +355,7 @@ public class UserIO {
         try {
 
             Class.forName("com.mysql.jdbc.Driver");
-            Con = DriverManager.getConnection(url, theuser, password);
+            Con = DriverManager.getConnection(url, sqluser, password);
             Stmt = Con.createStatement();
             String query = "UPDATE user set pass=? WHERE userName = ?";
             PreparedStatement preparedStmt = Con.prepareStatement(query);
@@ -409,14 +371,11 @@ public class UserIO {
     }
 
     public User selectUser(int userID) throws ClassNotFoundException, SQLException {
-        String url = "jdbc:mysql://localhost:3306/house_buy_rent";
-        String theuser = "root";
-        String password = "12345678a";
         Connection Con = null;
         Statement Stmt = null;
         ResultSet RS = null;
         Class.forName("com.mysql.jdbc.Driver");
-        Con = DriverManager.getConnection(url, theuser, password);
+        Con = DriverManager.getConnection(url, sqluser, password);
         Stmt = Con.createStatement();
         PreparedStatement statement = Con.prepareStatement("select * FROM user WHERE  userID = ?");
         statement.setInt(1, userID);
@@ -429,15 +388,12 @@ public class UserIO {
     }
 
     public ArrayList<User> viewAllusers() throws ClassNotFoundException, SQLException {
-        String url = "jdbc:mysql://localhost:3306/house_buy_rent";
-        String theuser = "root";
-        String password = "";
-        String Line;
+       String Line;
         Connection Con = null;
         Statement Stmt = null;
         ResultSet RS = null;
         Class.forName("com.mysql.jdbc.Driver");
-        Con = DriverManager.getConnection(url, theuser, password);
+        Con = DriverManager.getConnection(url, sqluser, password);
         Stmt = Con.createStatement();
         RS = Stmt.executeQuery("SELECT * FROM user;");
         ArrayList<User> users = new ArrayList<User>();

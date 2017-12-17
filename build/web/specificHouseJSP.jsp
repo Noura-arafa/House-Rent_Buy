@@ -154,7 +154,6 @@ function myFunction() {
             </div>
             <br>
               <label for="comments"><h4>Comments</h4></label>
-<<<<<<< HEAD
               <% ArrayList<Comment> comments = house.getComments();
                 for (int i = 0; i < comments.size(); i++) {
               %>
@@ -183,34 +182,6 @@ function myFunction() {
               </form>
 
         </div>
-=======
-              <% ArrayList <Comment> comments = house.getComments();
-                for (int i = 0; i < comments.size(); i++){
-                    %>
-                    <p> <%=  comments.get(i).getUser().getfName()%> : <%= comments.get(i).getcomment()%></p>
-                    
-                    <br>
-                <%} %>
-               <form method="post" action="AddCommentServlet" id="contactfrm" role="form">
-              <textarea name="comment" class="form-control" id="comments" cols="3" rows="5" placeholder="Enter your Comment?" title="Please enter your message (at least 10 characters)"></textarea>
-              <input type="submit"  value="Add comment"  class="btn btn-lg btn-primary">
-               </form>
-               
-               <form action="">
-                    <input class="star star-5" id="star-5" type="radio" name="star"/>
-                    <label class="star star-5" for="star-5"></label>
-                    <input class="star star-4" id="star-4" type="radio" name="star"/>
-                    <label class="star star-4" for="star-4"></label>
-                    <input class="star star-3" id="star-3" type="radio" name="star"/>
-                    <label class="star star-3" for="star-3"></label>
-                    <input class="star star-2" id="star-2" type="radio" name="star"/>
-                    <label class="star star-2" for="star-2"></label>
-                    <input class="star star-1" id="star-1" type="radio" name="star"/>
-                    <label class="star star-1" for="star-1"></label>
-               </form>
-               
-            </div>
->>>>>>> 68e46a9e48c5488dbefa1cc9aadb088e363189ec
 
             
 <div class="col-md-6 col-sm-12"> 

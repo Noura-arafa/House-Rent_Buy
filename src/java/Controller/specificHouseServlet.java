@@ -48,7 +48,7 @@ public class specificHouseServlet extends HttpServlet {
            
             //to be removed!!!
 
-            int houseID = houseID = 5;
+            int houseID = 5;
          
             HouseLogic houseLogic = new HouseLogic();
             ArrayList<House> houses = houseLogic.selectAllHouses();
