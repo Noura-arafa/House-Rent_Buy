@@ -5,6 +5,7 @@
  */
 package Controller;
 
+import Classes.Admin;
 import Classes.User;
 import Logical_layer.UserLogic;
 import java.io.IOException;
@@ -18,6 +19,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 /**
  *
@@ -39,8 +41,6 @@ public class LoginServlet extends HttpServlet {
     public User login(HttpServletRequest request, HttpServletResponse response, UserLogic userlogic) throws SQLException, ClassNotFoundException {
         String username = request.getParameter("Uname");
         String password = request.getParameter("password");
-        //boolean check=userlogic.UserLogin(username, password);
-        //System.out.println("checck"+check);
         return userlogic.UserLogin(username, password);
 
     }
@@ -55,6 +55,23 @@ public class LoginServlet extends HttpServlet {
             UserLogic userlogic = new UserLogic();
             User user = null;
             user =login(request,response,userlogic);
+            HttpSession session=request.getSession(true);
+            session.setMaxInactiveInterval(10*60);
+            if(user!=null){
+                user.setIsAdmin(false);
+                session.setAttribute("TheUser", user);
+                response.sendRedirect("viewprofile.jsp");
+            }
+            else{
+                 String username = request.getParameter("Uname");
+                 String password = request.getParameter("password");
+                 Admin admin=userlogic.AdminLogin(username, password);
+                 if(admin!=null){
+                     admin.setIsAdmin(true);
+                      session.setAttribute("TheUser", admin);
+                      response.sendRedirect("viewprofile.jsp");
+                    }
+            }
         }
     }
 

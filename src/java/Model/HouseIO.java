@@ -27,12 +27,9 @@ public class HouseIO {
     
     public int getUser(int houseID) throws ClassNotFoundException, SQLException{
         Class.forName("com.mysql.jdbc.Driver");
-        String url = "jdbc:mysql://localhost:3306/house_buy_rent";
-        String username = "root";
-        String password = "12345678a";
         ResultSet RS = null;
         int userID=-1;
-        Connection Con =  DriverManager.getConnection(url, username, password);
+        Connection Con =  DriverManager.getConnection(url, sqluser, password);
         String selsectTableSQL = "SELECT hUserID FROM house WHERE houseID="+"(?)";
         PreparedStatement preparedStatement = Con.prepareStatement(selsectTableSQL);
         preparedStatement.setInt(1, houseID);
@@ -93,85 +90,36 @@ public class HouseIO {
        prst.close();
        conn.close();
     }
-    public void edit(ArrayList<String> newprop, ArrayList<String> propName, int houseId) throws ClassNotFoundException, SQLException
+    public void edit(House house) throws ClassNotFoundException, SQLException
     {
         Class.forName("com.mysql.jdbc.Driver");
 
         Connection conn = DriverManager.getConnection(url, sqluser, password);
-         
+       
+        String query = "update house set "
+                + "description = ?, adtype = ?, size = ?, floor = ?, status = ?, type = ?, "
+                + "location = ?, adName = ?, price = ?"
+                + "where houseID = ?";
+        int id = getHouseID(house);
+        System.out.println("houseId" + id);
+        PreparedStatement prst = conn.prepareStatement(query);
+        prst.setString(1, house.getDescription());
+        prst.setString(2, house.getAdType());
+        prst.setInt(3, house.getSize());
+        prst.setInt(4, house.getFloor());
+        prst.setString(5, house.getStatus());
+        prst.setString(6, house.getType());
+        prst.setString(7, house.getLocation());
+        prst.setString(8, house.getAdName());
+        prst.setDouble(9, house.getPrice());
+        prst.setInt(10, id);
+        prst.executeUpdate();
 
-        for(int i=0; i<newprop.size(); i++)
-        {
-            if(propName.get(i).equals("description"))
-            {
-                PreparedStatement pstmt = conn.prepareStatement("UPDATE house set description = ? WHERE houseID = ?");
-                pstmt.setString(1, newprop.get(i));
-                pstmt.setInt(2, houseId);
-                pstmt.executeUpdate();
-                pstmt.close();
-            }
-            else if(propName.get(i).equals("adType"))
-            {
-                PreparedStatement pstmt = conn.prepareStatement("UPDATE house set adType = ? WHERE houseID = ?");
-                pstmt.setString(1, newprop.get(i));
-                pstmt.setInt(2, houseId);
-                pstmt.executeUpdate();
-                pstmt.close();
-            }
-            else if(propName.get(i).equals("size"))
-            {
-                PreparedStatement pstmt = conn.prepareStatement("UPDATE house set size = ? WHERE houseID = ?");
-                pstmt.setInt(1, Integer.parseInt(newprop.get(i)));
-                pstmt.setInt(2, houseId);
-                pstmt.executeUpdate();
-                pstmt.close();
-
-            }
-            else if(propName.get(i).equals("active"))
-            {
-                PreparedStatement pstmt = conn.prepareStatement("UPDATE house set active = ? WHERE houseID = ?");
-                pstmt.setInt(1, Integer.parseInt(newprop.get(i)));
-                pstmt.setInt(2, houseId);
-                pstmt.executeUpdate();
-                pstmt.close();
-            }
-            else if(propName.get(i).equals("floor"))
-            {
-                PreparedStatement pstmt = conn.prepareStatement("UPDATE house set floor = ? WHERE houseID = ?");
-                pstmt.setInt(1, Integer.parseInt(newprop.get(i)));
-                pstmt.setInt(2, houseId);
-                pstmt.executeUpdate();
-                pstmt.close();
-                
-            }
-            else if(propName.get(i).equals("status"))
-            {
-                PreparedStatement pstmt = conn.prepareStatement("UPDATE house set status = ? WHERE houseID = ?");
-                pstmt.setString(1, newprop.get(i));
-                pstmt.setInt(2, houseId);
-                pstmt.executeUpdate();
-                pstmt.close();
-            }
-            else if(propName.get(i).equals("type"))
-            {
-                PreparedStatement pstmt = conn.prepareStatement("UPDATE house set type = ? WHERE houseID = ?");
-                pstmt.setString(1, newprop.get(i));
-                pstmt.setInt(2, houseId);
-                pstmt.executeUpdate();
-                pstmt.close();
-
-            }
-            else if(propName.get(i).equals("location"))
-            {
-                PreparedStatement pstmt = conn.prepareStatement("UPDATE house set location = ? WHERE houseID = ?");
-                pstmt.setString(1, newprop.get(i));
-                pstmt.setInt(2, houseId);
-                pstmt.executeUpdate();
-                pstmt.close();
-
-            }
-        }
+        prst.close();
         conn.close();
+ 
+
+        
     }
     
     public ArrayList<House> search(House house) throws ClassNotFoundException, SQLException
@@ -237,7 +185,7 @@ public class HouseIO {
             newHouse.setPrice(rs.getDouble("price"));
             comments = commentIO.selectAllComments(houseID);
             images = imageIO.selectImages(houseID);
-            
+            newHouse.setHouseID(houseID);
             newHouse.setComments(comments);
             newHouse.setImages(images);
             
@@ -289,36 +237,98 @@ public class HouseIO {
        */
     }
     
-    public void deleteHouse(House house) throws ClassNotFoundException, SQLException {
+    public void deleteHouse(String adName) throws ClassNotFoundException, SQLException {
 
         Class.forName("com.mysql.jdbc.Driver");
         Connection conn = DriverManager.getConnection(url, sqluser, password);
-        String query = "delete from house where "
-                + "(description, adtype, size, active, floor, status, type, location, rate)"
-                + "VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?)";
+        String query = "delete from house where adName = ? ";
+                
+               
         PreparedStatement prst = conn.prepareStatement(query);
-        prst.setString(1, house.getDescription());
-        prst.setString(2, house.getAdType());
-        prst.setInt(3, house.getSize());
-        prst.setInt(4, house.getActive());
-        prst.setInt(5, house.getFloor());
-        prst.setString(6, house.getStatus());
-        prst.setString(7, house.getType());
-        prst.setString(8, house.getLocation());
-        prst.setDouble(9, house.getRate());
+        prst.setString(1, adName);
         prst.executeUpdate();
-
         prst.close();
         conn.close();
 
     }
 
+    public void suspendHouse(String adName) throws ClassNotFoundException, SQLException{
+        Class.forName("com.mysql.jdbc.Driver");
+        Connection conn = DriverManager.getConnection(url, sqluser, password);
+        PreparedStatement prst = conn.prepareStatement("Select houseID FROM house WHERE adName = ? ");
+        prst.setString(1, adName);
+        prst.executeQuery();
+       
+        ResultSet rs = prst.executeQuery();
+        int id = -1;
+        if(rs.first())
+          id = rs.getInt(1);
+        System.out.println("suspend house fun" + id);
+        String query = "update house set active = 0 where houseID = ?";
+        prst = conn.prepareStatement(query);
+        prst.setInt(1, id);
+        prst.executeUpdate();
+        prst.close();
+        conn.close();
+    }
+    
+    public ArrayList<House> selectSuspendedHouses() throws ClassNotFoundException, SQLException{
+        
+        Class.forName("com.mysql.jdbc.Driver");
+        Connection conn = DriverManager.getConnection(url, sqluser, password);
+
+        ArrayList<House> houses = new ArrayList<>();
+        CommentIO commentIO = new CommentIO();
+        ImageIO imageIO = new ImageIO();
+
+        if (conn == null) System.out.println("conn is not working");
+
+        Statement stmt = conn.createStatement();
+        String sql = "select houseID, adName, description, adtype, size, active, floor, status, type,"
+                + " location, rate, countRate, totalRates, price  from house where active = 0";
+        ResultSet rs =stmt.executeQuery(sql);
+        
+        while(rs.next()){
+                
+            House house = new House();
+            ArrayList<Comment> comments = new ArrayList<Comment>();
+            ArrayList<Image> images = new ArrayList<Image>();
+            int houseID = rs.getInt("houseID");
+            house.setAdName(rs.getString("adName"));
+            house.setDescription(rs.getString("description"));
+            house.setAdType(rs.getString("adtype"));
+            house.setSize(rs.getInt("size"));
+            house.setActive(rs.getInt("active"));
+            house.setFloor(rs.getInt("floor"));
+            house.setStatus(rs.getString("status"));
+            house.setType(rs.getString("type"));
+            house.setLocation(rs.getString("location"));
+            house.setRate(rs.getDouble("rate"));
+            house.setCountRate(rs.getInt("countRate"));
+            house.setTotalRates(rs.getInt("totalRates"));
+            house.setPrice(rs.getDouble("price"));
+            comments = commentIO.selectAllComments(houseID);
+            images = imageIO.selectImages(houseID);
+            house.setComments(comments);
+            house.setImages(images);
+            house.setHouseID(houseID);
+            
+            houses.add(house);
+
+        }
+        stmt.close();
+        conn.close();
+        
+        return houses;
+        
+    }
+    
     public void updateHouse (House house) throws ClassNotFoundException, SQLException {
         Class.forName("com.mysql.jdbc.Driver");
         Connection conn = DriverManager.getConnection(url, sqluser, password);
         String query = "update house set "
-                + "(description, adtype, size, active, floor, status, type, location, rate)"
-                + "VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?)"
+                + "description = ?, adtype = ?, size = ?, active = ?, floor = ?, status = ?, "
+                + "type = ?, location = ?, rate = ?"
                 + "where houseID = ?";
         int id = getHouseID(house);
         PreparedStatement prst = conn.prepareStatement(query);
@@ -371,11 +381,10 @@ public class HouseIO {
             house.setPrice(rs.getDouble("price"));
             comments = commentIO.selectAllComments(rs.getInt("houseID"));
             images = imageIO.selectImages(rs.getInt("houseID"));
-            
+            house.setHouseID(rs.getInt("houseID"));
             house.setComments(comments);
             house.setImages(images);
             
-            userHouses.add(house);
             userHouses.add(house);
         }
         return userHouses;
@@ -394,7 +403,7 @@ public class HouseIO {
 
         Statement stmt = conn.createStatement();
         String sql = "select houseID, adName, description, adtype, size, active, floor, status, type,"
-                + " location, rate, countRate, totalRates, price  from house";
+                + " location, rate, countRate, totalRates, price  from house where active = 1";
         ResultSet rs =stmt.executeQuery(sql);
         
         while(rs.next()){
@@ -418,10 +427,9 @@ public class HouseIO {
             house.setPrice(rs.getDouble("price"));
             comments = commentIO.selectAllComments(houseID);
             images = imageIO.selectImages(houseID);
-            
             house.setComments(comments);
             house.setImages(images);
-            
+            house.setHouseID(houseID);
             houses.add(house);
 
         }
@@ -472,8 +480,8 @@ public class HouseIO {
             house.setTotalRates(rs.getInt("totalRates"));
             house.setPrice(rs.getDouble("price"));
             comments = commentIO.selectAllComments(houseID);
-            //images = imageIO.selectImages(houseID);
-
+            images = imageIO.selectImages(houseID);
+            house.setHouseID(houseID);
             house.setComments(comments);
             house.setImages(images);
 

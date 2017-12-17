@@ -118,10 +118,9 @@
               </form>
             <div class="form-group">
               <label for="name">Location </label>
-              <input type="text" class="form-control" name="Location" id="Location" placeholder="Maryam was here B)" title="Please enter the Location">
+              <input type="text" class="form-control" name="Location" id="Location" placeholder="Location" title="Please enter the Location">
             </div>
               
-    
             <div class="form-group">
               <button name="submit" type="submit" class="btn btn-lg btn-primary" id="submit">Submit</button>  
             </div>

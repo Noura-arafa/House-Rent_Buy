@@ -6,14 +6,19 @@
 package Controller;
 
 import Classes.House;
+import Classes.Image;
 import Logical_layer.HouseLogic;
 import Logical_layer.UserLogic;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
 import java.io.PrintWriter;
+import java.sql.Blob;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -45,9 +50,23 @@ public class UserAdsServlet extends HttpServlet {
         UserLogic userLogic = new UserLogic();
         //int userID = userLogic.getUserID(user.getuserName());
         userHouses = houseLogic.selectUserHouse(1);
-        System.out.println("lolololy");
+        /*for(int i=0; i<1; i++){
+            ArrayList<Image> images = userHouses.get(i).getImages();
+            System.out.println("user image "+ userHouses.get(i).getImages().size());
+            System.out.println("imagees "+ images.size());
+            for(int j=0; j<images.size(); j++){
+                OutputStream os = response.getOutputStream();
+                Blob blob = images.get(j).getimageBlob();
+                byte byteArray[] = blob.getBytes(1, (int)blob.length());
+                response.setContentType("image/gif");
+                os.write(byteArray);
+                images.get(j).setImage(os);
+                os.flush();
+                os.close();
+            }
+            userHouses.get(i).setImages(images);
+        }*/
         return userHouses;
-        
         
     }
     
@@ -58,7 +77,8 @@ public class UserAdsServlet extends HttpServlet {
             /* TODO output your page here. You may use following sample code. */
             ArrayList<House> Uhouses = new ArrayList<>();
             Uhouses = userAds(request, response);
-            request.setAttribute("UserHouses", Uhouses);
+            ServletContext application = request.getServletContext();
+            application.setAttribute("UserHouses", Uhouses);
             response.sendRedirect("UserAds.jsp");
         }
     }

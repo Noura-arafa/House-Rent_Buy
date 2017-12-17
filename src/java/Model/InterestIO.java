@@ -21,7 +21,7 @@ import java.util.ArrayList;
 public class InterestIO {
     
     String user = "root";
-    String password = "12345678a";
+    String password = "n33333";
     
     public  int findInterest(Interest interest) throws SQLException, ClassNotFoundException{
         Class.forName("com.mysql.jdbc.Driver");

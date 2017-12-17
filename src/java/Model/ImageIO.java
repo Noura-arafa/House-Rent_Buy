@@ -51,14 +51,14 @@ public class ImageIO {
         PreparedStatement prst = conn.prepareStatement(sql);
         prst.setInt(1, houseID);
         ResultSet rs = prst.executeQuery();
-
+        System.out.println("before while in image IO " + houseID);
     
         
         while (rs.next()){
-            
+            System.out.println("here image Io ");
             Image image = new Image();
-            InputStream inputStream = rs.getBinaryStream("photo");
-            image.setPhoto(inputStream);
+            Blob b = rs.getBlob("photo");
+            image.setimageBlob(b);
             images.add(image);
             
         }

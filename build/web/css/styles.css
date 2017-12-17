@@ -1501,14 +1501,40 @@ nav#filter li {
     border-style: solid;
     border-color: #555 transparent transparent transparent;
 }
-
+.outter{
+    padding: 0px;
+    border: 1px solid rgba(255, 255, 255, 0.29);
+    border-radius: 50%;
+    width: 200px;
+    height: 200px;
+}
+.image-circle{
+    border-radius: 50%;
+    width: 175px;
+    height: 175px;
+    border: 4px solid #FFF;
+    margin: 10px;
+}
 /* Toggle this class when clicking on the popup container (hide and show the popup) */
 .popup .show {
     visibility: visible;
     -webkit-animation: fadeIn 1s;
     animation: fadeIn 1s
 }
-
+.outter{
+    padding: 0px;
+    border: 1px solid rgba(255, 255, 255, 0.29);
+    border-radius: 50%;
+    width: 200px;
+    height: 200px;
+}
+.image-circle{
+    border-radius: 50%;
+    width: 175px;
+    height: 175px;
+    border: 4px solid #FFF;
+    margin: 10px;
+}
 /* Add animation (fade in the popup) */
 @-webkit-keyframes fadeIn {
     from {opacity: 0;} 
@@ -1532,4 +1558,8 @@ nav#filter li {
 khadega.hover{
 	color: red;
 }
+#map {
+            height: 400px;
+            width: 100%;
+          }
 

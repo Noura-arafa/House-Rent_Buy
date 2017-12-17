@@ -18,12 +18,13 @@ import java.util.ArrayList;
  * @author lenovo
  */
 public class NotificationIO {
+    String url = "jdbc:mysql://localhost:3306/house_buy_rent";
+        String username = "root";
+        String password = "n33333";
     public ArrayList<Notification> selectNewNotification(int userID) throws ClassNotFoundException, SQLException{
         ArrayList <Notification> notifications = new ArrayList();
         Class.forName("com.mysql.jdbc.Driver");
-        String url = "jdbc:mysql://localhost:3306/house_buy_rent";
-        String username = "root";
-        String password = "12345678a";
+        
         ResultSet RS=null;
         Connection Con =  DriverManager.getConnection(url, username, password);
         String selsectTableSQL = "SELECT * FROM notification WHERE nUserID="+"(?) and notification.read = "+"(?)";
@@ -44,9 +45,6 @@ public class NotificationIO {
     public ArrayList<Notification> selectOldNotification(int userID) throws ClassNotFoundException, SQLException{
         ArrayList <Notification> notifications = new ArrayList();
         Class.forName("com.mysql.jdbc.Driver");
-        String url = "jdbc:mysql://localhost:3306/house_buy_rent";
-        String username = "root";
-        String password = "12345678a";
         ResultSet RS=null;
         Connection Con =  DriverManager.getConnection(url, username, password);
         String selsectTableSQL = "SELECT * FROM notification WHERE nUserID="+"(?) and notification.read = "+"(?)";
@@ -66,9 +64,6 @@ public class NotificationIO {
     
     public void inrertCommentNotification(int userID,String commentOwner ,int houseID) throws ClassNotFoundException, SQLException{
         Class.forName("com.mysql.jdbc.Driver");
-        String url = "jdbc:mysql://localhost:3306/house_buy_rent";
-        String username = "root";
-        String password = "12345678a";
         String content=commentOwner+" added a comment on your advertisment";
         Connection Con =  DriverManager.getConnection(url, username, password);
         String insertTableSQL = "INSERT INTO notification (nUserID, notification.read, content,link) VALUES" + "(?,?,?,?)";
@@ -84,10 +79,7 @@ public class NotificationIO {
     }
     public void interestNotification(int userID,int houseID) throws ClassNotFoundException, SQLException{
         Class.forName("com.mysql.jdbc.Driver");
-        String url = "jdbc:mysql://localhost:3306/house_buy_rent";
-        String user = "root";
-        String password = "12345678a";
-        Connection Con =(Connection) DriverManager.getConnection(url, user, password);
+        Connection Con =(Connection) DriverManager.getConnection(url, username, password);
         String content="there's new house that match your preferences in the website right now";
         String insertTableSQL = "INSERT INTO notification "+ "(nUserID, notification.read, content,link) VALUES" + "(?,?,?,?)";
         PreparedStatement preparedStatement = Con.prepareStatement(insertTableSQL);
@@ -96,16 +88,10 @@ public class NotificationIO {
         preparedStatement.setString(3, content);
         preparedStatement.setInt(4, houseID);
         preparedStatement .executeUpdate();
-            
-        
 
-        
     }
     public void UpdateNotification(int userID) throws ClassNotFoundException, SQLException{
         Class.forName("com.mysql.jdbc.Driver");
-        String url = "jdbc:mysql://localhost:3306/house_buy_rent";
-        String username = "root";
-        String password = "12345678a";
         Connection Con =  DriverManager.getConnection(url, username, password);
         String updateTableSQL = "UPDATE  notification SET  notification.read =1 Where nUserID=?";
         PreparedStatement preparedStatement = Con.prepareStatement(updateTableSQL);

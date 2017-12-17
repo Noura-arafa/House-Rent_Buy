@@ -18,15 +18,25 @@ import java.util.ArrayList;
 public class HouseLogic {
     HouseIO houseIo = new HouseIO();
     
+    public  int getHouseID(House house) throws SQLException, ClassNotFoundException
+
+    {
+        return HouseIO.getHouseID(house);
+    }
+    
     public void addHouse( House house, User user) throws ClassNotFoundException, SQLException
     {
-        System.out.println("I am here ");
+       
        houseIo.addhouse(house, user);
     }
     
-    public void editProp(ArrayList<String> newprop, ArrayList<String> propName, int houseId) throws ClassNotFoundException, SQLException
+    public void deleteHouse(String adName) throws ClassNotFoundException, SQLException {
+        houseIo.deleteHouse(adName);
+    }
+    
+    public void editProp(House house) throws ClassNotFoundException, SQLException
     {
-        houseIo.edit(newprop, propName, houseId);
+        houseIo.edit(house);
         
     }
     
@@ -44,9 +54,15 @@ public class HouseLogic {
         houseIo.rate(averageRate, houseID,sum, count );
     }
     
+    public ArrayList<House> selectAllHouses () throws ClassNotFoundException, SQLException { 
+        return houseIo.selectAllHouses();
+    }
+    
     public double calculateAverage( House house, int newrate){
-        int sum=house.getTotalRates();
-        int count=house.getCountRate();
+        int sum=house.getTotalRates() +newrate;
+        int count=house.getCountRate()+1;
+        house.setCountRate(count);
+        house.setTotalRates(sum);
         double avRate=(double)sum/count;
         house.setRate(avRate);
 
@@ -104,10 +120,11 @@ public class HouseLogic {
        // System.out.println(houseio.gethouseID(house));
         
     }
-    
+
     public ArrayList<House> search(House house) throws ClassNotFoundException, SQLException{
         HouseIO houseIo=new HouseIO();
         ArrayList<House> houses=houseIo.search(house);
         return houses;
     }
+
 }

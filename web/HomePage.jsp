@@ -4,6 +4,8 @@
     Author     : lenovo
 --%>
 
+<%@page import="Logical_layer.HouseLogic"%>
+<%@page import="Model.HouseIO"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!doctype html>
 <!--[if IE 7 ]>    <html lang="en-gb" class="isie ie7 oldie no-js"> <![endif]-->
@@ -82,7 +84,7 @@
       <h2>Price</h2>
       
     </div>
-    <div id = "bigClass" class="row flat">
+    <div id = "bigClass" class="row flat" value = "big class" >
       
       
         
@@ -97,34 +99,71 @@
             $(document).ready(function(){
                 $.get("HomePageServlet", null, function (houses){
                 
+                
+              
+                
                 for (var i = 0; i < houses.length; i++){
-                    $("#bigClass").prepend('<div id ="card" class="col-lg-3 col-md-3 col-sm-6 col-xs-12 "></div>');
-                    $("#card").prepend('<ul id = "ulCard" class="plan plan4"></ul>');
-
+                    var adName =  houses[i]["adName"] ;
+                    
+                    var cardNameID = 'card '  + houses[i]["adName"] + '' ;
+                    var cardName = '"#card '  + houses[i]["adName"] + '"' ;
+                    cardName = cardName.replace(/\s+/g, '');
+                    cardNameID = cardNameID.replace(/\s+/g, '');
+                     console.log(cardName);
+                     
+                    $("#bigClass").prepend('<div id = "'+ cardNameID +'" class="col-lg-3 col-md-3 col-sm-6 col-xs-12" ></div>');
+                    $('#' + cardNameID).prepend('<ul id = "ulCard" class="plan plan4"></ul>');
+                   var houseID = houses[i]["houseID"];
                     var adName = '<li class="plan-name"> ' + houses[i]["adName"] + '</li>';
-                    var price = '<li class="plan-price"> ' + houses[i]["price"] + ' <strong>$39</strong> </li>';
+                    var price = '<li class="plan-price"> ' + houses[i]["price"] + ' <strong> LE</strong> </li>';
                     var status = '<li>  Status <strong>' + houses[i]["status"] + '</strong> </li>';
                     var size = '<li> Size <strong>' + houses[i]["size"] + '</strong>  </li>';
-                    var viewMore = '<li class="plan-action"> <a href="#" class="btn btn-danger btn-lg">View More</a> </li>';
-                    var deleteBtn = '<button name="submit" type="submit" class="btn btn-lg btn-primary" id="submit">Delete </button>';
-                    var suspendBtn = '<button name="submit" type="submit" class="btn btn-lg btn-primary" id="submit"> Suspend</button>';
+                    var viewMore = '<li class="plan-action"> <a href="specificHouseServlet?houseID='+ houseID +'" class="btn btn-danger btn-lg">View More</a> </li>';
+                    var deleteBtn = '<button name="submit" type="submit" class="btn btn-lg btn-primary"  id = "deleteBtn" value = "' + houses[i]["adName"] +'" >Delete </button>';
+                    var suspendBtn = '<button name="submit" type="submit" class="btn btn-lg btn-primary"  id = "suspenedBtn" value = "' + houses[i]["adName"] +'"> Suspend</button>';
 
+                     
+                     var houseID = houses[i]["houseID"];
                      $("#ulCard").append(adName);
                      $("#ulCard").append(price);
                      $("#ulCard").append(status);
                      $("#ulCard").append(size);
                      $("#ulCard").append(viewMore);
+                     
+                     
                      $("#ulCard").append(deleteBtn);
                      $("#ulCard").append(suspendBtn);
+                     
+                    
                  
                 
-             }
-            }});
-            
-//          $.get("HomePage", null, function (houses) {
-//              for (var i = 0; i < houses.length; i++)
-//          }
+        }
+              $(document).on('click', '#deleteBtn', function () {
+                        
+                    var adName = $(this).val();
+                    var cardID = adName.replace(/\s+/g, '');
+                    $.get("RemoveHouseServlet", "adName=" + adName, function () {
+                        $('#card' + cardID ).remove();
+                    });
+                    
+               });
+                    
+              $(document).on('click', '#suspenedBtn', function(){
+                  var adName = $(this).val();
+                  var cardID = adName.replace(/\s+/g, '');
+                  console.log(adName);
+                $.get("SuspepndHouseServlet", "adName=" + adName, function () {
+                        $('#card' + cardID ).remove();
+                    });
+                    
+              });
+            });
+    });
         </script>
+        
+        
+        
+        
 
 <!--/.page-section-->
 <section class="copyright">

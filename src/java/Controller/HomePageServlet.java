@@ -5,10 +5,16 @@
  */
 package Controller;
 
+import Classes.House;
 import Logical_layer.HouseLogic;
+import com.google.gson.Gson;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.sql.SQLException;
+import java.util.ArrayList;
 import static java.util.Collections.list;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -30,16 +36,18 @@ public class HomePageServlet extends HttpServlet {
      * @throws IOException if an I/O error occurs
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
+            throws ServletException, IOException, ClassNotFoundException, SQLException {
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
             HouseLogic houseLogic = new HouseLogic();
-            //ArrayList<House> houses = houseLogic.selectAllHouses();
-            //String json = new Gson().toJson(houses);
+            ArrayList<House> houses = houseLogic.selectAllHouses();
+            
+            Gson gson = new Gson();
+            String json = new Gson().toJson(houses);
 
             response.setContentType("application/json");
             response.setCharacterEncoding("UTF-8");
-            //response.getWriter().write(json);
+            response.getWriter().write(json);
         }
     }
 
@@ -55,7 +63,13 @@ public class HomePageServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        try {
+            processRequest(request, response);
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(HomePageServlet.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (SQLException ex) {
+            Logger.getLogger(HomePageServlet.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     /**
@@ -69,7 +83,13 @@ public class HomePageServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        try {
+            processRequest(request, response);
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(HomePageServlet.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (SQLException ex) {
+            Logger.getLogger(HomePageServlet.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     /**

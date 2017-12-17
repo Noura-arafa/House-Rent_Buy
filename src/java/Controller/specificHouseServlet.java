@@ -10,6 +10,7 @@ import Logical_layer.HouseLogic;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javafx.application.Application;
@@ -44,14 +45,20 @@ public class specificHouseServlet extends HttpServlet {
             ServletContext application = request.getServletContext();
             //dah el mafrod ely gylena mn el page ely feha kol el houses
            // int houseID=(int) request.getAttribute("houseID");
-            
+           
             //to be removed!!!
-            String houseId ="3";//request.getParameter("houseID");
+            String houseId =request.getParameter("houseID");
             
             int houseID = Integer.parseInt(houseId);            
             HouseLogic HouseLogic = new HouseLogic();
             
             House house = HouseLogic.getHouseByID(houseID);
+         
+            HouseLogic houseLogic = new HouseLogic();
+            ArrayList<House> houses = houseLogic.selectAllHouses();
+            application.setAttribute("AllHouses", houses);
+            //String houseId =request.getParameter("houseID");
+           // int houseID = 5;//Integer.parseInt(houseId);            
             application.setAttribute("house", house);
             response.sendRedirect("specificHouseJSP.jsp?id="+houseID);
             

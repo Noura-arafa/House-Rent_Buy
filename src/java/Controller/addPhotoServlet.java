@@ -13,6 +13,7 @@ import java.sql.SQLException;
 import java.util.Collection;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.annotation.WebServlet;
@@ -45,6 +46,10 @@ public class addPhotoServlet extends HttpServlet {
         ImageLogic imagelogic = new ImageLogic();
        Collection<Part> photos;
         photos = request.getParts();
+        
+        ServletContext application = request.getServletContext();
+        int hID = (int) application.getAttribute("houseID");
+         
         int count = photos.size() -1;
         for(Part photo : photos)
         {
@@ -53,11 +58,11 @@ public class addPhotoServlet extends HttpServlet {
                 break;
             }
             image.setPhoto(photo.getInputStream());
-            imagelogic.addImage(image, 5);
+            imagelogic.addImage(image, hID);
             count --;
         }
             
-        response.sendRedirect("specificHouse.jsp");
+        response.sendRedirect("specificHouseServlet");
         
     }
     

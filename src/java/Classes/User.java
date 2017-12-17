@@ -19,6 +19,16 @@ public class User {
     private ArrayList <Notification> notifications;
     private ArrayList <Interest> interests;
     private InputStream photo;
+    private boolean isAdmin;
+
+    public boolean isIsAdmin() {
+        return isAdmin;
+    }
+
+    public void setIsAdmin(boolean isAdmin) {
+        this.isAdmin = isAdmin;
+    }
+    
     public User(String fN, String lN, String pw, int phN, String mail, String username,String address,InputStream photo)
     {
         this.fName = fN;
