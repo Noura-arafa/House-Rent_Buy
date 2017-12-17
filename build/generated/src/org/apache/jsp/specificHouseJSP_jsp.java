@@ -47,7 +47,11 @@ public final class specificHouseJSP_jsp extends org.apache.jasper.runtime.HttpJs
       _jspx_resourceInjector = (org.glassfish.jsp.api.ResourceInjector) application.getAttribute("com.sun.appserv.jsp.resource.injector");
 
       out.write("\r\n");
+<<<<<<< HEAD
       out.write(" \r\n");
+=======
+      out.write("\r\n");
+>>>>>>> 68e46a9e48c5488dbefa1cc9aadb088e363189ec
       out.write("\r\n");
       out.write("\r\n");
       out.write("\r\n");
@@ -69,12 +73,21 @@ public final class specificHouseJSP_jsp extends org.apache.jasper.runtime.HttpJs
       out.write("<title>WebThemez - Single page website</title>\r\n");
       out.write("<meta name=\"description\" content=\"\">\r\n");
       out.write("<meta name=\"author\" content=\"WebThemez\">\r\n");
+<<<<<<< HEAD
       out.write(" \r\n");
       out.write("<!--[if lt IE 9]>\r\n");
       out.write("        <script src=\"http://h...content-available-to-author-only...e.com/svn/trunk/html5.js\"></script>\r\n");
       out.write("    <![endif]-->\r\n");
       out.write("<!--[if lte IE 8]>\r\n");
       out.write("\t\t<script type=\"text/javascript\" src=\"http://e...content-available-to-author-only...e.com/svn/trunk/excanvas.js\"></script>\r\n");
+=======
+      out.write("\r\n");
+      out.write("<!--[if lt IE 9]>\r\n");
+      out.write("        <script src=\"http://html5shim.googlecode.com/svn/trunk/html5.js\"></script>\r\n");
+      out.write("    <![endif]-->\r\n");
+      out.write("<!--[if lte IE 8]>\r\n");
+      out.write("\t\t<script type=\"text/javascript\" src=\"http://explorercanvas.googlecode.com/svn/trunk/excanvas.js\"></script>\r\n");
+>>>>>>> 68e46a9e48c5488dbefa1cc9aadb088e363189ec
       out.write("\t<![endif]-->\r\n");
       out.write("<link rel=\"stylesheet\" href=\"css/bootstrap.min.css\" />\r\n");
       out.write("<link rel=\"stylesheet\" type=\"text/css\" href=\"css/isotope.css\" media=\"screen\" />\r\n");
@@ -83,11 +96,18 @@ public final class specificHouseJSP_jsp extends org.apache.jasper.runtime.HttpJs
       out.write("<!-- Owl Carousel Assets -->\r\n");
       out.write("<link href=\"js/owl-carousel/owl.carousel.css\" rel=\"stylesheet\">\r\n");
       out.write("<link rel=\"stylesheet\" href=\"css/styles.css\" />\r\n");
+<<<<<<< HEAD
       out.write("<link rel=\"stylesheet\" href=\"css/rate.css\" />\r\n");
       out.write("<!-- Font Awesome -->\r\n");
       out.write("<link href=\"font/css/font-awesome.min.css\" rel=\"stylesheet\">\r\n");
       out.write("</head>\r\n");
       out.write(" \r\n");
+=======
+      out.write("<!-- Font Awesome -->\r\n");
+      out.write("<link href=\"font/css/font-awesome.min.css\" rel=\"stylesheet\">\r\n");
+      out.write("</head>\r\n");
+      out.write("\r\n");
+>>>>>>> 68e46a9e48c5488dbefa1cc9aadb088e363189ec
       out.write("<body>\r\n");
       out.write("<header class=\"header\">\r\n");
       out.write("  <div class=\"container\">\r\n");
@@ -128,9 +148,15 @@ public final class specificHouseJSP_jsp extends org.apache.jasper.runtime.HttpJs
       out.write("      <!-- Heading -->\r\n");
       out.write("      <h2>About Us</h2>\r\n");
       out.write("    </div>\r\n");
+<<<<<<< HEAD
       out.write(" \r\n");
       out.write("    <div class=\"row dataTxt\">\t\r\n");
       out.write("        <div class=\"col-md-6 col-sm-6\">\r\n");
+=======
+      out.write("  \r\n");
+      out.write("    <div class=\"row dataTxt\">\t\r\n");
+      out.write("\t\t\t\t\t\t<div class=\"col-md-6 col-sm-6\">\r\n");
+>>>>>>> 68e46a9e48c5488dbefa1cc9aadb088e363189ec
       out.write("            <ul class=\"listArrow\">\r\n");
       out.write("                ");
  House house=(House)application.getAttribute("house");
@@ -182,8 +208,12 @@ public final class specificHouseJSP_jsp extends org.apache.jasper.runtime.HttpJs
       out.write("        width: 100%;\r\n");
       out.write("       }\r\n");
       out.write("    </style>\r\n");
+<<<<<<< HEAD
       out.write(" \r\n");
       out.write(" \r\n");
+=======
+      out.write("\r\n");
+>>>>>>> 68e46a9e48c5488dbefa1cc9aadb088e363189ec
       out.write("    <div id=\"map\"></div>\r\n");
       out.write("<script>\r\n");
       out.write("      function initMap() {\r\n");
@@ -192,6 +222,7 @@ public final class specificHouseJSP_jsp extends org.apache.jasper.runtime.HttpJs
       out.write("          center: {lat: 30.0444, lng: 31.2357}\r\n");
       out.write("        });\r\n");
       out.write("        var geocoder = new google.maps.Geocoder();\r\n");
+<<<<<<< HEAD
       out.write("\r\n");
       out.write("        \r\n");
       out.write("          geocodeAddress(geocoder, map);\r\n");
@@ -200,6 +231,19 @@ public final class specificHouseJSP_jsp extends org.apache.jasper.runtime.HttpJs
       out.write("\r\n");
       out.write("      function geocodeAddress(geocoder, resultsMap) {\r\n");
       out.write("        var address = \"6 october, egypt\";\r\n");
+=======
+      out.write("          geocodeAddress(geocoder, map);\r\n");
+      out.write("       \r\n");
+      out.write("      }\r\n");
+      out.write("\r\n");
+      out.write("      function geocodeAddress(geocoder, resultsMap) {\r\n");
+      out.write("\t");
+String adr=house.getLocation();
+      out.write("\r\n");
+      out.write("        var address =\"");
+      out.print(adr);
+      out.write("\";\r\n");
+>>>>>>> 68e46a9e48c5488dbefa1cc9aadb088e363189ec
       out.write("        geocoder.geocode({'address': address}, function(results, status) {\r\n");
       out.write("          if (status === 'OK') {\r\n");
       out.write("            resultsMap.setCenter(results[0].geometry.location);\r\n");
@@ -214,12 +258,18 @@ public final class specificHouseJSP_jsp extends org.apache.jasper.runtime.HttpJs
       out.write("      }\r\n");
       out.write("    </script>\r\n");
       out.write("    <script async defer\r\n");
+<<<<<<< HEAD
       out.write("    src=\"https://m...content-available-to-author-only...s.com/maps/api/js?key=AIzaSyApNZIr1Y8z16FL8--iEnirsSzhZqNMqCw&callback=initMap\">\r\n");
       out.write("    </script>\t\t\t\t\t\t\r\n");
       out.write("    \r\n");
       out.write("    \r\n");
       out.write("    \r\n");
       out.write("    <div class=\"popup\" onclick=\"myFunction()\" ><div class=\"btn\">Request Contacts!</div>\r\n");
+=======
+      out.write("    src=\"https://maps.googleapis.com/maps/api/js?key=AIzaSyApNZIr1Y8z16FL8--iEnirsSzhZqNMqCw&callback=initMap\">\r\n");
+      out.write("    </script>\r\n");
+      out.write("\t\t\t\t\t\t<div class=\"popup\" onclick=\"myFunction()\" ><div class=\"btn\">Request Contacts!</div>\r\n");
+>>>>>>> 68e46a9e48c5488dbefa1cc9aadb088e363189ec
       out.write("            <span class=\"popuptext\" id=\"myPopup\">Email:\r\n");
       out.write("                                            <br> Phone:\r\n");
       out.write("            </span>\r\n");
@@ -236,11 +286,16 @@ public final class specificHouseJSP_jsp extends org.apache.jasper.runtime.HttpJs
       out.write(" : ");
       out.print( comments.get(i).getcomment());
       out.write("</p>\r\n");
+<<<<<<< HEAD
       out.write(" \r\n");
+=======
+      out.write("                    \r\n");
+>>>>>>> 68e46a9e48c5488dbefa1cc9aadb088e363189ec
       out.write("                    <br>\r\n");
       out.write("                ");
 } 
       out.write("\r\n");
+<<<<<<< HEAD
       out.write("                \r\n");
       out.write("                <form action=\"rateServlet\" >\r\n");
       out.write("                    <input class=\"star star-5\" id=\"star-5\" type=\"radio\" value=\"5\" name=\"star\"/>\r\n");
@@ -257,16 +312,24 @@ public final class specificHouseJSP_jsp extends org.apache.jasper.runtime.HttpJs
       out.write("                    <input type=\"submit\" class=\"btn btn-lg btn-primary\" value=\"Rate\">\r\n");
       out.write("                </form>\r\n");
       out.write("                \r\n");
+=======
+>>>>>>> 68e46a9e48c5488dbefa1cc9aadb088e363189ec
       out.write("               <form method=\"post\" action=\"AddCommentServlet\" id=\"contactfrm\" role=\"form\">\r\n");
       out.write("              <textarea name=\"comment\" class=\"form-control\" id=\"comments\" cols=\"3\" rows=\"5\" placeholder=\"Enter your Comment?\" title=\"Please enter your message (at least 10 characters)\"></textarea>\r\n");
       out.write("              <input type=\"submit\"  value=\"Add comment\"  class=\"btn btn-lg btn-primary\">\r\n");
       out.write("               </form>\r\n");
+<<<<<<< HEAD
       out.write("               \r\n");
       out.write("               \r\n");
       out.write("            </div>\r\n");
       out.write("    </div>\r\n");
       out.write(" \r\n");
       out.write(" \r\n");
+=======
+      out.write("            </div>\r\n");
+      out.write("\r\n");
+      out.write("            \r\n");
+>>>>>>> 68e46a9e48c5488dbefa1cc9aadb088e363189ec
       out.write("<div class=\"col-md-6 col-sm-12\"> \r\n");
       out.write("<section id=\"home\">\r\n");
       out.write("  <div class=\"banner-container\"> \r\n");
@@ -278,6 +341,7 @@ public final class specificHouseJSP_jsp extends org.apache.jasper.runtime.HttpJs
       out.write("  </ol>\r\n");
       out.write("  <!-- Carousel items -->\r\n");
       out.write("  <div class=\"carousel-inner\">\r\n");
+<<<<<<< HEAD
       out.write("      ");
  for(int i=0; i<house.getImages().size(); i++)
       {
@@ -293,20 +357,35 @@ public final class specificHouseJSP_jsp extends org.apache.jasper.runtime.HttpJs
  }
      
       out.write("\r\n");
+=======
+      out.write("    <div class=\"active item\"><img src=\"images/banner-bg.jpg\" alt=\"banner\" /></div>\r\n");
+      out.write("    <div class=\"item\"><img src=\"images/banner-bg2.jpg\" alt=\"banner\" /></div>\r\n");
+      out.write("    <div class=\"item\"><img src=\"images/banner-bg3.jpg\" alt=\"banner\" /></div>\r\n");
+>>>>>>> 68e46a9e48c5488dbefa1cc9aadb088e363189ec
       out.write("  </div>\r\n");
       out.write("  <!-- Carousel nav -->\r\n");
       out.write("  <a class=\"carousel-control left\" href=\"#carousel\" data-slide=\"prev\">&lsaquo;</a>\r\n");
       out.write("  <a class=\"carousel-control right\" href=\"#carousel\" data-slide=\"next\">&rsaquo;</a>\r\n");
       out.write("</div>\r\n");
+<<<<<<< HEAD
       out.write(" \r\n");
       out.write("  </div>  \r\n");
       out.write(" \r\n");
+=======
+      out.write("  \r\n");
+      out.write("  </div>  \r\n");
+      out.write("  \r\n");
+>>>>>>> 68e46a9e48c5488dbefa1cc9aadb088e363189ec
       out.write("  <div class=\"container hero-text2\">\r\n");
       out.write("  </div>\r\n");
       out.write("</section>\r\n");
       out.write("  </div>\r\n");
       out.write("</section> \r\n");
+<<<<<<< HEAD
       out.write(" \r\n");
+=======
+      out.write("\r\n");
+>>>>>>> 68e46a9e48c5488dbefa1cc9aadb088e363189ec
       out.write("<!--/.page-section-->\r\n");
       out.write("<section class=\"copyright\">\r\n");
       out.write("  <div class=\"container\">\r\n");
@@ -317,7 +396,11 @@ public final class specificHouseJSP_jsp extends org.apache.jasper.runtime.HttpJs
       out.write("  </div>\r\n");
       out.write("</section>\r\n");
       out.write("<a href=\"#top\" class=\"topHome\"><i class=\"fa fa-chevron-up fa-2x\"></i></a> \r\n");
+<<<<<<< HEAD
       out.write(" \r\n");
+=======
+      out.write("\r\n");
+>>>>>>> 68e46a9e48c5488dbefa1cc9aadb088e363189ec
       out.write("<!--[if lte IE 8]><script src=\"//ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js\"></script><![endif]--> \r\n");
       out.write("<script src=\"js/modernizr-latest.js\"></script> \r\n");
       out.write("<script src=\"js/jquery-1.8.2.min.js\" type=\"text/javascript\"></script> \r\n");
@@ -332,11 +415,19 @@ public final class specificHouseJSP_jsp extends org.apache.jasper.runtime.HttpJs
       out.write("<script>\r\n");
       out.write("var slideIndex = 1;\r\n");
       out.write("showDivs(slideIndex);\r\n");
+<<<<<<< HEAD
       out.write(" \r\n");
       out.write("function plusDivs(n) {\r\n");
       out.write("  showDivs(slideIndex += n);\r\n");
       out.write("}\r\n");
       out.write(" \r\n");
+=======
+      out.write("\r\n");
+      out.write("function plusDivs(n) {\r\n");
+      out.write("  showDivs(slideIndex += n);\r\n");
+      out.write("}\r\n");
+      out.write("\r\n");
+>>>>>>> 68e46a9e48c5488dbefa1cc9aadb088e363189ec
       out.write("function showDivs(n) {\r\n");
       out.write("  var i;\r\n");
       out.write("  var x = document.getElementsByClassName(\"mySlides\");\r\n");
@@ -350,7 +441,11 @@ public final class specificHouseJSP_jsp extends org.apache.jasper.runtime.HttpJs
       out.write("</script>\r\n");
       out.write("</body>\r\n");
       out.write("</html>\r\n");
+<<<<<<< HEAD
       out.write(" ");
+=======
+      out.write("\r\n");
+>>>>>>> 68e46a9e48c5488dbefa1cc9aadb088e363189ec
     } catch (Throwable t) {
       if (!(t instanceof SkipPageException)){
         out = _jspx_out;

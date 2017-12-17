@@ -47,14 +47,17 @@ public class specificHouseServlet extends HttpServlet {
            // int houseID=(int) request.getAttribute("houseID");
            
             //to be removed!!!
+
             int houseID = houseID = 5;
          
             HouseLogic houseLogic = new HouseLogic();
             ArrayList<House> houses = houseLogic.selectAllHouses();
             application.setAttribute("AllHouses", houses);
             House house = houseLogic.getHouseByID(houseID);
+            //String houseId =request.getParameter("houseID");
+           // int houseID = 5;//Integer.parseInt(houseId);            
             application.setAttribute("house", house);
-            response.sendRedirect("specificHouseJSP.jsp");
+            response.sendRedirect("specificHouseJSP.jsp?id="+houseID);
             
             
         }

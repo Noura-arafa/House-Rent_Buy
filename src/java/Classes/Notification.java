@@ -13,9 +13,9 @@ public class Notification {
     // read 0 or 1
     private int read;
     private String content;
-    private String link;
+    private int link;
 
-    public Notification(int read, String content, String link) {
+    public Notification(int read, String content, int link) {
         this.read = read;
         this.content = content;
         this.link = link;
@@ -29,7 +29,7 @@ public class Notification {
         this.content = content;
     }
 
-    public void setLink(String link) {
+    public void setLink(int link) {
         this.link = link;
     }
 
@@ -41,7 +41,7 @@ public class Notification {
         return content;
     }
 
-    public String getLink() {
+    public int getLink() {
         return link;
     }
 

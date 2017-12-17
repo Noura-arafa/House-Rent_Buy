@@ -1501,7 +1501,20 @@ nav#filter li {
     border-style: solid;
     border-color: #555 transparent transparent transparent;
 }
-
+.outter{
+    padding: 0px;
+    border: 1px solid rgba(255, 255, 255, 0.29);
+    border-radius: 50%;
+    width: 200px;
+    height: 200px;
+}
+.image-circle{
+    border-radius: 50%;
+    width: 175px;
+    height: 175px;
+    border: 4px solid #FFF;
+    margin: 10px;
+}
 /* Toggle this class when clicking on the popup container (hide and show the popup) */
 .popup .show {
     visibility: visible;
@@ -1531,5 +1544,18 @@ nav#filter li {
 @keyframes fadeIn {
     from {opacity: 0;}
     to {opacity:1 ;}
+}
+.newbutton{
+	background:none;
+	border:none;
+}
+#khadega{
+	background:none;
+	border:none;
+	color: black;
+
+}
+khadega.hover{
+	color: red;
 }
 

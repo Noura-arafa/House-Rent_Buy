@@ -8,6 +8,7 @@ package Controller;
 import Classes.House;
 import Classes.User;
 import Logical_layer.HouseLogic;
+import Logical_layer.NotificationLogic;
 import java.awt.BorderLayout;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -62,14 +63,22 @@ public class AddHouseServlet extends HttpServlet {
         house.setPrice(Double.parseDouble(request.getParameter("Price")));
         house.setType(request.getParameter("housetype"));
         house.setLocation(request.getParameter("Location"));
-        User user = new User("Noura", "Arafa", "noura95", 01113600147, "nouraarafa95@gmil.com", "nouraArafa","El mmm", null);
+        User user = new User("marwa", "saied", "456", 10033, "marwa@gmail", "marwas","", null);
        
         houselogic.addHouse(house, user);
+
         int hID = houselogic.getHouseID(house);
-         RequestDispatcher rd = request.getRequestDispatcher("AddPhoto.jsp");
+        RequestDispatcher rd = request.getRequestDispatcher("AddPhoto.jsp");
         request.setAttribute("houseID", hID);
+
+        NotificationLogic notification=new NotificationLogic();
+        notification.interestNotification(house);
+       
+
+
         houses.add(house);
         application.setAttribute("Houses", houses);
+
         String photo_descission = request.getParameter("addPhoto");    
         
         if(photo_descission.equals("Yes"))

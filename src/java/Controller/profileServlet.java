@@ -56,13 +56,9 @@ public class profileServlet extends HttpServlet {
         try (PrintWriter out = response.getWriter()) {
             /* TODO output your page here. You may use following sample code. */
              UserLogic userlogic=new UserLogic();
-             HttpSession session=(HttpSession) request.getServletContext().getAttribute("thesession");
-             
+             HttpSession session=request.getSession();
              User theuser=(User) session.getAttribute("TheUser");
              createprofile(request,response,userlogic,theuser);
-             
-             
-             
         }
     }
 

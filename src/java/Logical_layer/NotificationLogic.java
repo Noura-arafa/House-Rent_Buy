@@ -8,10 +8,12 @@ package Logical_layer;
 import Classes.House;
 import Classes.User;
 import Classes.Comment;
+import Classes.Notification;
 import Model.InterestIO;
 import Model.HouseIO;
 
 import Model.NotificationIO;
+import Model.UserIO;
 import Model.UserInterestIO;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -27,16 +29,23 @@ public class NotificationLogic {
         NotificationIO notificationIO =new NotificationIO();
         int size=house.getSize();
         String type=house.getType();
+        HouseIO houseIO = new HouseIO();
+        int houseID = houseIO.getHouseID(house);
         String status= house.getStatus();
         InterestIO interestIO=new InterestIO();
-        int interestID =interestIO.findInterest(house.getSize(), house.getStatus(), house.getType());
-        users = userintersetIO.getUser(interestID);
-        for (int i =0; i<users.size();i++){
+        ArrayList <Integer> interestIDS=new ArrayList<>();
+        interestIDS= interestIO.select(house);
+        //int interestID =interestIO.findInterest(house.getSize(), house.getStatus(), house.getType());
+        for(int i =0;i<interestIDS.size();i++){
+            users = userintersetIO.getUser(interestIDS.get(i));
+            for(int j =0;i<users.size();j++){
+                 notificationIO.interestNotification(users.get(i),houseID);
         }
-        for(int i =0;i<users.size();i++){
-            notificationIO.insert(users.get(i));
+
         }
         
+        
+                
     }
     public void commentNotification(int houseID,Comment comment) throws ClassNotFoundException, SQLException{
         User user= comment.getUser();
@@ -44,7 +53,32 @@ public class NotificationLogic {
         HouseIO houseIO =new HouseIO();
         int userID = houseIO.getUser(houseID);
         NotificationIO notificationIO =new NotificationIO();
-        notificationIO.inrertCommentNotification(userID, commentOwner);
+        notificationIO.inrertCommentNotification(userID, commentOwner,houseID);
+        
+    }
+    public ArrayList<Notification> selectNewNotification(User user) throws ClassNotFoundException, SQLException{
+        UserIO userIO= new UserIO();
+        
+        int userID = userIO.getUserID(user.getuserName());
+        System.out.println("IDDDDDDDDDDD"+userID);
+        NotificationIO nio=new NotificationIO();
+        ArrayList <Notification > newNotification = nio.selectNewNotification(userID);
+        return newNotification;
+        
+    }
+    public ArrayList<Notification> selectOldNotification(User user) throws ClassNotFoundException, SQLException{
+        UserIO userIO= new UserIO();
+        int userID = userIO.getUserID(user.getuserName());
+        NotificationIO nio=new NotificationIO();
+        ArrayList <Notification > oldNotification = nio.selectOldNotification(userID);
+        return oldNotification;
+        
+    }
+    public void updateNotification (User user) throws ClassNotFoundException, SQLException{
+        UserIO userIO= new UserIO();
+        int userID = userIO.getUserID(user.getuserName());
+        NotificationIO nio=new NotificationIO();
+        nio.UpdateNotification(userID);
         
     }
     
