@@ -3,6 +3,10 @@ package org.apache.jsp;
 import javax.servlet.*;
 import javax.servlet.http.*;
 import javax.servlet.jsp.*;
+import Classes.Notification;
+import java.util.ArrayList;
+import Logical_layer.NotificationLogic;
+import Classes.User;
 import Logical_layer.HouseLogic;
 import Model.HouseIO;
 
@@ -43,6 +47,10 @@ public final class HomePage_jsp extends org.apache.jasper.runtime.HttpJspBase
       _jspx_out = out;
       _jspx_resourceInjector = (org.glassfish.jsp.api.ResourceInjector) application.getAttribute("com.sun.appserv.jsp.resource.injector");
 
+      out.write("\n");
+      out.write("\n");
+      out.write("\n");
+      out.write("\n");
       out.write("\n");
       out.write("\n");
       out.write("\n");
@@ -94,9 +102,46 @@ public final class HomePage_jsp extends org.apache.jasper.runtime.HttpJspBase
       out.write("        <ul class=\"nav navbar-nav\" id=\"mainNav\">\n");
       out.write("          <li class=\"active\" id=\"firstLink\"><a href=\"#home\" class=\"scroll-link\">Home</a></li>\n");
       out.write("          <li class=\"current-menu-item\"><a href=\"#services\" class=\"scroll-link\">Services</a>\n");
+      out.write("              ");
+ User user=new User("marwa", "saied", "456", 010033, "marwa@gmail", "marwas", "bkla", null);
+                    NotificationLogic nio = new NotificationLogic();
+                    ArrayList <Notification> newNotification = nio.selectNewNotification(user);
+                    ArrayList <Notification > oldNotification =nio.selectOldNotification(user);
+                    nio.updateNotification(user);
+       
+               
+      out.write("\n");
       out.write("            <ul>\n");
-      out.write("              <li id =\"notify\"><a href=\"#\">Sub Deep 1</a></li>\n");
-      out.write("              <li id =\"notify\" ><a href=\"#\">Sub Deep 2</a></li>\n");
+      out.write("               ");
+ 
+                System.out.println(newNotification.size());
+                for(int i =0 ;i<newNotification.size();i++){
+                
+      out.write("\n");
+      out.write("              <li id =\"notify\"><a href=\"specificHouseServlet?houseID=");
+      out.print( newNotification.get(i).getLink());
+      out.write('"');
+      out.write('>');
+      out.print( newNotification.get(i).getContent());
+      out.write("</a></li>\n");
+      out.write("              ");
+ } 
+      out.write("\n");
+      out.write("              ");
+  
+                for(int i =0 ;i<oldNotification.size();i++){    
+              
+      out.write("\n");
+      out.write("              <li id =\"notify\"><a href=\"specificHouseServlet?houseID=");
+      out.print( oldNotification.get(i).getLink());
+      out.write('"');
+      out.write('>');
+      out.print( oldNotification.get(i).getContent());
+      out.write("</a></li>\n");
+      out.write("                \n");
+      out.write("              ");
+}
+      out.write("\n");
       out.write("            </ul>\n");
       out.write("          </li>\n");
       out.write("          <li><a href=\"#work\" class=\"scroll-link\">Projects</a></li>\n");

@@ -4,6 +4,10 @@
     Author     : lenovo
 --%>
 
+<%@page import="Classes.Notification"%>
+<%@page import="java.util.ArrayList"%>
+<%@page import="Logical_layer.NotificationLogic"%>
+<%@page import="Classes.User"%>
 <%@page import="Logical_layer.HouseLogic"%>
 <%@page import="Model.HouseIO"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
@@ -53,9 +57,26 @@
         <ul class="nav navbar-nav" id="mainNav">
           <li class="active" id="firstLink"><a href="#home" class="scroll-link">Home</a></li>
           <li class="current-menu-item"><a href="#services" class="scroll-link">Services</a>
+              <% User user=new User("marwa", "saied", "456", 010033, "marwa@gmail", "marwas", "bkla", null);
+                    NotificationLogic nio = new NotificationLogic();
+                    ArrayList <Notification> newNotification = nio.selectNewNotification(user);
+                    ArrayList <Notification > oldNotification =nio.selectOldNotification(user);
+                    nio.updateNotification(user);
+       
+               %>
             <ul>
-              <li id ="notify"><a href="#">Sub Deep 1</a></li>
-              <li id ="notify" ><a href="#">Sub Deep 2</a></li>
+               <% 
+                System.out.println(newNotification.size());
+                for(int i =0 ;i<newNotification.size();i++){
+                %>
+              <li id ="notify"><a href="specificHouseServlet?houseID=<%= newNotification.get(i).getLink()%>"><%= newNotification.get(i).getContent()%></a></li>
+              <% } %>
+              <%  
+                for(int i =0 ;i<oldNotification.size();i++){    
+              %>
+              <li id ="notify"><a href="specificHouseServlet?houseID=<%= oldNotification.get(i).getLink()%>"><%= oldNotification.get(i).getContent()%></a></li>
+                
+              <%}%>
             </ul>
           </li>
           <li><a href="#work" class="scroll-link">Projects</a></li>
