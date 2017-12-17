@@ -48,8 +48,32 @@
 
         <%
        
-        HttpSession thesession=(HttpSession) application.getAttribute("thesession"); 
-        User Theuser=(User) thesession.getAttribute("TheUser");
+      //  HttpSession thesession=(HttpSession) application.getAttribute("thesession"); 
+      System.out.println("fy al viewprofile ");
+        User Theuser=(User) request.getSession().getAttribute("TheUser");
+        
+        //System.out.println("view the name"+Theuser.getAddress());
+        String fname=Theuser.getfName();
+        if(fname.equals(null)){
+            fname="";
+        }
+        String ln= Theuser.getlName();
+        if(ln==null){
+            ln="";
+        }
+        String email=Theuser.getemail();
+        if(email==null){
+            email="";
+        }
+        String address=Theuser.getAddress();
+        if(address== null){
+            address="";
+        }
+         int phonenumber=Theuser.getphoneNumber();
+                    String phonenum="";
+                    if(phonenumber!=0){
+                        phonenum=Integer.toString(phonenumber);
+                    }
         request.setAttribute("theuserid",Theuser.getuserName());
         %>
        <a href="#" class="navbar-brand scroll-top logo  animated bounceInLeft"><b><i><img src="images/logo.png" /></i></b></a> </div> 
@@ -90,26 +114,25 @@ function myFunction() {
     <div class="row dataTxt">	
             <div class="outter"><img src="Getimageservlet" class="image-circle"/></div> 
 						<div class="col-md-6 col-sm-6">
-              <h1>Hi <%=    Theuser.getfName()%>  </h1>
+              <h1>Hi <%= fname    %>  </h1>
             <ul class="listArrow">
                
-                <h4><li><%= Theuser.getfName()%> 
+                <h4><li><%= fname %> 
                         <%= " " %>
-                        <%= Theuser.getlName()%></li></h4>
+                        <%=ln%></li></h4>
                 <p></p>
-                <h4><li><%=  Theuser.getemail()%> </li></h4>
+                <h4><li><%=email%> </li></h4>
                 <p></p>
-                <h4><li><%= Theuser.getAddress()%></li></h4>
+                <h4><li><%= address%></li></h4>
                 <p></p>
-                <h4><li><%= Theuser.getphoneNumber()%></li></h4>
+                <h4><li><%=phonenum%></li></h4>
                 <p></p>
-               
               </ul>
 						
             <br>
               <input class="btn btn-lg btn-primary" id="submit" type="button" onclick="location.href='Editprofile.jsp'" name="" value="
               Edit Profile">
-              <input class="btn btn-lg btn-primary" id="submit" type="button" onclick="location.href='Changepassword.jsp'" name="" value="
+              <input class="btn btn-lg btn-primary" id="submit" type="button" onclick="location.href='Changepassword.jsp?username=<%=""%>'" name="" value="
               change Password">
 
 						</div>

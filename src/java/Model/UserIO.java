@@ -5,6 +5,7 @@
  */
 package Model;
 
+import Classes.Admin;
 import Classes.Contactinformation;
 import Classes.User;
 import java.io.InputStream;
@@ -20,10 +21,10 @@ public class UserIO {
 
     String url = "jdbc:mysql://localhost:3306/house_buy_rent";
     String sqluser = "root";
+
     String pass = "n33333";
 
     public int getUserID(String userName) throws ClassNotFoundException, SQLException {
-
         Class.forName("com.mysql.jdbc.Driver");
         Connection conn = DriverManager.getConnection(url, sqluser, pass);
         PreparedStatement pstmt = conn.prepareStatement("Select userId FROM user WHERE userName = ?");
@@ -40,7 +41,8 @@ public class UserIO {
         return id;
 
     }
-    public boolean checkAdmin(String Uname,String pass) throws ClassNotFoundException, SQLException{
+
+    public Admin checkAdmin(String Uname, String pass) throws ClassNotFoundException, SQLException {
         String url = "jdbc:mysql://localhost:3306/house_buy_rent";
         String theuser = "root";
         String password = "";
@@ -53,23 +55,19 @@ public class UserIO {
         Stmt = Con.createStatement();
         RS = Stmt.executeQuery("SELECT * FROM user;");
         while (RS.next()) {
-
-            boolean Admin=RS.getBoolean("Admin");
-            
-            
-            // System.out.println("Uname " + Uname+" the user name"+user.getuserName());
-            if (Admin==true) {
-                String username=RS.getString("userName");
-                String Password=RS.getString("pass");
-                if(username.equals(Uname)&&Password.equals(pass)){
-                 //   System.out.println("uname"+Uname+"pass"+pass);
-                    return true;
+            boolean Admin = RS.getBoolean("Admin");
+             if (Admin == true) {
+                String username = RS.getString("userName");
+                String Password = RS.getString("pass");
+                if (username.equals(Uname) && Password.equals(pass)) {
+                    Admin admin = new Admin(RS.getString("fName"), RS.getString("lName"), RS.getString("pass"), RS.getInt("phoneNum"), RS.getString("email"), RS.getString("username"), RS.getString("address"), RS.getBlob("picture").getBinaryStream());
+                    return admin;
                 }
             }
         }
         RS.close();
         Con.close();
-        return false;
+        return null;
     }
 
     public boolean checkusers(User user) throws SQLException, ClassNotFoundException {
@@ -87,7 +85,6 @@ public class UserIO {
         while (RS.next()) {
 
             String Uname = RS.getString("userName");
-            // System.out.println("Uname " + Uname+" the user name"+user.getuserName());
             if (user.getuserName().equals(Uname)) {
                 return false;
             }
@@ -99,7 +96,7 @@ public class UserIO {
 
     public User getUser(String Uname, String thepassword) throws ClassNotFoundException, ClassNotFoundException, ClassNotFoundException, ClassNotFoundException {
         try {
-            //  System.out.println("");
+
             String url = "jdbc:mysql://localhost:3306/house_buy_rent";
             String theuser = "root";
             String password = "";
@@ -107,24 +104,21 @@ public class UserIO {
             Connection Con = null;
             Statement Stmt = null;
             ResultSet RS = null;
-            if (Uname.equals("Admin")) {
-                return null;
-            }
             Class.forName("com.mysql.jdbc.Driver");
             Con = DriverManager.getConnection(url, theuser, password);
             Stmt = Con.createStatement();
             RS = Stmt.executeQuery("SELECT * FROM user;");
             while (RS.next()) {
-                //change
-                String theusername = RS.getString("userName");
-                //change
-                String thepass = RS.getString("pass");
-                if (theusername.equals(Uname) && thepass.equals(thepassword)) {
-                    //changeYamenna
-                    InputStream photo = null;
-                    User user = new User(RS.getString("fName"), RS.getString("lName"), RS.getString("pass"), RS.getInt("phoneNum"), RS.getString("email"), RS.getString("username"), RS.getString("address"), photo);
-                    return user;
+                if (!RS.getBoolean("Admin")) {
+                    String theusername = RS.getString("userName");
+                    String thepass = RS.getString("pass");
+                    if (theusername.equals(Uname) && thepass.equals(thepassword)) {
+                        InputStream photo = null;
+                        User user = new User(RS.getString("fName"), RS.getString("lName"), RS.getString("pass"), RS.getInt("phoneNum"), RS.getString("email"), RS.getString("username"), RS.getString("address"), photo);
+                        return user;
+                    }
                 }
+
             }
             RS.close();
             Con.close();
@@ -167,7 +161,6 @@ public class UserIO {
     }
 
     public void insertUser(User user) throws SQLException, ClassNotFoundException {
-        System.out.println("in insert user");
         String url = "jdbc:mysql://localhost:3306/house_buy_rent";
         String theuser = "root";
         String password = "";
@@ -178,8 +171,6 @@ public class UserIO {
         Class.forName("com.mysql.jdbc.Driver");
         Con = DriverManager.getConnection(url, theuser, password);
         Stmt = Con.createStatement();
-        // System.out.println("the user"+user.getpass());
-        //change
         String query = "INSERT INTO user (fName,LName,pass,phoneNum,email,userName,picture,address)"
                 + "VALUES(?,?,?,?,?,?,?,?);";
         PreparedStatement preparedStmt = Con.prepareStatement(query);
@@ -193,8 +184,8 @@ public class UserIO {
         preparedStmt.setString(8, user.getAddress());
         preparedStmt.executeUpdate();
         //RS.close();
-        //preparedStmt.close();
-        //Con.close();
+        preparedStmt.close();
+        Con.close();
     }
 
     public void updateuser(User user) {
@@ -205,7 +196,6 @@ public class UserIO {
         Connection Con = null;
         Statement Stmt = null;
         ResultSet RS = null;
-        //System.out.println("user "+user.getfName());
         try {
             Class.forName("com.mysql.jdbc.Driver");
             Con = DriverManager.getConnection(url, theuser, password);
@@ -241,7 +231,7 @@ public class UserIO {
         Connection Con = null;
         Statement Stmt = null;
         ResultSet RS = null;
-        //System.out.println("user "+user.getfName());
+
         try {
             Class.forName("com.mysql.jdbc.Driver");
             Con = DriverManager.getConnection(url, theuser, password);
@@ -269,7 +259,6 @@ public class UserIO {
         Connection Con = null;
         Statement Stmt = null;
         ResultSet RS = null;
-        //System.out.println("user "+user.getfName());
         try {
             Class.forName("com.mysql.jdbc.Driver");
             Con = DriverManager.getConnection(url, theuser, password);
@@ -296,7 +285,6 @@ public class UserIO {
         Connection Con = null;
         Statement Stmt = null;
         ResultSet RS = null;
-        //System.out.println("user "+user.getfName());
         try {
             Class.forName("com.mysql.jdbc.Driver");
             Con = DriverManager.getConnection(url, theuser, password);
@@ -304,7 +292,6 @@ public class UserIO {
             //change
             String query = "UPDATE user set address=? WHERE userName = ?";
             PreparedStatement preparedStmt = Con.prepareStatement(query);
-            System.out.println("here " + changedaddress);
             preparedStmt.setString(1, changedaddress);
             preparedStmt.setString(2, Uname);
             preparedStmt.executeUpdate();
@@ -324,7 +311,7 @@ public class UserIO {
         Connection Con = null;
         Statement Stmt = null;
         ResultSet RS = null;
-        //System.out.println("user "+user.getfName());
+
         try {
             Class.forName("com.mysql.jdbc.Driver");
             Con = DriverManager.getConnection(url, theuser, password);
@@ -351,7 +338,6 @@ public class UserIO {
         Connection Con = null;
         Statement Stmt = null;
         ResultSet RS = null;
-        //System.out.println("user "+user.getfName());
         try {
             Class.forName("com.mysql.jdbc.Driver");
             Con = DriverManager.getConnection(url, theuser, password);
@@ -378,7 +364,6 @@ public class UserIO {
         Connection Con = null;
         Statement Stmt = null;
         ResultSet RS = null;
-        //System.out.println("user "+user.getfName());
         try {
             Class.forName("com.mysql.jdbc.Driver");
             Con = DriverManager.getConnection(url, theuser, password);
@@ -415,7 +400,6 @@ public class UserIO {
             preparedStmt.setString(1, changedpassword);
             preparedStmt.setString(2, changeduser);
             preparedStmt.executeUpdate();
-            //RS.close();
             preparedStmt.close();
             Con.close();
         } catch (Exception cnfe) {
@@ -427,7 +411,7 @@ public class UserIO {
     public User selectUser(int userID) throws ClassNotFoundException, SQLException {
         String url = "jdbc:mysql://localhost:3306/house_buy_rent";
         String theuser = "root";
-        String password = "n33333";
+        String password = "12345678a";
         Connection Con = null;
         Statement Stmt = null;
         ResultSet RS = null;
@@ -443,7 +427,8 @@ public class UserIO {
         }
         return user;
     }
-public ArrayList<User> viewAllusers() throws ClassNotFoundException, SQLException{
+
+    public ArrayList<User> viewAllusers() throws ClassNotFoundException, SQLException {
         String url = "jdbc:mysql://localhost:3306/house_buy_rent";
         String theuser = "root";
         String password = "";
@@ -455,47 +440,44 @@ public ArrayList<User> viewAllusers() throws ClassNotFoundException, SQLExceptio
         Con = DriverManager.getConnection(url, theuser, password);
         Stmt = Con.createStatement();
         RS = Stmt.executeQuery("SELECT * FROM user;");
-        ArrayList<User> users=new ArrayList<User>();
+        ArrayList<User> users = new ArrayList<User>();
         while (RS.next()) {
-        String fn="",ln="",pass="",email="",username="",address="";
-        int phonenumber=0;
-        InputStream photo=null;
-        if(!RS.getBoolean("Admin")){
-        if(!RS.getString("fName").equals(null)){
-            fn=RS.getString("fName");
-        }
-        if(!RS.getString("lName").equals(null)){
-            ln=RS.getString("lName");
-        }
-        if(!RS.getString("pass").equals(null)){
-            pass=RS.getString("pass");
-        }
-        if(RS.getInt("phoneNum")!=0){
-            phonenumber=RS.getInt("phoneNum");
-        }
-        if(!RS.getString("email").equals(null)){
-            email=RS.getString("email");
-        }
-        if(!RS.getString("userName").equals(null)){
-            username=RS.getString("userName");
-        }
-        if(!RS.getString("address").equals(null)){
-            address= RS.getString("address");
-        }
-        if( RS.getBlob("picture")!=null){
-            photo= (InputStream) RS.getBlob("picture").getBinaryStream();
-        }
-        User user= new User(fn, ln, pass,phonenumber,email, username, address, photo);
-        users.add(user);
-        System.out.println("theusers");
-        }
+            String fn = "", ln = "", pass = "", email = "", username = "", address = "";
+            int phonenumber = 0;
+            InputStream photo = null;
+            if (!RS.getBoolean("Admin")) {
+                if (!RS.getString("fName").equals(null)) {
+                    fn = RS.getString("fName");
+                }
+                if (!RS.getString("lName").equals(null)) {
+                    ln = RS.getString("lName");
+                }
+                if (!RS.getString("pass").equals(null)) {
+                    pass = RS.getString("pass");
+                }
+                if (RS.getInt("phoneNum") != 0) {
+                    phonenumber = RS.getInt("phoneNum");
+                }
+                if (!RS.getString("email").equals(null)) {
+                    email = RS.getString("email");
+                }
+                if (!RS.getString("userName").equals(null)) {
+                    username = RS.getString("userName");
+                }
+                if (!RS.getString("address").equals(null)) {
+                    address = RS.getString("address");
+                }
+                if (RS.getBlob("picture") != null) {
+                    photo = (InputStream) RS.getBlob("picture").getBinaryStream();
+                }
+                User user = new User(fn, ln, pass, phonenumber, email, username, address, photo);
+                users.add(user);
+
+            }
         }
         RS.close();
         Con.close();
         return users;
     }
-
-    
-    
 
 }

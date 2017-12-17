@@ -5,6 +5,7 @@
  */
 package Controller;
 
+import Classes.Admin;
 import Classes.User;
 import Logical_layer.UserLogic;
 import java.io.IOException;
@@ -35,14 +36,13 @@ public class EditProfileServlet extends HttpServlet {
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
      */
+   
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
-            /* TODO output your page here. You may use following sample code. */
-          UserLogic userlogic=new UserLogic();
-          HttpSession session=(HttpSession) request.getServletContext().getAttribute("thesession");
-          User user=(User) session.getAttribute("TheUser");
+         UserLogic userlogic=new UserLogic();
+          User user=(User) request.getSession().getAttribute("TheUser");
           String fname=request.getParameter("First Name");
           String lname=request.getParameter("Last Name");
           String address=request.getParameter("Address");
@@ -52,7 +52,6 @@ public class EditProfileServlet extends HttpServlet {
           if(!phonenumber.equals("")){
               phonenum=Integer.parseInt(phonenumber);
           }
-            System.out.println("fname "+fname+" lname "+lname+" address "+address+" phonenumber "+phonenumber);
             if(!fname.equals("")){
                 userlogic.editfname(user.getuserName(), fname);
                 user.setfName(fname);
@@ -72,7 +71,8 @@ public class EditProfileServlet extends HttpServlet {
             if(photo!=null){
                 userlogic.editpicture(user.getuserName(), photo.getInputStream());
                 user.setPhoto(photo.getInputStream());
-                        }
+                        
+        }
         }
     }
 

@@ -13,11 +13,11 @@ import java.io.InputStream;
 public class Image {
     private InputStream photo;
 
+    public Image(){
+        
+    }
     public Image(InputStream photo) {
         this.photo = photo;
-    }
-
-    public Image() {
     }
 
     public void setPhoto(InputStream photo) {

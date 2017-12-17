@@ -133,10 +133,12 @@ public final class viewallusers_jsp extends org.apache.jasper.runtime.HttpJspBas
                 System.out.println("users" +users.size());
                  for(int i=0;i<users.size();i++){
                      
-                 
+                 String username=users.get(i).getuserName();
                  
       out.write("\n");
-      out.write("                 <input class=\"btn btn-lg btn-primary\" id=\"submit\" type=\"button\" onclick=\"location.href='Signup.jsp'\" name=\"\" value=");
+      out.write("                 <input class=\"btn btn-lg btn-primary\" id=\"submit\" type=\"button\" onclick=\"location.href='Changepassword.jsp?username=");
+      out.print(users.get(i).getuserName());
+      out.write("'\" name=\"\" value=");
       out.print(users.get(i).getuserName());
       out.write("\n");
       out.write("              >\n");

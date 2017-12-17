@@ -74,14 +74,30 @@
         </div>
       </div>
          <% 
-                    HttpSession thesession=(HttpSession) application.getAttribute("thesession"); 
-                    User theuser=(User) thesession.getAttribute("TheUser");
-                    String userfname=theuser.getfName();
-                    String userlname=theuser.getlName();
-                    String address=theuser.getAddress();
-                    String email=theuser.getemail();
-                    int phonenumber=theuser.getphoneNumber();
-                    String phonenum=Integer.toString(phonenumber);
+                   // HttpSession thesession=(HttpSession) application.getAttribute("thesession"); 
+                    User Theuser=(User) request.getSession().getAttribute("TheUser");
+                     String fname=Theuser.getfName();
+        if(fname.equals(null)){
+            fname="";
+        }
+        String ln= Theuser.getlName();
+        if(ln==null){
+            ln="";
+        }
+        String email=Theuser.getemail();
+        if(email==null){
+            email="";
+        }
+        String address=Theuser.getAddress();
+        if(address== null){
+            address="";
+        }
+                    int phonenumber=Theuser.getphoneNumber();
+                    String phonenum="";
+                    if(phonenumber!=0){
+                        phonenum=Integer.toString(phonenumber);
+                    }
+                    
                 %>
       <div class="row mrgn30">
         <form method="post" action="EditProfileServlet" id="contactfrm" role="form"  enctype="multipart/form-data">
@@ -89,8 +105,8 @@
             <div class="form-group">
              
               
-                <input type="text" class="form-control" name="First Name" id="name" placeholder=<%=userfname %>  >
-              <input type="text" class="form-control" name="Last Name" id="name" placeholder=<%=userlname%> >
+                <input type="text" class="form-control" name="First Name" id="name" placeholder=<%=fname %>  >
+              <input type="text" class="form-control" name="Last Name" id="name" placeholder=<%=ln%> >
               
               <input type="text" class="form-control" name="Address" id="name" placeholder=<%=address%> >
               <input type="text" class="form-control" name="phoneNumber" id="name" placeholder=<%=phonenum%> >

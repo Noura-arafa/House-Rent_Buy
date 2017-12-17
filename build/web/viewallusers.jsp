@@ -86,9 +86,9 @@
                 System.out.println("users" +users.size());
                  for(int i=0;i<users.size();i++){
                      
-                 
+                 String username=users.get(i).getuserName();
                  %>
-                 <input class="btn btn-lg btn-primary" id="submit" type="button" onclick="location.href='Signup.jsp'" name="" value=<%=users.get(i).getuserName()%>
+                 <input class="btn btn-lg btn-primary" id="submit" type="button" onclick="location.href='Changepassword.jsp?username=<%=users.get(i).getuserName()%>'" name="" value=<%=users.get(i).getuserName()%>
               >
                  <br>
                  <br>

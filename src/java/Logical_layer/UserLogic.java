@@ -5,6 +5,7 @@
  */
 package Logical_layer;
 
+import Classes.Admin;
 import Classes.Contactinformation;
 import Classes.House;
 import Classes.Interest;
@@ -29,10 +30,13 @@ public class UserLogic {
 
     UserIO userio = new UserIO();
 
+    public int getUserID(String userName) throws ClassNotFoundException, SQLException {
+        int ID = userio.getUserID(userName);
+        return ID;
+    }
+
     public boolean Signup(User user) throws ClassNotFoundException, SQLException {
-         System.out.println("username "+user.getuserName());
         if (userio.checkusers(user)) {
-            System.out.println("in checkusers ");
             userio.insertUser(user);
             return true;
         }
@@ -40,26 +44,26 @@ public class UserLogic {
     }
 
     public User UserLogin(String Uname, String pass) throws SQLException, ClassNotFoundException {
-        User user=userio.getUser(Uname, pass);
-        if(user==null)
+        User user = userio.getUser(Uname, pass);
+        if (user == null) {
             return null;
-        else
+        } else {
             return user;
+        }
     }
 
-    public boolean AdminLogin(String Uname, String pass) throws ClassNotFoundException, SQLException {
-      return userio.checkAdmin(Uname, pass);
+    public Admin AdminLogin(String Uname, String pass) throws ClassNotFoundException, SQLException {
+        return userio.checkAdmin(Uname, pass);
     }
 
     public void Createprofile(User user) {
         userio.updateuser(user);
-        //return user
+
     }
 
-    public void Adminchangepassword(String Uname, String changedpassword, String changeduser) {
-        if (Uname.equals("Admin")) {
-            userio.updatepassword(changedpassword, changeduser);
-        }
+    public void Adminchangepassword(String Uname, String changedpassword) {
+        userio.updatepassword(changedpassword, Uname);
+
     }
 
     public void Userchangepassword(String Uname, String changedpassword) {
@@ -69,65 +73,44 @@ public class UserLogic {
     public Contactinformation RequestContactData(String Uname) {
         return userio.getContactData(Uname);
     }
-    public void editfname(String Uname,String changedfirstname){
+
+    public void editfname(String Uname, String changedfirstname) {
         userio.updatefname(Uname, changedfirstname);
     }
-    public void editlname(String Uname,String changedlastname){
+
+    public void editlname(String Uname, String changedlastname) {
         userio.updatelname(Uname, changedlastname);
     }
-    public void editaddress(String Uname,String changedaddress){
-        System.out.println("ya5tay");
+
+    public void editaddress(String Uname, String changedaddress) {
         userio.updateaddress(Uname, changedaddress);
     }
-    public void editemail(String Uname,String changedemail){
+
+    public void editemail(String Uname, String changedemail) {
         userio.updateemail(Uname, changedemail);
     }
-    public void editphonenumber(String Uname,int phonenum){
+
+    public void editphonenumber(String Uname, int phonenum) {
         userio.updatephonenum(Uname, phonenum);
     }
+
     //edit picture 
-    public void editpicture(String Uname,InputStream photo){
+    public void editpicture(String Uname, InputStream photo) {
         userio.updatepicture(Uname, photo);
     }
-    public void createAlert(String userName,Interest interest) throws ClassNotFoundException, SQLException{
-        UserIO user =new UserIO();
-        InterestIO interestIO=new InterestIO();
-        int userID=user.getUserID(userName);
-        int InterestID=-1;
-        InterestID=interestIO.findInterest(interest.getSize(),interest.getStatus(),interest.getType());
-        if(InterestID==-1){
-            interestIO.insert(interest.getSize(),interest.getStatus(),interest.getType());
+
+    public void createAlert(String userName, Interest interest) throws ClassNotFoundException, SQLException {
+        UserIO user = new UserIO();
+        InterestIO interestIO = new InterestIO();
+        int userID = user.getUserID(userName);
+        int InterestID = -1;
+        InterestID = interestIO.findInterest(interest);
+        if (InterestID == -1) {
+            interestIO.insertInterest(interest);
         }
-        InterestID=interestIO.findInterest(interest.getSize(),interest.getStatus(),interest.getType());
-        UserInterestIO userInterest=new UserInterestIO();
+        InterestID = interestIO.findInterest(interest);
+        UserInterestIO userInterest = new UserInterestIO();
         userInterest.insert(userID, InterestID);
-   }
-    public static void main(String[] args) throws ClassNotFoundException, SQLException {
-        InputStream photo = null;
-        User user = new User("Menna", "Ali", "1234", 011411, "mennaali365@gmail.com", "MennaAli", "maddi", photo);
-        UserLogic userlogic = new UserLogic();
-        //sign up checked 
-        /*if(userlogic.Signup(user))
-             System.out.println("successed");
-         else
-             System.out.println("failed");
-         //loginuser checked*/
-    /*  if(userlogic.UserLogin("MennaAli", "1234"))
-             System.out.println("successed");
-         else
-             System.out.println("failed");*/
-        System.out.println("glagla");
-        HouseIO houseio = new HouseIO();
-        //House house = new House("villa with garden", "rent", 200, 1, 0, "status", "villa", "6 octobar", 0);
-        //House house1 = new House("roof with 2 bed rooms", "rent", 100, 1, 4, "status", "Roof", "Shekh Zaid", 0);
-        //InputStream photo=null;
-        //User user=new User("Menna", "Ali", "1234", 011411, "mennaali365@gmail.com","MennaAli","maddi",photo);
-       // houseio.addhouse(house1, user);
-        //createprofile checked
-        //userlogic.Createprofile(user);
-        //adminchangespaasword checked
-        //userlogic.Adminchangepassword("Admin", "helloyaMenna", "MennaAli");
-        //userchangedpasswrod checked
-        //userlogic.Userchangepassword("MennaAli", "helloMenna");
     }
+
 }

@@ -39,6 +39,7 @@
 <!-- Owl Carousel Assets -->
 <link href="js/owl-carousel/owl.carousel.css" rel="stylesheet">
 <link rel="stylesheet" href="css/styles.css" />
+<link rel="stylesheet" href="css/rate.css" />
 <!-- Font Awesome -->
 <link href="font/css/font-awesome.min.css" rel="stylesheet">
 </head>
@@ -109,6 +110,44 @@ function myFunction() {
                 <h4><li>Price</li></h4>
                 <p><%=house.getPrice()%></p>
               </ul>
+<style>
+       #map {
+        height: 400px;
+        width: 100%;
+       }
+    </style>
+
+    <div id="map"></div>
+<script>
+      function initMap() {
+        var map = new google.maps.Map(document.getElementById('map'), {
+          zoom: 10,
+          center: {lat: 30.0444, lng: 31.2357}
+        });
+        var geocoder = new google.maps.Geocoder();
+          geocodeAddress(geocoder, map);
+       
+      }
+
+      function geocodeAddress(geocoder, resultsMap) {
+	<%String adr=house.getLocation();%>
+        var address ="<%=adr%>";
+        geocoder.geocode({'address': address}, function(results, status) {
+          if (status === 'OK') {
+            resultsMap.setCenter(results[0].geometry.location);
+            var marker = new google.maps.Marker({
+              map: resultsMap,
+              position: results[0].geometry.location
+            });
+          } else {
+            alert('Geocode was not successful for the following reason: ' + status);
+          }
+        });
+      }
+    </script>
+    <script async defer
+    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyApNZIr1Y8z16FL8--iEnirsSzhZqNMqCw&callback=initMap">
+    </script>
 						<div class="popup" onclick="myFunction()" ><div class="btn">Request Contacts!</div>
             <span class="popuptext" id="myPopup">Email:
                                             <br> Phone:
@@ -127,6 +166,20 @@ function myFunction() {
               <textarea name="comment" class="form-control" id="comments" cols="3" rows="5" placeholder="Enter your Comment?" title="Please enter your message (at least 10 characters)"></textarea>
               <input type="submit"  value="Add comment"  class="btn btn-lg btn-primary">
                </form>
+               
+               <form action="">
+                    <input class="star star-5" id="star-5" type="radio" name="star"/>
+                    <label class="star star-5" for="star-5"></label>
+                    <input class="star star-4" id="star-4" type="radio" name="star"/>
+                    <label class="star star-4" for="star-4"></label>
+                    <input class="star star-3" id="star-3" type="radio" name="star"/>
+                    <label class="star star-3" for="star-3"></label>
+                    <input class="star star-2" id="star-2" type="radio" name="star"/>
+                    <label class="star star-2" for="star-2"></label>
+                    <input class="star star-1" id="star-1" type="radio" name="star"/>
+                    <label class="star star-1" for="star-1"></label>
+               </form>
+               
             </div>
 
             

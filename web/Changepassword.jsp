@@ -73,10 +73,10 @@
         </div>
       </div>
       <div class="row mrgn30">
-        <form method="post" action="ChangePasswordservlet" id="contactfrm" role="form"  >
+        <form method="post" action="ChangePasswordservlet?username=<%=request.getParameter("username")%>" id="contactfrm" role="form"  >
           <div class="col-sm-12">
             <div class="form-group">
-                
+          
               <label for="password">Password</label>
               <input type="password" class="form-control" name="thepassword" id="password" minlength="6" placeholder="Enter password" title="Please enter a password size not less than 6">
               <button name="submit" type="submit" class="btn btn-lg btn-primary" id="submit">Submit</button>

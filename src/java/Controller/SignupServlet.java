@@ -40,8 +40,6 @@ public class SignupServlet extends HttpServlet {
         String email = request.getParameter("email");
         String password = request.getParameter("password");
         User user = new User("", "", password, 0, email, username, "", null);
-       // System.out.println("blabla");
-       
        if(userlogic.Signup(user))
           return user;
        else
@@ -55,11 +53,11 @@ public class SignupServlet extends HttpServlet {
               UserLogic userlogic = new UserLogic();
     
             User theuser=Signup(request,response,userlogic);
+            theuser.setIsAdmin(false);
             HttpSession session=request.getSession(true);
             session.setMaxInactiveInterval(10*60);
             if(theuser!=null){
             session.setAttribute("TheUser", theuser);
-            request.getServletContext().setAttribute("thesession", session);
             response.sendRedirect("Createprofile.jsp");
             }
         }

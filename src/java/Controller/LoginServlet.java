@@ -40,7 +40,7 @@ public class LoginServlet extends HttpServlet {
      */
     public User login(HttpServletRequest request, HttpServletResponse response, UserLogic userlogic) throws SQLException, ClassNotFoundException {
         String username = request.getParameter("Uname");
-        String password = request.getParameter("pass");
+        String password = request.getParameter("password");
         return userlogic.UserLogin(username, password);
 
     }
@@ -58,18 +58,19 @@ public class LoginServlet extends HttpServlet {
             HttpSession session=request.getSession(true);
             session.setMaxInactiveInterval(10*60);
             if(user!=null){
-            session.setAttribute("TheUser", user);
-            request.getServletContext().setAttribute("thesession", session);
-            response.sendRedirect("viewprofile.jsp");
+                user.setIsAdmin(false);
+                session.setAttribute("TheUser", user);
+                response.sendRedirect("viewprofile.jsp");
             }
             else{
                  String username = request.getParameter("Uname");
                  String password = request.getParameter("password");
-                 if(userlogic.AdminLogin(username, password)){
-                     Admin admin =new Admin("","", password, 0, "", username, "", null);
+                 Admin admin=userlogic.AdminLogin(username, password);
+                 if(admin!=null){
+                     admin.setIsAdmin(true);
                       session.setAttribute("TheUser", admin);
-                      request.getServletContext().setAttribute("thesession", session);
-                 }
+                      response.sendRedirect("viewprofile.jsp");
+                    }
             }
         }
     }

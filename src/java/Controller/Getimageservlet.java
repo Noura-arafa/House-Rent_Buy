@@ -92,8 +92,8 @@ public class Getimageservlet extends HttpServlet {
         } catch (SQLException ex) {
             Logger.getLogger(Getimageservlet.class.getName()).log(Level.SEVERE, null, ex);
         }
-        HttpSession thesession=(HttpSession) request.getServletContext().getAttribute("thesession"); 
-        User Theuser=(User) thesession.getAttribute("TheUser");
+        //HttpSession thesession=(HttpSession) request.getServletContext().getAttribute("thesession"); 
+        User Theuser=(User) request.getSession().getAttribute("TheUser");
         PreparedStatement statement = null;
         try {
             statement = Con.prepareStatement("select picture FROM user WHERE userName=?");
@@ -101,7 +101,7 @@ public class Getimageservlet extends HttpServlet {
             Logger.getLogger(Getimageservlet.class.getName()).log(Level.SEVERE, null, ex);
         }
         try {
-            //System.out.println("theuser "+ Theuser.getuserName());
+           
             statement.setString(1, Theuser.getuserName());
         } catch (SQLException ex) {
             Logger.getLogger(Getimageservlet.class.getName()).log(Level.SEVERE, null, ex);
@@ -113,14 +113,16 @@ public class Getimageservlet extends HttpServlet {
         }
         try {
             if(RS.next()){
-                System.out.println("the user picture ");
+               
                 Blob blob = RS.getBlob("picture");
+                if(blob!=null){
                 byte byteArray[] = blob.getBytes(1, (int)blob.length());
                 response.setContentType("image/gif");
                 OutputStream os = response.getOutputStream();
                 os.write(byteArray);
                 os.flush();
                 os.close();
+                }
             }
         } catch (SQLException ex) {
             Logger.getLogger(Getimageservlet.class.getName()).log(Level.SEVERE, null, ex);

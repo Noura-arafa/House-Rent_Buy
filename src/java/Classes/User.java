@@ -19,6 +19,15 @@ public class User {
     private ArrayList <Notification> notifications;
     private ArrayList <Interest> interests;
     private InputStream photo;
+    private boolean isAdmin;
+
+    public boolean isIsAdmin() {
+        return isAdmin;
+    }
+
+    public void setIsAdmin(boolean isAdmin) {
+        this.isAdmin = isAdmin;
+    }
     
     public User(String fN, String lN, String pw, int phN, String mail, String username,String address,InputStream photo)
     {
@@ -30,6 +39,10 @@ public class User {
         this.userName = username;
         this.address=address;
         this.photo = photo;
+    }
+
+    public User() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
     
      public void setPhoto(InputStream photo) {

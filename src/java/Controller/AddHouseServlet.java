@@ -8,12 +8,15 @@ package Controller;
 import Classes.House;
 import Classes.User;
 import Logical_layer.HouseLogic;
+import Logical_layer.NotificationLogic;
 import java.awt.BorderLayout;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.annotation.WebServlet;
@@ -40,6 +43,8 @@ public class AddHouseServlet extends HttpServlet {
      */
     public void addHouse(HttpServletRequest request, HttpServletResponse response) throws ClassNotFoundException, SQLException, IOException
     {
+        ServletContext application = request.getServletContext();
+        ArrayList<House> houses = (ArrayList<House>) application.getAttribute("Houses");
         House house = new House();
         HouseLogic houselogic = new HouseLogic();
         house.setAdName(request.getParameter("adname"));
@@ -57,10 +62,16 @@ public class AddHouseServlet extends HttpServlet {
         house.setPrice(Double.parseDouble(request.getParameter("Price")));
         house.setType(request.getParameter("housetype"));
         house.setLocation(request.getParameter("Location"));
-        User user = new User("Noura", "Arafa", "noura95", 01113600147, "nouraarafa95@gmil.com", "nouraArafa","El mmm", null);
+        User user = new User("marwa", "saied", "456", 10033, "marwa@gmail", "marwas","", null);
        
         houselogic.addHouse(house, user);
+        NotificationLogic notification=new NotificationLogic();
+        notification.interestNotification(house);
        
+
+        houses.add(house);
+        application.setAttribute("Houses", houses);
+
         String photo_descission = request.getParameter("addPhoto");    
         
         if(photo_descission.equals("Yes"))

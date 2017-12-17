@@ -17,11 +17,12 @@ import java.util.ArrayList;
  * @author lenovo
  */
 public class UserInterestIO {
+    
+    String user = "root" ;String password = "12345678a";
     public void insert(int userID,int interestID) throws ClassNotFoundException, SQLException{
         Class.forName("com.mysql.jdbc.Driver");
         String url = "jdbc:mysql://localhost:3306/house_buy_rent";
-        String user = "root";
-        String password = "n33333";
+
         ResultSet RS=null;
         Connection Con =(Connection) DriverManager.getConnection(url, user, password);
         String selsectTableSQL = "SELECT interestID FROM userinterest WHERE userID="+"(?)"+"and interestID="+"(?)";
@@ -43,11 +44,12 @@ public class UserInterestIO {
         
       }
      
+    
     public ArrayList<Integer> getUser(int interestID) throws ClassNotFoundException, SQLException{
         ArrayList <Integer> users =new ArrayList<>();
         Class.forName("com.mysql.jdbc.Driver");
         String url = "jdbc:mysql://localhost:3306/house_buy_rent";
-        String user = "root" ;String password = "12345678a"; ResultSet RS = null;
+         ResultSet RS = null;
         Connection Con =(Connection) DriverManager.getConnection(url, user, password);
         String selsectTableSQL = "SELECT userID FROM userinterest WHERE interestID="+"(?)";
         PreparedStatement preparedStatement = Con.prepareStatement(selsectTableSQL);
