@@ -110,7 +110,7 @@ public class House {
     public void setImage(Image image) {
         this.images.add(image);
     }
-    
+      
     public void setImages(ArrayList<Image> images) {
         this.images = images;
     }

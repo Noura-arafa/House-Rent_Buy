@@ -1,3 +1,4 @@
+<%@page import="Classes.House"%>
 <!doctype html>
 <!--[if IE 7 ]>    <html lang="en-gb" class="isie ie7 oldie no-js"> <![endif]-->
 <!--[if IE 8 ]>    <html lang="en-gb" class="isie ie8 oldie no-js"> <![endif]-->
@@ -62,51 +63,56 @@
       <div class="row">
         <div class="heading text-center"> 
           <!-- Heading -->
-          <h2>Add advertisement</h2>
+          <h2>Edit advertisement</h2>
         </div>
       </div>
       <div class="row mrgn30">
-        <form method="post" action="AddHouseServlet" id="contactfrm" role="form">
+        <form method="post" action="editHouseinDBServlet" id="contactfrm" role="form">
           <div class="col-sm-12">
             <div class="form-group">
               <label for="name">advertisement Name</label>
-              <input type="text" class="form-control" name="adname" id="adName" placeholder="Enter name" title="Please enter ad name (at least 2 characters)">
+              <%
+                  House house = (House) application.getAttribute("UserHouse");
+                  
+              %>
+              
+              <input type="text" class="form-control" name="adname" id="adName" value ="<%=house.getAdName()%>" >
+              
             </div>
 
             <div class="form-group">
               <label for="email">advertisement Type</label><br>
-              <input type="radio"  name="adType" id="adType" value="Rent" >Rent<br>
-              <input type="radio"  name="adType" id="adType" value="Sell">Sell<br>
+              <input type="text" class="form-control" name="adType" id="adType"  value= "<%= house.getAdType()%>" >
             </div>
 
             <div class="form-group">
               <label for="name">House Type</label>
-              <input type="text" class="form-control" name="housetype" id="housetype" placeholder="eg.Villa, Studio, apertment" title="Please enter House Type">
+              <input type="text" class="form-control" name="housetype" id="housetype" value="<%=house.getType() %>" >
             </div>
 
             <div class="form-group">
               <label for="name">Description</label>
-              <textarea name="description" class="form-control" id="description" cols="3" rows="5" placeholder="Enter your description?" title="Please the description (at least 10 characters)"></textarea>
+              <input name="description" class="form-control" id="description" cols="3" rows="5" value= "<%=house.getDescription() %>" >
             </div>
              
              <div class="form-group">
               <label for="name">Size </label>
-              <input type="text" class="form-control" name="size" id="size" placeholder="Enter the Size" title="Please enter the Floor">
+              <input type="text" class="form-control" name="size" id="size" value="<%=house.getSize()%>" >
             </div>
 
             <div class="form-group">
               <label for="name">Floor </label>
-              <input type="text" class="form-control" name="floor" id="floor" placeholder="Enter the floor" title="Please enter the Size">
+              <input type="text" class="form-control" name="floor" id="floor" value= "<%=house.getFloor() %>" >
             </div>
 
             <div class="form-group">
               <label for="name">Status </label>
-              <input type="text" class="form-control" name="Status" id="Status" placeholder="eg.Finished/ half Finished" title="Please enter Finished/ half Finished">
+              <input type="text" class="form-control" name="Status" id="Status" value= "<%=house.getStatus() %>" >
             </div>
               
             <div class="form-group">
               <label for="name">Price </label>
-              <input type="text" class="form-control" name="Price" id="Price" placeholder="Price" title="Please enter the Price of the House">
+              <input type="text" class="form-control" name="Price" id="Price" value="<%=house.getPrice() %>" >
             </div>
 
               <form action=""  enctype="multipart/form-data">
@@ -118,11 +124,12 @@
               </form>
             <div class="form-group">
               <label for="name">Location </label>
-              <input type="text" class="form-control" name="Location" id="Location" placeholder="Location" title="Please enter the Location">
+              <input type="text" class="form-control" name="Location" id="Location" value= "<%=house.getLocation() %>" >
             </div>
               
+    
             <div class="form-group">
-              <button name="submit" type="submit" class="btn btn-lg btn-primary" id="submit">Submit</button>  
+                <button name="submit" type="submit" class="btn btn-lg btn-primary" id="submit" >Submit</button>  
             </div>
 
             <div class="result"></div>

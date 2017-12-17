@@ -7,26 +7,24 @@ package Controller;
 
 import Classes.House;
 import Logical_layer.HouseLogic;
+import Model.HouseIO;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javafx.application.Application;
-import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
-import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import jdk.nashorn.internal.runtime.arrays.ArrayLikeIterator;
 
 /**
  *
  * @author lenovo
  */
-@WebServlet(name = "specificHouseServlet", urlPatterns = {"/specificHouseServlet"})
-public class specificHouseServlet extends HttpServlet {
+public class rateServlet extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -38,25 +36,30 @@ public class specificHouseServlet extends HttpServlet {
      * @throws IOException if an I/O error occurs
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException, ClassNotFoundException, SQLException {
+            throws ServletException, IOException, SQLException, ClassNotFoundException {
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
+            HouseLogic houseLogic =new HouseLogic();
             /* TODO output your page here. You may use following sample code. */
-            ServletContext application = request.getServletContext();
-            //dah el mafrod ely gylena mn el page ely feha kol el houses
-           // int houseID=(int) request.getAttribute("houseID");
-           
-            //to be removed!!!
-            int houseID = houseID = 5;
-         
-            HouseLogic houseLogic = new HouseLogic();
             ArrayList<House> houses = houseLogic.selectAllHouses();
-            application.setAttribute("AllHouses", houses);
-            House house = houseLogic.getHouseByID(houseID);
-            application.setAttribute("house", house);
+            String adName="first villa";
+            House house = new House();
+            for(int i=0; i<houses.size(); i++)
+            {
+                if(houses.get(i).getAdName().equals(adName))
+                {
+                    house = houses.get(i);
+                    break;
+                }
+                    
+            }
+           
+            String username="nouraArafa";
+            String star=request.getParameter("star");
+            int rate=Integer.parseInt(star);
+            System.out.println("hhhhhh  "+star);
+            houseLogic.rate(house,rate);
             response.sendRedirect("specificHouseJSP.jsp");
-            
-            
         }
     }
 
@@ -74,10 +77,10 @@ public class specificHouseServlet extends HttpServlet {
             throws ServletException, IOException {
         try {
             processRequest(request, response);
-        } catch (ClassNotFoundException ex) {
-            Logger.getLogger(specificHouseServlet.class.getName()).log(Level.SEVERE, null, ex);
         } catch (SQLException ex) {
-            Logger.getLogger(specificHouseServlet.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(rateServlet.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(rateServlet.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
@@ -94,10 +97,10 @@ public class specificHouseServlet extends HttpServlet {
             throws ServletException, IOException {
         try {
             processRequest(request, response);
-        } catch (ClassNotFoundException ex) {
-            Logger.getLogger(specificHouseServlet.class.getName()).log(Level.SEVERE, null, ex);
         } catch (SQLException ex) {
-            Logger.getLogger(specificHouseServlet.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(rateServlet.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(rateServlet.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 

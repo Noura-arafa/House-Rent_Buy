@@ -28,7 +28,7 @@ public class AdminLogic {
 
         houses.remove(house);
         HouseIO houseIO = new HouseIO();
-        houseIO.deleteHouse(house);
+        houseIO.deleteHouse(house.getAdName());
         
     }
     

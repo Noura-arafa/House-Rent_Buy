@@ -1,19 +1,13 @@
-<%-- 
-    Document   : specificHouseJSP
-    Created on : Dec 11, 2017, 6:45:38 PM
-    Author     : lenovo
---%>
-
-<%@page import="Classes.Comment"%>
-<%@page import="Classes.Comment"%>
-<%@page import="java.util.ArrayList"%>
-<%@page import="java.util.ArrayList"%>
-<%@page import="Classes.House"%>
 <!doctype html>
 <!--[if IE 7 ]>    <html lang="en-gb" class="isie ie7 oldie no-js"> <![endif]-->
 <!--[if IE 8 ]>    <html lang="en-gb" class="isie ie8 oldie no-js"> <![endif]-->
 <!--[if IE 9 ]>    <html lang="en-gb" class="isie ie9 no-js"> <![endif]-->
 <!--[if (gt IE 9)|!(IE)]><!-->
+<%@page import="Classes.Comment"%>
+<%@page import="Classes.Comment"%>
+<%@page import="java.util.ArrayList"%>
+<%@page import="java.util.ArrayList"%>
+<%@page import="Classes.House"%>
 <html lang="en-gb" class="no-js">
 <!--<![endif]-->
 <head>
@@ -30,15 +24,16 @@
         <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
     <![endif]-->
 <!--[if lte IE 8]>
-		<script type="text/javascript" src="http://explorercanvas.googlecode.com/svn/trunk/excanvas.js"></script>
-	<![endif]-->
-<link rel="stylesheet" href="css/bootstrap.min.css" />
+        <script type="text/javascript" src="http://explorercanvas.googlecode.com/svn/trunk/excanvas.js"></script>
+    <![endif]-->
+ <link rel="stylesheet" href="css/bootstrap.min.css" />
 <link rel="stylesheet" type="text/css" href="css/isotope.css" media="screen" />
 <link rel="stylesheet" href="js/fancybox/jquery.fancybox.css" type="text/css" media="screen" />
 <link href="css/animate.css" rel="stylesheet" media="screen">
 <!-- Owl Carousel Assets -->
 <link href="js/owl-carousel/owl.carousel.css" rel="stylesheet">
 <link rel="stylesheet" href="css/styles.css" />
+<link rel="stylesheet" href="css/rate.css" />
 <!-- Font Awesome -->
 <link href="font/css/font-awesome.min.css" rel="stylesheet">
 </head>
@@ -84,104 +79,123 @@ function myFunction() {
       <h2>About Us</h2>
     </div>
   
-    <div class="row dataTxt">	
-						<div class="col-md-6 col-sm-6">
-            <ul class="listArrow">
-                <% House house=(House)application.getAttribute("house");%>
-                <h2><li><%=house.getAdName()%></li></h2>
-                <h4><li>Type</li></h4>
-                <p><%=house.getType()%></p>
-                <li><h4>Description</h4>
+    <div class="row dataTxt">   
+      <div class="col-md-6 col-sm-6">
+        <ul class="listArrow">
+         <% House house = (House) application.getAttribute("house");
+         String adName = house.getAdName();
+          %>
+          <h2><li><%=adName%></li></h2>
+          <h4><li>Type</li></h4>
+          <p><%=house.getType()%></p>
+          <li><h4>Description</h4>
               <p><%=house.getDescription()%></p>
-              </li>
-              <h4><li>For </li></h4>
-                <p><%=house.getAdType()%></p>
-              <h4><li>Size</li></h4>
-                <p><%=house.getSize()%></p>
-                <h4><li>Floor</li></h4>
-                <p><%=house.getFloor()%></p>
-                <h4><li>Status</li></h4>
-                <p><%=house.getStatus()%></p>
-                <h4><li>Location</li></h4>
-                <p><%=house.getLocation()%></p>
-                <h4><li>Rate</li></h4>
-                <p><%=house.getRate()%></p>
-                <h4><li>Price</li></h4>
-                <p><%=house.getPrice()%></p>
-              </ul>
-<style>
-       #map {
-        height: 400px;
-        width: 100%;
-       }
-    </style>
-
-    <div id="map"></div>
-<script>
-      function initMap() {
-        var map = new google.maps.Map(document.getElementById('map'), {
-          zoom: 10,
-          center: {lat: 30.0444, lng: 31.2357}
-        });
-        var geocoder = new google.maps.Geocoder();
-          geocodeAddress(geocoder, map);
-       
-      }
-
-      function geocodeAddress(geocoder, resultsMap) {
-	<%String adr=house.getLocation();%>
-        var address ="<%=adr%>";
-        geocoder.geocode({'address': address}, function(results, status) {
-          if (status === 'OK') {
-            resultsMap.setCenter(results[0].geometry.location);
-            var marker = new google.maps.Marker({
-              map: resultsMap,
-              position: results[0].geometry.location
-            });
-          } else {
-            alert('Geocode was not successful for the following reason: ' + status);
+          </li>
+          <h4><li>For </li></h4>
+          <p><%=house.getAdType()%></p>
+          <h4><li>Size</li></h4>
+          <p><%=house.getSize()%></p>
+          <h4><li>Floor</li></h4>
+          <p><%=house.getFloor()%></p>
+          <h4><li>Status</li></h4>
+          <p><%=house.getStatus()%></p>
+          <h4><li>Location</li></h4>
+          <p><%=house.getLocation()%></p>
+          <h4><li>Rate</li></h4>
+          <p><%=house.getRate()%></p>
+          <h4><li>Price</li></h4>
+          <p><%=house.getPrice()%></p>
+        </ul>
+        <style>
+          #map {
+            height: 400px;
+            width: 100%;
           }
-        });
-      }
-    </script>
-    <script async defer
-    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyApNZIr1Y8z16FL8--iEnirsSzhZqNMqCw&callback=initMap">
-    </script>
-						<div class="popup" onclick="myFunction()" ><div class="btn">Request Contacts!</div>
+        </style>
+
+        <div id="map">
+         <script>
+            function initMap() {
+              var map = new google.maps.Map(document.getElementById('map'), {
+                zoom: 10,
+                center: {lat: 30.0444, lng: 31.2357}
+              });
+              var geocoder = new google.maps.Geocoder();
+              geocodeAddress(geocoder, map);
+
+            }
+
+            function geocodeAddress(geocoder, resultsMap) {
+              var address = "6 october, egypt";
+              geocoder.geocode({'address': address}, function (results, status) {
+                  if (status === 'OK') {
+                      resultsMap.setCenter(results[0].geometry.location);
+                      var marker = new google.maps.Marker({
+                        map: resultsMap,
+                        position: results[0].geometry.location
+                      });
+                  } else {
+                      alert('Geocode was not successful for the following reason: ' + status);
+                    }
+              });
+            }
+          </script>
+        </div>
+
+        <script async defer
+          src="https://m...content-available-to-author-only...s.com/maps/api/js?key=AIzaSyApNZIr1Y8z16FL8--iEnirsSzhZqNMqCw&callback=initMap">
+        </script>           
+
+
+        <div class="popup" onclick="myFunction()" ><div class="btn">Request Contacts!</div>
             <span class="popuptext" id="myPopup">Email:
                                             <br> Phone:
             </span>
             </div>
             <br>
               <label for="comments"><h4>Comments</h4></label>
-              <% ArrayList <Comment> comments = house.getComments();
-                for (int i = 0; i < comments.size(); i++){
-                    %>
-                    <p> <%=  comments.get(i).getUser().getfName()%> : <%= comments.get(i).getcomment()%></p>
-                    
-                    <br>
-                <%} %>
-               <form method="post" action="AddCommentServlet" id="contactfrm" role="form">
-              <textarea name="comment" class="form-control" id="comments" cols="3" rows="5" placeholder="Enter your Comment?" title="Please enter your message (at least 10 characters)"></textarea>
-              <input type="submit"  value="Add comment"  class="btn btn-lg btn-primary">
-               </form>
-            </div>
+              <% ArrayList<Comment> comments = house.getComments();
+                for (int i = 0; i < comments.size(); i++) {
+              %>
+              <p> <%=  comments.get(i).getUser().getfName()%> : <%= comments.get(i).getcomment()%></p>
+
+              <br>
+             <%}%>
+             <form action="rateServlet" >
+                <input class="star star-5" id="star-5" type="radio" value="5" name="star"/>
+                <label class="star star-5" for="star-5"></label>
+                <input class="star star-4" id="star-4" type="radio" value="4" name="star"/>
+                <label class="star star-4" for="star-4"></label>
+                <input class="star star-3" id="star-3" type="radio" value="3" name="star"/>
+                <label class="star star-3" for="star-3"></label>
+                <input class="star star-2" id="star-2" type="radio" value="2" name="star"/>
+                <label class="star star-2" for="star-2"></label>
+                <input class="star star-1" id="star-1" type="radio" value="1" name="star"/>
+                <label class="star star-1" for="star-1"></label>
+                <br>
+                <input type="submit" class="btn btn-lg btn-primary" value="Rate">
+              </form>
+
+              <form method="post" action="AddCommentServlet" id="contactfrm" role="form">
+                <textarea name="comment" class="form-control" id="comments" cols="3" rows="5" placeholder="Enter your Comment?" title="Please enter your message (at least 10 characters)"></textarea>
+                <input type="submit"  value="Add comment"  class="btn btn-lg btn-primary">
+              </form>
+
+        </div>
 
             
 <div class="col-md-6 col-sm-12"> 
 <section id="home">
-  <div class="banner-container"> 
-    <div id="carousel" class="carousel slide carousel-fade" data-ride="carousel">
-  <ol class="carousel-indicators">
-    <li data-target="#carousel" data-slide-to="0" class="active"></li>
-    <li data-target="#carousel" data-slide-to="1"></li>
-    <li data-target="#carousel" data-slide-to="2"></li>
-  </ol>
+  <div class="banner-container" > 
+    <div id="carousel" class="carousel slide carousel-fade" data-ride="carousel" >
+        <ol class="carousel-indicators" id="list">
+            
+        </ol>
   <!-- Carousel items -->
-  <div class="carousel-inner">
-    <div class="active item"><img src="images/banner-bg.jpg" alt="banner" /></div>
-    <div class="item"><img src="images/banner-bg2.jpg" alt="banner" /></div>
-    <div class="item"><img src="images/banner-bg3.jpg" alt="banner" /></div>
+  <div class="carousel-inner" id="slidePhotos">
+    <div class="active item">
+    </div>
+    
   </div>
   <!-- Carousel nav -->
   <a class="carousel-control left" href="#carousel" data-slide="prev">&lsaquo;</a>
@@ -219,6 +233,30 @@ function myFunction() {
 <script src="js/custom.js" type="text/javascript"></script> 
 <script src="js/owl-carousel/owl.carousel.js"></script>
 <script>
+  var photos = <%= house.getImages().size()%>;
+  var adname = "<%=adName%>"; 
+  for (var j = 0; j < photos; j++)
+  {
+      if(j === 0)
+      {
+        $("#list").prepend("<li data-target='#carousel'" + "data-slide-to=" + j + "class='active'></li>");
+        $("#slidePhotos").prepend("<div class='active item'>"
+            +"<img  src='viewPhotoServlet?adName=" + adname + "&indx=" + j + "' alt='banner'/></div>");
+
+      }
+        
+      else
+      {
+        $("#list").prepend("<li data-target='#carousel'" + "data-slide-to=" + j + "></li>");
+        $("#slidePhotos").prepend("<div class='item'>"
+                                 +"<img  src='viewPhotoServlet?adName=" + adname + "&indx=" + j + "' alt='banner'/></div>");
+
+      }
+        
+  }
+</script>
+<script>
+
 var slideIndex = 1;
 showDivs(slideIndex);
 
@@ -229,14 +267,15 @@ function plusDivs(n) {
 function showDivs(n) {
   var i;
   var x = document.getElementsByClassName("mySlides");
-  if (n > x.length) {slideIndex = 1}    
-  if (n < 1) {slideIndex = x.length}
+  if (n > x.length) {slideIndex = 1;}    
+  if (n < 1) {slideIndex = x.length;}
   for (i = 0; i < x.length; i++) {
      x[i].style.display = "none";  
   }
   x[slideIndex-1].style.display = "block";  
 }
+
 </script>
+
 </body>
 </html>
-

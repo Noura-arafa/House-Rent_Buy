@@ -6,17 +6,18 @@
 package Controller;
 
 import Classes.House;
+import Classes.Image;
 import Logical_layer.HouseLogic;
 import java.io.IOException;
+import java.io.OutputStream;
 import java.io.PrintWriter;
+import java.sql.Blob;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javafx.application.Application;
 import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
-import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -25,8 +26,7 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author lenovo
  */
-@WebServlet(name = "specificHouseServlet", urlPatterns = {"/specificHouseServlet"})
-public class specificHouseServlet extends HttpServlet {
+public class viewPhotoServlet extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -38,24 +38,10 @@ public class specificHouseServlet extends HttpServlet {
      * @throws IOException if an I/O error occurs
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException, ClassNotFoundException, SQLException {
+            throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
             /* TODO output your page here. You may use following sample code. */
-            ServletContext application = request.getServletContext();
-            //dah el mafrod ely gylena mn el page ely feha kol el houses
-           // int houseID=(int) request.getAttribute("houseID");
-           
-            //to be removed!!!
-            int houseID = houseID = 5;
-         
-            HouseLogic houseLogic = new HouseLogic();
-            ArrayList<House> houses = houseLogic.selectAllHouses();
-            application.setAttribute("AllHouses", houses);
-            House house = houseLogic.getHouseByID(houseID);
-            application.setAttribute("house", house);
-            response.sendRedirect("specificHouseJSP.jsp");
-            
             
         }
     }
@@ -73,13 +59,47 @@ public class specificHouseServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         try {
-            processRequest(request, response);
-        } catch (ClassNotFoundException ex) {
-            Logger.getLogger(specificHouseServlet.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (SQLException ex) {
-            Logger.getLogger(specificHouseServlet.class.getName()).log(Level.SEVERE, null, ex);
+            
+            HouseLogic houseLogic = new HouseLogic();
+            ArrayList<House> aHouses = houseLogic.selectAllHouses();
+            String adName = request.getParameter("adName");
+            System.out.println("adNameee " + adName);
+            int j = Integer.parseInt(request.getParameter("indx"));
+            House house = new House();
+            System.out.println("iiii " + j);
+            for (int i = 0; i < aHouses.size(); i++) {
+                if (aHouses.get(i).getAdName().equals(adName)) {
+                    house = aHouses.get(i);
+                    break;
+                }
+                
+            }
+            ArrayList<Image> images = house.getImages();
+            if(images.size() !=0)
+            {
+            System.out.println("user image " + house.getImages().size());
+            System.out.println("imagees " + images.size());
+            OutputStream os = response.getOutputStream();
+            Blob blob = images.get(j).getimageBlob();
+            
+            try {
+                byte byteArray[] = blob.getBytes(1, (int) blob.length());
+                response.setContentType("image/gif");
+                os.write(byteArray);
+               
+                os.flush();
+                os.close();
+            } catch (SQLException ex) {
+                Logger.getLogger(viewPhotoServlet.class.getName()).log(Level.SEVERE, null, ex);
+            }
         }
-    }
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(viewPhotoServlet.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (SQLException ex) {
+            Logger.getLogger(viewPhotoServlet.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+}
 
     /**
      * Handles the HTTP <code>POST</code> method.
@@ -92,13 +112,7 @@ public class specificHouseServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        try {
-            processRequest(request, response);
-        } catch (ClassNotFoundException ex) {
-            Logger.getLogger(specificHouseServlet.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (SQLException ex) {
-            Logger.getLogger(specificHouseServlet.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        processRequest(request, response);
     }
 
     /**

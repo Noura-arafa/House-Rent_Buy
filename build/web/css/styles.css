@@ -1508,7 +1508,20 @@ nav#filter li {
     -webkit-animation: fadeIn 1s;
     animation: fadeIn 1s
 }
-
+.outter{
+    padding: 0px;
+    border: 1px solid rgba(255, 255, 255, 0.29);
+    border-radius: 50%;
+    width: 200px;
+    height: 200px;
+}
+.image-circle{
+    border-radius: 50%;
+    width: 175px;
+    height: 175px;
+    border: 4px solid #FFF;
+    margin: 10px;
+}
 /* Add animation (fade in the popup) */
 @-webkit-keyframes fadeIn {
     from {opacity: 0;} 
@@ -1519,3 +1532,4 @@ nav#filter li {
     from {opacity: 0;}
     to {opacity:1 ;}
 }
+

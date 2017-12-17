@@ -69,6 +69,7 @@
       <div class="row">
         <div class="heading text-center"> 
           <!-- Heading -->
+         
           <h2>House's Photos</h2>
         </div>
       </div>

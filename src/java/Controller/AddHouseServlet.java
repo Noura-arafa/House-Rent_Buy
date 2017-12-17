@@ -15,6 +15,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.MultipartConfig;
@@ -40,7 +41,7 @@ public class AddHouseServlet extends HttpServlet {
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
      */
-    public void addHouse(HttpServletRequest request, HttpServletResponse response) throws ClassNotFoundException, SQLException, IOException
+    public void addHouse(HttpServletRequest request, HttpServletResponse response) throws ClassNotFoundException, SQLException, IOException, ServletException
     {
         ServletContext application = request.getServletContext();
         ArrayList<House> houses = (ArrayList<House>) application.getAttribute("Houses");
@@ -64,12 +65,15 @@ public class AddHouseServlet extends HttpServlet {
         User user = new User("Noura", "Arafa", "noura95", 01113600147, "nouraarafa95@gmil.com", "nouraArafa","El mmm", null);
        
         houselogic.addHouse(house, user);
+        int hID = houselogic.getHouseID(house);
+         RequestDispatcher rd = request.getRequestDispatcher("AddPhoto.jsp");
+        request.setAttribute("houseID", hID);
         houses.add(house);
         application.setAttribute("Houses", houses);
         String photo_descission = request.getParameter("addPhoto");    
         
         if(photo_descission.equals("Yes"))
-            response.sendRedirect("AddPhoto.jsp");
+            rd.forward(request, response);
         else
             System.out.println("Nooo");  // go to home
         

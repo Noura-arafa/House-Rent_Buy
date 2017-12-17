@@ -6,17 +6,16 @@
 package Controller;
 
 import Classes.House;
+import Classes.User;
 import Logical_layer.HouseLogic;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.SQLException;
-import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javafx.application.Application;
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
-import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -25,8 +24,7 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author lenovo
  */
-@WebServlet(name = "specificHouseServlet", urlPatterns = {"/specificHouseServlet"})
-public class specificHouseServlet extends HttpServlet {
+public class editHouseinDBServlet extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -37,26 +35,42 @@ public class specificHouseServlet extends HttpServlet {
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
      */
+    
+    public void editHouse (HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException, ClassNotFoundException, SQLException {
+        House house = new House();
+        HouseLogic houselogic = new HouseLogic();
+        house.setAdName(request.getParameter("adname"));
+        String adtype = request.getParameter("adType");
+        house.setAdType(adtype);
+        house.setSize(Integer.parseInt(request.getParameter("size")));
+        house.setFloor(Integer.parseInt(request.getParameter("floor")));
+        house.setDescription(request.getParameter("description"));
+        house.setStatus(request.getParameter("Status"));
+        house.setPrice(Double.parseDouble(request.getParameter("Price")));
+        house.setType(request.getParameter("housetype"));
+        house.setLocation(request.getParameter("Location"));
+        
+        
+        houselogic.editProp(house);
+        int hID = houselogic.getHouseID(house);
+        ServletContext application = request.getServletContext();
+        application.setAttribute("houseID", hID);
+        
+        String photo_descission = request.getParameter("addPhoto");    
+        if(photo_descission.equals("Yes"))
+            response.sendRedirect("AddPhoto.jsp");
+        else
+            System.out.println("Nooo");  // go to home
+        
+        
+    }
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException, ClassNotFoundException, SQLException {
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
             /* TODO output your page here. You may use following sample code. */
-            ServletContext application = request.getServletContext();
-            //dah el mafrod ely gylena mn el page ely feha kol el houses
-           // int houseID=(int) request.getAttribute("houseID");
-           
-            //to be removed!!!
-            int houseID = houseID = 5;
-         
-            HouseLogic houseLogic = new HouseLogic();
-            ArrayList<House> houses = houseLogic.selectAllHouses();
-            application.setAttribute("AllHouses", houses);
-            House house = houseLogic.getHouseByID(houseID);
-            application.setAttribute("house", house);
-            response.sendRedirect("specificHouseJSP.jsp");
-            
-            
+            editHouse(request, response);
         }
     }
 
@@ -75,9 +89,9 @@ public class specificHouseServlet extends HttpServlet {
         try {
             processRequest(request, response);
         } catch (ClassNotFoundException ex) {
-            Logger.getLogger(specificHouseServlet.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(editHouseinDBServlet.class.getName()).log(Level.SEVERE, null, ex);
         } catch (SQLException ex) {
-            Logger.getLogger(specificHouseServlet.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(editHouseinDBServlet.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
@@ -95,9 +109,9 @@ public class specificHouseServlet extends HttpServlet {
         try {
             processRequest(request, response);
         } catch (ClassNotFoundException ex) {
-            Logger.getLogger(specificHouseServlet.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(editHouseinDBServlet.class.getName()).log(Level.SEVERE, null, ex);
         } catch (SQLException ex) {
-            Logger.getLogger(specificHouseServlet.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(editHouseinDBServlet.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
