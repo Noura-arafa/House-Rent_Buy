@@ -44,8 +44,9 @@ public class searchServlet extends HttpServlet {
         try (PrintWriter out = response.getWriter()) {
             ServletContext application = request.getServletContext();
             
-        HttpSession session = (HttpSession) request.getServletContext().getAttribute("thesession");
-        User user =(User) session.getAttribute("TheUser");
+        //HttpSession session = (HttpSession) request.getServletContext().getAttribute("thesession");
+        //User user =(User) session.getAttribute("TheUser");
+        User user=new User("khadega", "osman", "123", 0100, "bla", "khadegaosman", "dd", null);
         House house = new House();
         String adName = request.getParameter("adname");
         String adtype = request.getParameter("adType");
@@ -84,6 +85,7 @@ public class searchServlet extends HttpServlet {
         
          if (alert != null){
             if (alert.equals("yes")){
+                System.out.println("yeeeeesssssss");
                 Interest interest = new Interest(house.getAdType(), house.getSize(), 
                         house.getFloor(), house.getStatus(), house.getType(), 
                         house.getLocation(), house.getRate(), house.getPrice());

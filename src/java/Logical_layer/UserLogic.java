@@ -85,6 +85,8 @@ public class UserLogic {
         int userID=user.getUserID(userName);
         int InterestID=-1;
         InterestID=interestIO.findInterest(interest);
+        
+        System.out.println("IDDDDDDD  "+InterestID);
         if(InterestID==-1){
             interestIO.insertInterest(interest);
             //interestIO.insert(interest.getSize(),interest.getStatus(),interest.getType());

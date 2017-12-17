@@ -85,7 +85,7 @@ function myFunction() {
     </div>
   
     <div class="row dataTxt">	
-						<div class="col-md-6 col-sm-6">
+        <div class="col-md-6 col-sm-6">
             <ul class="listArrow">
                 <% House house=(House)application.getAttribute("house");%>
                 <h2><li><%=house.getAdName()%></li></h2>
@@ -109,6 +109,7 @@ function myFunction() {
                 <h4><li>Price</li></h4>
                 <p><%=house.getPrice()%></p>
               </ul>
+        
 <style>
        #map {
         height: 400px;
@@ -166,6 +167,7 @@ function myFunction() {
               <input type="submit"  value="Add comment"  class="btn btn-lg btn-primary">
                </form>
             </div>
+    </div>
 
             
 <div class="col-md-6 col-sm-12"> 

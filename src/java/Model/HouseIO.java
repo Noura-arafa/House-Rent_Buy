@@ -188,10 +188,7 @@ public class HouseIO {
 "                 type = IFNULL(?,type)and location = IFNULL(?,location)and" +
 "                adName = IFNULL(?,adName) and price = IFNULL (?, price)");
         
-        if (house.getAdType() == null && house.getStatus() == null && house.getType() == null && house.getLocation() == null && house.getAdName() == null)
-            System.out.println("first all clear!");
-        if (house.getFloor() == 0 && house.getRate() == 0.0 && house.getPrice() == 0.0)
-            System.out.println("second all clear!");
+        
         
         if (house.getRate() == 0.0) prst.setNull(1, java.sql.Types.DOUBLE);
         else prst.setDouble(1, house.getRate());
