@@ -9,7 +9,6 @@ import Classes.House;
 import Classes.Image;
 import Logical_layer.HouseLogic;
 import Logical_layer.UserLogic;
-import com.google.gson.Gson;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;

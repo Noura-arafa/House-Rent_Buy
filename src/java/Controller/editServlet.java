@@ -7,7 +7,6 @@ package Controller;
 
 import Classes.House;
 import Logical_layer.HouseLogic;
-import com.google.gson.Gson;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.SQLException;
@@ -54,7 +53,7 @@ public class editServlet extends HttpServlet {
                     
             }
             System.out.println("edit servlet: " + house.getAdName());
-            Gson gson =new Gson();
+      
             response.setContentType("text/html;charset=UTF-8");
             RequestDispatcher rd = request.getRequestDispatcher("edit.jsp");
             request.setAttribute("house", house);

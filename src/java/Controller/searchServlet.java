@@ -43,16 +43,10 @@ public class searchServlet extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
             ServletContext application = request.getServletContext();
-            
-<<<<<<< HEAD
+           
         HttpSession session = (HttpSession) request.getServletContext().getAttribute("thesession");
         //User user =(User) session.getAttribute("TheUser");
         User user = new User("Noura", "Arafa", "noura95", 01113600147, "nouraarafa95@gmil.com", "nouraArafa",null, null);
-=======
-        //HttpSession session = (HttpSession) request.getServletContext().getAttribute("thesession");
-        //User user =(User) session.getAttribute("TheUser");
-        User user=new User("khadega", "osman", "123", 0100, "bla", "khadegaosman", "dd", null);
->>>>>>> 0ef281710e314aa0a72cf319485d54ab6bba8cc2
         House house = new House();
         String adName = request.getParameter("adname");
         String adtype = request.getParameter("adType");
