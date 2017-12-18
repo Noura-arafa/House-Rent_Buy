@@ -297,7 +297,7 @@ public class HouseIO {
         Connection conn = DriverManager.getConnection(url, sqluser, password);
 
         ArrayList<House> houses = new ArrayList<>();
-        CommentIO commentIO = new CommentIO();
+        CommentIO commentIO =   new CommentIO();
         ImageIO imageIO = new ImageIO();
 
         if (conn == null) System.out.println("conn is not working");
