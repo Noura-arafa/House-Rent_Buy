@@ -11,11 +11,13 @@ import Logical_layer.HouseLogic;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -25,6 +27,7 @@ import javax.servlet.http.HttpSession;
  *
  * @author lenovo
  */
+@WebServlet(name = "editHouseinDBServlet", urlPatterns = {"/editHouseinDBServlet"})
 public class editHouseinDBServlet extends HttpServlet {
 
     /**
@@ -54,9 +57,19 @@ public class editHouseinDBServlet extends HttpServlet {
         
         
         houselogic.editProp(house);
+        ArrayList<House> houses = (ArrayList<House>)request.getServletContext().getAttribute("AllHouses");
         int hID = houselogic.getHouseID(house);
-        HttpSession session = request.getSession(true);
-        session.setAttribute("houseID", hID);
+        int indx = 0;
+        for(int i=0; i<houses.size(); i++)
+        {
+            if(houses.get(i).getHouseID() == hID)
+            {
+                indx = i;
+                break;
+            }
+        }
+        houses.set(indx, house);
+        request.getSession().setAttribute("houseID", hID);
         String photo_descission = request.getParameter("addPhoto");    
         if(photo_descission.equals("Yes"))
             response.sendRedirect("AddPhoto.jsp");

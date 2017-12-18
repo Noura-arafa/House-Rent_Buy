@@ -15,6 +15,7 @@ import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -24,6 +25,7 @@ import jdk.nashorn.internal.runtime.arrays.ArrayLikeIterator;
  *
  * @author lenovo
  */
+@WebServlet(name = "rateServlet", urlPatterns = {"/rateServlet"})
 public class rateServlet extends HttpServlet {
 
     /**
@@ -41,25 +43,26 @@ public class rateServlet extends HttpServlet {
         try (PrintWriter out = response.getWriter()) {
             HouseLogic houseLogic =new HouseLogic();
             /* TODO output your page here. You may use following sample code. */
-            ArrayList<House> houses = houseLogic.selectAllHouses();
-            String adName="first villa";
+            ArrayList<House> houses = (ArrayList<House>) request.getServletContext().getAttribute("AllHouses");
+            int adID =(int) request.getSession().getAttribute("adID");
             House house = new House();
+            int indx = 0;
             for(int i=0; i<houses.size(); i++)
             {
-                if(houses.get(i).getAdName().equals(adName))
+                if(houses.get(i).getHouseID() == adID)
                 {
-                    house = houses.get(i);
+                    indx = i;
                     break;
                 }
                     
             }
-           
-            String username="nouraArafa";
+         
             String star=request.getParameter("star");
             int rate=Integer.parseInt(star);
-            System.out.println("hhhhhh  "+star);
+            house = houses.get(indx);
+            houses.set(indx, house);
             houseLogic.rate(house,rate);
-            response.sendRedirect("specificHouseJSP.jsp");
+            response.sendRedirect("specificHouseJSP.jsp?id="+adID);
         }
     }
 

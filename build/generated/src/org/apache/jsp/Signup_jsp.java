@@ -82,17 +82,7 @@ public final class Signup_jsp extends org.apache.jasper.runtime.HttpJspBase
       out.write("        <button type=\"button\" id=\"nav-toggle\" class=\"navbar-toggle\" data-toggle=\"collapse\" data-target=\"#main-nav\"> <span class=\"sr-only\">Toggle navigation</span> <span class=\"icon-bar\"></span> <span class=\"icon-bar\"></span> <span class=\"icon-bar\"></span> </button>\r\n");
       out.write("        <a href=\"#\" class=\"navbar-brand scroll-top logo  animated bounceInLeft\"><b><i><img src=\"images/logo.png\" /></i></b></a> </div>\r\n");
       out.write("      <!--/.navbar-header-->\r\n");
-      out.write("      <div id=\"main-nav\" class=\"collapse navbar-collapse\">\r\n");
-      out.write("        <ul class=\"nav navbar-nav\" id=\"mainNav\">\r\n");
-      out.write("          <li class=\"active\" id=\"firstLink\"><a href=\"#home\" class=\"scroll-link\">Home</a></li>\r\n");
-      out.write("          <li><a href=\"#services\" class=\"scroll-link\">Services</a></li>\r\n");
-      out.write("          <li><a href=\"#aboutUs\" class=\"scroll-link\">About Us</a></li>\r\n");
-      out.write("          <li><a href=\"#work\" class=\"scroll-link\">Projects</a></li>\r\n");
-      out.write("          <li><a href=\"#plans\" class=\"scroll-link\">Price</a></li>\r\n");
-      out.write("          <li><a href=\"#team\" class=\"scroll-link\">Team</a></li>\r\n");
-      out.write("          <li><a href=\"#contactUs\" class=\"scroll-link\">Contact Us</a></li>\r\n");
-      out.write("        </ul>\r\n");
-      out.write("      </div>\r\n");
+      out.write("     \r\n");
       out.write("      <!--/.navbar-collapse--> \r\n");
       out.write("    </nav>\r\n");
       out.write("    <!--/.navbar--> \r\n");

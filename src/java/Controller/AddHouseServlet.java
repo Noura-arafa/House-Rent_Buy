@@ -46,7 +46,7 @@ public class AddHouseServlet extends HttpServlet {
     public void addHouse(HttpServletRequest request, HttpServletResponse response) throws ClassNotFoundException, SQLException, IOException, ServletException
     {
         ServletContext application = request.getServletContext();
-        ArrayList<House> houses = (ArrayList<House>) application.getAttribute("Houses");
+        ArrayList<House> houses = (ArrayList<House>) application.getAttribute("AllHouses");
         House house = new House();
         HouseLogic houselogic = new HouseLogic();
         house.setAdName(request.getParameter("adname"));
@@ -64,17 +64,18 @@ public class AddHouseServlet extends HttpServlet {
         house.setPrice(Double.parseDouble(request.getParameter("Price")));
         house.setType(request.getParameter("housetype"));
         house.setLocation(request.getParameter("Location"));
-        User user = new User("marwa", "saied", "456", 10033, "marwa@gmail", "marwas","", null);
+        User user =(User) request.getSession().getAttribute("TheUser");
        
         houselogic.addHouse(house, user);
 
         int hID = houselogic.getHouseID(house);
         RequestDispatcher rd = request.getRequestDispatcher("AddPhoto.jsp");
         HttpSession session = request.getSession(true);
+        house.setRate(0.0);
         session.setAttribute("houseID", hID);
         NotificationLogic notification=new NotificationLogic();
         notification.interestNotification(house);
-       
+        System.out.println("housessssssssssss ");
         houses.add(house);
         application.setAttribute("Houses", houses);
 
@@ -83,7 +84,9 @@ public class AddHouseServlet extends HttpServlet {
         if(photo_descission.equals("Yes"))
             rd.forward(request, response);
         else
-            System.out.println("Nooo");  // go to home
+        { System.out.println("Nooo");
+        response.sendRedirect("HomePage.jsp");
+        }  // go to home
         
         
     }

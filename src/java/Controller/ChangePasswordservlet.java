@@ -53,6 +53,7 @@ public class ChangePasswordservlet extends HttpServlet {
                     userlogic.Userchangepassword(user.getuserName(), password);
                 }
             }
+            response.sendRedirect("HomePage.jsp");
         }
     }
 

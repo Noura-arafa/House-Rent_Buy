@@ -72,7 +72,7 @@ public class Getimageservlet extends HttpServlet {
             throws ServletException, IOException {
          String url = "jdbc:mysql://localhost:3306/house_buy_rent";
         String theuser = "root";
-        String password = "";
+        String password = "n33333";
         String Line;
         Connection Con = null;
         Statement Stmt = null;

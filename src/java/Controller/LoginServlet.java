@@ -60,7 +60,7 @@ public class LoginServlet extends HttpServlet {
             if(user!=null){
                 user.setIsAdmin(false);
                 session.setAttribute("TheUser", user);
-                response.sendRedirect("viewprofile.jsp");
+                response.sendRedirect("HomePage.jsp");
             }
             else{
                  String username = request.getParameter("Uname");
@@ -69,7 +69,7 @@ public class LoginServlet extends HttpServlet {
                  if(admin!=null){
                      admin.setIsAdmin(true);
                       session.setAttribute("TheUser", admin);
-                      response.sendRedirect("viewprofile.jsp");
+                      response.sendRedirect("HomePage.jsp");
                     }
             }
         }

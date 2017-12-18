@@ -70,8 +70,8 @@ public class UserLogic {
         userio.updatepassword(changedpassword, Uname);
     }
 
-    public Contactinformation RequestContactData(String Uname) {
-        return userio.getContactData(Uname);
+    public Contactinformation RequestContactData(int Userid) {
+        return userio.getContactData(Userid);
     }
 
 

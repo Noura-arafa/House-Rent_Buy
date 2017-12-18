@@ -10,6 +10,7 @@ import Classes.Interest;
 import Classes.User;
 import Logical_layer.HouseLogic;
 import Logical_layer.UserLogic;
+import com.google.gson.Gson;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.SQLException;
@@ -18,6 +19,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -27,6 +29,7 @@ import javax.servlet.http.HttpSession;
  *
  * @author lenovo
  */
+@WebServlet(name = "searchServlet", urlPatterns = {"/searchServlet"})
 public class searchServlet extends HttpServlet {
 
     /**
@@ -44,14 +47,14 @@ public class searchServlet extends HttpServlet {
         try (PrintWriter out = response.getWriter()) {
             ServletContext application = request.getServletContext();
            
-        HttpSession session = (HttpSession) request.getServletContext().getAttribute("thesession");
-        //User user =(User) session.getAttribute("TheUser");
-        User user = new User("Noura", "Arafa", "noura95", 01113600147, "nouraarafa95@gmil.com", "nouraArafa",null, null);
+        User user =(User) request.getSession().getAttribute("TheUser");
         House house = new House();
+            System.out.println("ana saaaaaaaaaaa7");
         String adName = request.getParameter("adname");
         String adtype = request.getParameter("adType");
         String adsType = null;
         String size = request.getParameter("size");
+            System.out.println("Sizeee  "+size);
         String floor = request.getParameter("floor");
         String rate = request.getParameter("rate");
         String status = request.getParameter("Status");
@@ -96,10 +99,18 @@ public class searchServlet extends HttpServlet {
          }
         HouseLogic houseLogic = new HouseLogic();
         ArrayList<House> houses = houseLogic.search(house);
-            System.out.println("f "+houses.size());
-        for(int i=0;i<houses.size();i++){
-               System.out.println("housesname "+houses.get(i).getAdName());
-        }
+        request.getSession().setAttribute("searchResult",houses );
+        response.sendRedirect("searcResult.jsp");
+//        Gson gson = new Gson();
+//            String json = new Gson().toJson(houses);
+//
+//            response.setContentType("application/json");
+//            response.setCharacterEncoding("UTF-8");
+//            response.getWriter().write(json);
+//            System.out.println("f "+houses.size());
+//        for(int i=0;i<houses.size();i++){
+//               System.out.println("housesname "+houses.get(i).getAdName());
+//        }
           
             
         }

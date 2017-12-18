@@ -16,6 +16,7 @@ import static java.util.Collections.list;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -24,6 +25,7 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author lenovo
  */
+@WebServlet(name = "HomePageServlet", urlPatterns = {"/HomePageServlet"})
 public class HomePageServlet extends HttpServlet {
 
     /**
@@ -41,7 +43,8 @@ public class HomePageServlet extends HttpServlet {
         try (PrintWriter out = response.getWriter()) {
             HouseLogic houseLogic = new HouseLogic();
             ArrayList<House> houses = houseLogic.selectAllHouses();
-            
+            request.getServletContext().setAttribute("AllHouses", houses);
+            System.out.println("house nameeeeeeeeeee "+houses.size());
             Gson gson = new Gson();
             String json = new Gson().toJson(houses);
 

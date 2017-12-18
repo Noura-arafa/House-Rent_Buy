@@ -3,6 +3,10 @@ package org.apache.jsp;
 import javax.servlet.*;
 import javax.servlet.http.*;
 import javax.servlet.jsp.*;
+import Logical_layer.NotificationLogic;
+import Classes.Notification;
+import java.util.ArrayList;
+import Classes.User;
 
 public final class Createprofile_jsp extends org.apache.jasper.runtime.HttpJspBase
     implements org.apache.jasper.runtime.JspSourceDependent {
@@ -41,6 +45,10 @@ public final class Createprofile_jsp extends org.apache.jasper.runtime.HttpJspBa
       _jspx_out = out;
       _jspx_resourceInjector = (org.glassfish.jsp.api.ResourceInjector) application.getAttribute("com.sun.appserv.jsp.resource.injector");
 
+      out.write("\r\n");
+      out.write("\r\n");
+      out.write("\r\n");
+      out.write("\r\n");
       out.write("<!doctype html>\r\n");
       out.write("<!--[if IE 7 ]>    <html lang=\"en-gb\" class=\"isie ie7 oldie no-js\"> <![endif]-->\r\n");
       out.write("<!--[if IE 8 ]>    <html lang=\"en-gb\" class=\"isie ie8 oldie no-js\"> <![endif]-->\r\n");
@@ -70,6 +78,8 @@ public final class Createprofile_jsp extends org.apache.jasper.runtime.HttpJspBa
       out.write("<!-- Owl Carousel Assets -->\r\n");
       out.write("<link href=\"js/owl-carousel/owl.carousel.css\" rel=\"stylesheet\">\r\n");
       out.write("<link rel=\"stylesheet\" href=\"css/styles.css\" />\r\n");
+      out.write("<link rel=\"stylesheet\" href=\"css/css.css\" />\r\n");
+      out.write("\r\n");
       out.write("<!-- Font Awesome -->\r\n");
       out.write("<link href=\"font/css/font-awesome.min.css\" rel=\"stylesheet\">\r\n");
       out.write("</head>\r\n");
@@ -77,20 +87,73 @@ public final class Createprofile_jsp extends org.apache.jasper.runtime.HttpJspBa
       out.write("<body>\r\n");
       out.write("<header class=\"header\">\r\n");
       out.write("  <div class=\"container\">\r\n");
-      out.write("    <nav class=\"navbar navbar-inverse\" role=\"navigation\">\r\n");
+      out.write("    <nav class=\"navbar navbar-inverse\"  role=\"navigation\" id=\"primary_nav_wrap\">\r\n");
       out.write("      <div class=\"navbar-header\">\r\n");
-      out.write("        <button type=\"button\" id=\"nav-toggle\" class=\"navbar-toggle\" data-toggle=\"collapse\" data-target=\"#main-nav\"> <span class=\"sr-only\">Toggle navigation</span> <span class=\"icon-bar\"></span> <span class=\"icon-bar\"></span> <span class=\"icon-bar\"></span> </button>\r\n");
+      out.write("        \r\n");
       out.write("        <a href=\"#\" class=\"navbar-brand scroll-top logo  animated bounceInLeft\"><b><i><img src=\"images/logo.png\" /></i></b></a> </div>\r\n");
       out.write("      <!--/.navbar-header-->\r\n");
       out.write("      <div id=\"main-nav\" class=\"collapse navbar-collapse\">\r\n");
       out.write("        <ul class=\"nav navbar-nav\" id=\"mainNav\">\r\n");
-      out.write("          <li class=\"active\" id=\"firstLink\"><a href=\"#home\" class=\"scroll-link\">Home</a></li>\r\n");
-      out.write("          <li><a href=\"#services\" class=\"scroll-link\">Services</a></li>\r\n");
-      out.write("          <li><a href=\"#aboutUs\" class=\"scroll-link\">About Us</a></li>\r\n");
-      out.write("          <li><a href=\"#work\" class=\"scroll-link\">Projects</a></li>\r\n");
-      out.write("          <li><a href=\"#plans\" class=\"scroll-link\">Price</a></li>\r\n");
-      out.write("          <li><a href=\"#team\" class=\"scroll-link\">Team</a></li>\r\n");
-      out.write("          <li><a href=\"#contactUs\" class=\"scroll-link\">Contact Us</a></li>\r\n");
+      out.write("          <li><a href=\"HomePage.jsp\" class=\"scroll-link\">Home</a></li>\r\n");
+      out.write("          <li class=\"current-menu-item\"><a href=\"\" class=\"scroll-link\">Notifications</a>\r\n");
+      out.write("              ");
+ User user= (User) request.getSession().getAttribute("TheUser");
+                    NotificationLogic nio = new NotificationLogic();
+                    ArrayList <Notification> newNotification = nio.selectNewNotification(user);
+                    ArrayList <Notification > oldNotification =nio.selectOldNotification(user);
+                    nio.updateNotification(user);
+       
+               
+      out.write("\r\n");
+      out.write("            <ul>\r\n");
+      out.write("               ");
+ 
+                System.out.println(newNotification.size());
+                for(int i =0 ;i<newNotification.size();i++){
+                
+      out.write("\r\n");
+      out.write("              <li id =\"notify\"><a href=\"specificHouseServlet?houseID=");
+      out.print( newNotification.get(i).getLink());
+      out.write('"');
+      out.write('>');
+      out.print( newNotification.get(i).getContent());
+      out.write("</a></li>\r\n");
+      out.write("              ");
+ } 
+      out.write("\r\n");
+      out.write("              ");
+  
+                for(int i =0 ;i<oldNotification.size();i++){    
+              
+      out.write("\r\n");
+      out.write("              <li id =\"notify\"><a href=\"specificHouseServlet?houseID=");
+      out.print( oldNotification.get(i).getLink());
+      out.write('"');
+      out.write('>');
+      out.print( oldNotification.get(i).getContent());
+      out.write("</a></li>\r\n");
+      out.write("                \r\n");
+      out.write("              ");
+}
+      out.write("\r\n");
+      out.write("            </ul>\r\n");
+      out.write("          </li>\r\n");
+      out.write("          \r\n");
+      out.write("          <li><a href=\"viewprofile.jsp\" class=\"scroll-link\">Profile</a></li>\r\n");
+      out.write("          <li><a href=\"UserAdsServlet\" class=\"scroll-link\">My Ads</a></li>\r\n");
+      out.write("          <li><a href=\"searchHouse.jsp\" class=\"scroll-link\">Search</a></li>\r\n");
+      out.write("          <li><a href=\"AddHouse.jsp\" class=\"scroll-link\">Add House</a></li>\r\n");
+      out.write("          ");
+ if (user.isIsAdmin()==true){
+              
+          
+      out.write("\r\n");
+      out.write("          <li><a href=\"viewallusers.jsp\" class=\"scroll-link\">Users</a></li>\r\n");
+      out.write("          <li><a href=\"suspededHouses.jsp\" class=\"scroll-link\">suspended houses</a></li>\r\n");
+      out.write("          ");
+}
+      out.write("\r\n");
+      out.write("          <li><a href=\"\" class=\"scroll-link\">LogOut</a></li>\r\n");
       out.write("        </ul>\r\n");
       out.write("      </div>\r\n");
       out.write("      <!--/.navbar-collapse--> \r\n");
@@ -130,7 +193,7 @@ public final class Createprofile_jsp extends org.apache.jasper.runtime.HttpJspBa
       out.write("              <input class=\"btn btn-lg btn-primary\" id=\"submit\" type=\"file\" id=\"myFile\" name=\"photo\">\r\n");
       out.write("              <br>\r\n");
       out.write("              <button name=\"submit\" type=\"submit\" class=\"btn btn-lg btn-primary\" id=\"submit\">Submit</button>\r\n");
-      out.write("              <input class=\"btn btn-lg btn-primary\" id=\"submit\" type=\"button\" onclick=\"location.href=''\" name=\"\" value=\"not Now\">\r\n");
+      out.write("              <input class=\"btn btn-lg btn-primary\" id=\"submit\" type=\"button\" onclick=\"location.href='HomePage.jsp'\" name=\"\" value=\"not Now\">\r\n");
       out.write("            </div>\r\n");
       out.write("            \r\n");
       out.write("            \r\n");

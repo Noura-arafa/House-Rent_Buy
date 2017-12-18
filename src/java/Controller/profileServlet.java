@@ -41,7 +41,9 @@ public class profileServlet extends HttpServlet {
         String lname = request.getParameter("Last Name");
         String address = request.getParameter("Address");
         String phonenumber=request.getParameter("phoneNumber");
-        int phonenum=Integer.parseInt(phonenumber);
+        int phonenum=0;
+        if(phonenumber.length()!=0)
+         phonenum=Integer.parseInt(phonenumber);
         Part photo=request.getPart("photo");
         user.setAddress(address);
         user.setPhoto(photo.getInputStream());
@@ -59,6 +61,7 @@ public class profileServlet extends HttpServlet {
              HttpSession session=request.getSession();
              User theuser=(User) session.getAttribute("TheUser");
              createprofile(request,response,userlogic,theuser);
+             response.sendRedirect("HomePage.jsp");
         }
     }
 

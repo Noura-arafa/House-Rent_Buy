@@ -27,19 +27,20 @@ public class NotificationLogic {
         ArrayList <Integer>users = new ArrayList<>();
         UserInterestIO userintersetIO = new UserInterestIO();
         NotificationIO notificationIO =new NotificationIO();
-        int size=house.getSize();
-        String type=house.getType();
+        
         HouseIO houseIO = new HouseIO();
         int houseID = houseIO.getHouseID(house);
-        String status= house.getStatus();
         InterestIO interestIO=new InterestIO();
         ArrayList <Integer> interestIDS=new ArrayList<>();
         interestIDS= interestIO.select(house);
+        System.out.println("intersetIDSsize "+interestIDS.size());
         //int interestID =interestIO.findInterest(house.getSize(), house.getStatus(), house.getType());
         for(int i =0;i<interestIDS.size();i++){
             users = userintersetIO.getUser(interestIDS.get(i));
-            for(int j =0;i<users.size();j++){
-                 notificationIO.interestNotification(users.get(i),houseID);
+            System.out.println("userssizeee "+users.size());
+            for(int j =0;j<users.size();j++){
+                System.out.println("in the useer ");
+                 notificationIO.interestNotification(users.get(j),houseID);
         }
 
         }

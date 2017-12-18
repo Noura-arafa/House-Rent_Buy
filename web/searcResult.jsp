@@ -1,7 +1,17 @@
+<%-- 
+    Document   : HomePage
+    Created on : Dec 16, 2017, 8:20:50 PM
+    Author     : lenovo
+--%>
+
+<%@page import="Classes.House"%>
 <%@page import="Classes.Notification"%>
 <%@page import="java.util.ArrayList"%>
 <%@page import="Logical_layer.NotificationLogic"%>
 <%@page import="Classes.User"%>
+<%@page import="Logical_layer.HouseLogic"%>
+<%@page import="Model.HouseIO"%>
+<%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!doctype html>
 <!--[if IE 7 ]>    <html lang="en-gb" class="isie ie7 oldie no-js"> <![endif]-->
 <!--[if IE 8 ]>    <html lang="en-gb" class="isie ie8 oldie no-js"> <![endif]-->
@@ -28,11 +38,10 @@
 <link rel="stylesheet" type="text/css" href="css/isotope.css" media="screen" />
 <link rel="stylesheet" href="js/fancybox/jquery.fancybox.css" type="text/css" media="screen" />
 <link href="css/animate.css" rel="stylesheet" media="screen">
+<link rel="stylesheet" type="text/css" href="css/css.css">
 <!-- Owl Carousel Assets -->
 <link href="js/owl-carousel/owl.carousel.css" rel="stylesheet">
 <link rel="stylesheet" href="css/styles.css" />
-<link rel="stylesheet" href="css/css.css" />
-
 <!-- Font Awesome -->
 <link href="font/css/font-awesome.min.css" rel="stylesheet">
 </head>
@@ -90,86 +99,66 @@
     <!--/.navbar--> 
   </div>
   <!--/.container--> 
-
 </header>
 
 <!--/.header-->
 <div id="#top"></div>
 
-<div><h2>Welcome User</h2></div>
+  <!-- Carousel items -->
+   
 
-<section id="contactUs" class="contact-parlex">
-  <div class="parlex-back">
-    <div class="container">
-      <div class="row">
-        <div class="heading text-center"> 
-          <!-- Heading -->
-          <h2>Profile</h2>
-        </div>
-      </div>
-         <% 
-                   // HttpSession thesession=(HttpSession) application.getAttribute("thesession"); 
-                    User Theuser=(User) request.getSession().getAttribute("TheUser");
-                     String fname=Theuser.getfName();
-        if(fname.equals(null)){
-            fname="";
-        }
-        String ln= Theuser.getlName();
-        if(ln==null){
-            ln="";
-        }
-        String email=Theuser.getemail();
-        if(email==null){
-            email="";
-        }
-        String address=Theuser.getAddress();
-        if(address== null){
-            address="";
-        }
-                    int phonenumber=Theuser.getphoneNumber();
-                    String phonenum="";
-                    if(phonenumber!=0){
-                        phonenum=Integer.toString(phonenumber);
-                    }
+<section id="plans" class="page-section">
+  <div class="container">
+    <div class="heading text-center"> 
+      <!-- Heading -->
+      <h2>Price</h2>
+      
+    </div>
+    <div id = "bigClass" class="row flat" value = "big class" >
+        <%
+    ArrayList<House> searchResult = (ArrayList<House> )request.getSession().getAttribute("searchResult");
+    for(int i =0; i<searchResult.size();i++){
+        System.out.println("searcchhhhh  "+searchResult.get(i).getAdName());
+    
+    
+%>
+        <div  class="col-lg-3 col-md-3 col-sm-6 col-xs-12" >
+            <ul class="plan plan4">
+                <li class="plan-name"> <%=searchResult.get(i).getAdName()%></li>
+                <li class="plan-price"> <%= searchResult.get(i).getPrice()%> <strong> LE</strong> </li>
+                <li>  Status <strong><%=searchResult.get(i).getStatus() %></strong> </li>
+                <li> Size <strong><%=searchResult.get(i).getSize()%></strong>  </li>
+                <li class="plan-action"> <a href="specificHouseServlet?houseID=<%=searchResult.get(i).getHouseID()%>"  class="btn btn-danger btn-lg">View More</a> </li>';
                     
-                %>
-      <div class="row mrgn30">
-        <form method="post" action="EditProfileServlet" id="contactfrm" role="form"  enctype="multipart/form-data">
-          <div class="col-sm-12">
-            <div class="form-group">
-             
-              
-                <input type="text" class="form-control" name="First Name" id="name" placeholder=<%=fname %>  >
-              <input type="text" class="form-control" name="Last Name" id="name" placeholder=<%=ln%> >
-              
-              <input type="text" class="form-control" name="Address" id="name" placeholder=<%=address%> >
-              <input type="text" class="form-control" name="phoneNumber" id="name" placeholder=<%=phonenum%> >
-              <div class="outter"><img src="Getimageservlet" class="image-circle"/></div> 
-						<div class="col-md-6 col-sm-6">
-              <input class="btn btn-lg btn-primary" id="submit" type="file" id="myFile" name="photo">
-              <br>
-              <button name="submit" type="submit" class="btn btn-lg btn-primary" id="submit">Submit</button>
-            </div>
+                
+            </ul>
             
-            
-              
-              
-              
-
-            </div>
-            <div class="result"></div>
-          </div>
-        </form>
+        </div>
+       <%}%>
+      
+      
+        
       </div>
     </div>
-    <!--/.container--> 
-  </div>
+        
+    </div>
 </section>
 
+        <script src="http://code.jquery.com/jquery-latest.min.js"></script>
+                
+        
+        
+        
 
-
-
-
+<!--/.page-section-->
+<section class="copyright">
+  <div class="container">
+    <div class="row">
+      
+    </div>
+    <!-- / .row --> 
+  </div>
+</section>
 <a href="#top" class="topHome"><i class="fa fa-chevron-up fa-2x"></i></a> 
 
 <!--[if lte IE 8]><script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script><![endif]--> 

@@ -15,6 +15,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -23,6 +24,7 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author lenovo
  */
+@WebServlet(name = "deleteHouseServlet", urlPatterns = {"/deleteHouseServlet"})
 public class deleteHouseServlet extends HttpServlet {
 
     /**
@@ -36,9 +38,12 @@ public class deleteHouseServlet extends HttpServlet {
      */
     public void deletehouse(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException, ClassNotFoundException, SQLException {
-        String adName = request.getParameter("adName");
+        ArrayList<House> houses =(ArrayList<House> ) request.getServletContext().getAttribute("AllHouses");
+        int adID=Integer.parseInt(request.getParameter("adID"));
         HouseLogic houseLogic = new HouseLogic();
-        houseLogic.deleteHouse(adName);
+        House house = houseLogic.getHouseByID(adID);
+        houseLogic.deleteHouse(house.getAdName());  
+        houses.remove(house);
         response.sendRedirect("UserAdsServlet");
     }
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)

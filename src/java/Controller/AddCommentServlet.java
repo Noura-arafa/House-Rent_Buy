@@ -15,6 +15,7 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.SQLException;
 import java.text.ParseException;
+import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.servlet.ServletException;
@@ -41,24 +42,32 @@ public class AddCommentServlet extends HttpServlet {
      */
      public void AddComment(HttpServletRequest request, HttpServletResponse response) throws ClassNotFoundException, SQLException, ParseException, IOException{
         System.out.println("in addd coment");
+        ArrayList<House> houses = (ArrayList<House>) request.getServletContext().getAttribute("AllHouses");
         CommentLogic commentlogic =new CommentLogic();
-        int houseID=3;
-        HouseLogic houselogic=new HouseLogic();
-        //House house =houselogic.getHouseByID(houseID);
-        //to be changed
-         House house = new House("gg", "Rent" , 800, 0, 7 , "finished", "va", "ee", 0.0, "bla",1000.500);
-        String username="khadegaosman";
+        int houseID= (int) request.getSession().getAttribute("adID");
+   
         String content=request.getParameter("comment");
+        HouseLogic houselogic=new HouseLogic();
+        House house =houselogic.getHouseByID(houseID);
+        User user = (User) request.getSession().getAttribute("TheUser");
+        String username = user.getuserName();
         commentlogic.comment(house, content, username);
         NotificationLogic notification = new NotificationLogic();
-        
-        
-        User user = new User();
-        user.setuserName(username);
-        Comment comment= new Comment(content, user, null);
+        Comment comment= new Comment(content, user);
+        int indx=0;
         notification.commentNotification(houseID,comment);
-        response.sendRedirect("specificHouseJSP.jsp");
-        
+        for(int i=0; i<houses.size(); i++)
+        {
+            if(houses.get(i).getHouseID() == houseID)
+            {
+                indx = i;
+                break;
+            }
+            
+        }
+        houses.get(indx).setComment(comment);
+        response.sendRedirect("specificHouseJSP.jsp?id="+houseID);
+   
     }
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException, ClassNotFoundException, SQLException, ParseException {

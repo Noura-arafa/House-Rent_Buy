@@ -24,7 +24,7 @@ import java.util.Date;
 public class CommentIO {
      String url ="jdbc:mysql://localhost:3306/house_buy_rent";
     String sqluser = "root";
-    String password = "12345678a";
+    String password = "n33333";
     
     public void comment(String content,int houseID,int userID, java.sql.Timestamp date) throws ClassNotFoundException, SQLException{
         Class.forName("com.mysql.jdbc.Driver");
@@ -54,7 +54,8 @@ public class CommentIO {
             int userID=RS.getInt("cUserID");
             UserIO userIO = new UserIO();
             User user = userIO.selectUser(userID);
-            Comment comment= new Comment(RS.getString("comment"),user, RS.getDate("date"));
+            Comment comment= new Comment(RS.getString("comment"),user);
+            comment.setDate( RS.getDate("date"));
             comments.add(comment);
         }
         return comments;

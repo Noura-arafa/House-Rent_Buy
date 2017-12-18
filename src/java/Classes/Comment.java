@@ -15,11 +15,11 @@ public class Comment {
     private String comment;
     private User user;
     private Date date;
-    public Comment(String comm, User u, Date dt)
+    public Comment(String comm, User u)
     {
         comment = comm;
         user = u;
-        date = dt;
+       
     }
     
     public void setcomment(String comm)

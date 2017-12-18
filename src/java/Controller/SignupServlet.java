@@ -53,12 +53,13 @@ public class SignupServlet extends HttpServlet {
               UserLogic userlogic = new UserLogic();
     
             User theuser=Signup(request,response,userlogic);
-            theuser.setIsAdmin(false);
+           
             HttpSession session=request.getSession(true);
             session.setMaxInactiveInterval(10*60);
             if(theuser!=null){
-            session.setAttribute("TheUser", theuser);
-            response.sendRedirect("Createprofile.jsp");
+              theuser.setIsAdmin(false);
+             session.setAttribute("TheUser", theuser);
+             response.sendRedirect("Createprofile.jsp");
             }
         }
     }

@@ -16,6 +16,7 @@ import java.util.logging.Logger;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -24,6 +25,7 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author lenovo
  */
+@WebServlet(name = "editServlet", urlPatterns = {"/editServlet"})
 public class editServlet extends HttpServlet {
 
     /**
@@ -40,12 +42,11 @@ public class editServlet extends HttpServlet {
             throws ServletException, IOException, ClassNotFoundException, SQLException {
             HouseLogic houseLogic = new HouseLogic();
             ArrayList<House> uHouses = houseLogic.selectAllHouses();
-            String adName = request.getParameter("adName");
-          System.out.println("adname  " + adName);
+            int adID = Integer.parseInt(request.getParameter("adID"));
             House house = new House();
             for(int i=0; i<uHouses.size(); i++)
             {
-                if(uHouses.get(i).getAdName().equals(adName))
+                if(uHouses.get(i).getHouseID() == adID)
                 {
                     house = uHouses.get(i);
                     break;

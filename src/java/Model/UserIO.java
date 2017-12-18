@@ -22,7 +22,7 @@ public class UserIO {
     String url = "jdbc:mysql://localhost:3306/house_buy_rent";
     String sqluser = "root";
 
-    String password = "12345678a";
+    String password = "n33333";
 
     public int getUserID(String userName) throws ClassNotFoundException, SQLException {
         Class.forName("com.mysql.jdbc.Driver");
@@ -119,7 +119,7 @@ public class UserIO {
         return null;
     }
 
-    public Contactinformation getContactData(String Uname) {
+    public Contactinformation getContactData(int Userid) {
         String Line;
         Connection Con = null;
         Statement Stmt = null;
@@ -131,11 +131,11 @@ public class UserIO {
             Stmt = Con.createStatement();
             RS = Stmt.executeQuery("SELECT * FROM user;");
             while (RS.next()) {
-                String username = RS.getString("userName");
-                if (username.equals(Uname)) {
+                int userid = RS.getInt("userId");
+                if (userid==Userid) {
                     String email = RS.getString("email");
                     int phonenumber = RS.getInt("phoneNum");
-                    contactinfo = new Contactinformation(Uname, email, phonenumber);
+                    contactinfo = new Contactinformation(Userid, email, phonenumber);
                 }
             }
             RS.close();
@@ -155,8 +155,8 @@ public class UserIO {
         Class.forName("com.mysql.jdbc.Driver");
         Con = DriverManager.getConnection(url, sqluser, password);
         Stmt = Con.createStatement();
-        String query = "INSERT INTO user (fName,LName,pass,phoneNum,email,userName,picture,address)"
-                + "VALUES(?,?,?,?,?,?,?,?);";
+        String query = "INSERT INTO user (fName,LName,pass,phoneNum,email,userName,picture,address,Admin)"
+                + "VALUES(?,?,?,?,?,?,?,?,?);";
         PreparedStatement preparedStmt = Con.prepareStatement(query);
         preparedStmt.setString(1, user.getfName());
         preparedStmt.setString(2, user.getlName());
@@ -166,6 +166,7 @@ public class UserIO {
         preparedStmt.setString(6, user.getuserName());
         preparedStmt.setBlob(7, user.getPhoto());
         preparedStmt.setString(8, user.getAddress());
+        preparedStmt.setBoolean(9,false);
         preparedStmt.executeUpdate();
         //RS.close();
         preparedStmt.close();
@@ -382,7 +383,7 @@ public class UserIO {
         RS = statement.executeQuery();
         User user = null;
         while (RS.next()) {
-            user = new User(RS.getString("fName"), RS.getString("lName"), RS.getString("pass"), RS.getInt("phoneNum"), RS.getString("email"), RS.getString("userName"), RS.getString("address"), (InputStream) RS.getObject("picture"));
+            user = new User(RS.getString("fName"), RS.getString("lName"), RS.getString("pass"), RS.getInt("phoneNum"), RS.getString("email"), RS.getString("userName"), RS.getString("address"), null);
         }
         return user;
     }
@@ -402,25 +403,26 @@ public class UserIO {
             int phonenumber = 0;
             InputStream photo = null;
             if (!RS.getBoolean("Admin")) {
-                if (!RS.getString("fName").equals(null)) {
+                if (RS.getString("fName")!=null) {
                     fn = RS.getString("fName");
                 }
-                if (!RS.getString("lName").equals(null)) {
+                if (RS.getString("lName")!=null) {
                     ln = RS.getString("lName");
                 }
-                if (!RS.getString("pass").equals(null)) {
+                if (RS.getString("pass")!=null) {
                     pass = RS.getString("pass");
                 }
                 if (RS.getInt("phoneNum") != 0) {
                     phonenumber = RS.getInt("phoneNum");
                 }
-                if (!RS.getString("email").equals(null)) {
+                if (RS.getString("email")!=null) {
                     email = RS.getString("email");
                 }
-                if (!RS.getString("userName").equals(null)) {
+                if (RS.getString("userName")!=null) {
                     username = RS.getString("userName");
                 }
-                if (!RS.getString("address").equals(null)) {
+                System.out.println("address"+RS.getString("address"));
+                if (RS.getString("address")!=null) {
                     address = RS.getString("address");
                 }
                 if (RS.getBlob("picture") != null) {

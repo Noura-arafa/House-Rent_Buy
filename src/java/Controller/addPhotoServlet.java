@@ -61,7 +61,7 @@ public class addPhotoServlet extends HttpServlet {
             count --;
         }
             
-        response.sendRedirect("UserAds.jsp");
+        response.sendRedirect("UserAdsServlet");
         
     }
     

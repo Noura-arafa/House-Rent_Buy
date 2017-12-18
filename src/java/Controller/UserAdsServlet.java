@@ -7,6 +7,7 @@ package Controller;
 
 import Classes.House;
 import Classes.Image;
+import Classes.User;
 import Logical_layer.HouseLogic;
 import Logical_layer.UserLogic;
 import java.io.IOException;
@@ -20,6 +21,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -29,6 +31,7 @@ import javax.servlet.http.HttpSession;
  *
  * @author lenovo
  */
+@WebServlet(name = "UserAdsServlet", urlPatterns = {"/UserAdsServlet"})
 public class UserAdsServlet extends HttpServlet {
 
     /**
@@ -49,16 +52,11 @@ public class UserAdsServlet extends HttpServlet {
         ArrayList<House> userHouses = new ArrayList<>();
         HouseLogic houseLogic = new HouseLogic();
         UserLogic userLogic = new UserLogic();
-        //int userID = userLogic.getUserID(user.getuserName());
-        userHouses = houseLogic.selectUserHouse(1);
-        HttpSession session = request.getSession(true);
-        session.setAttribute("userHouse",userHouses);
+        User user = (User) request.getSession().getAttribute("TheUser");
+        int userID = userLogic.getUserID(user.getuserName());
+        userHouses = houseLogic.selectUserHouse(userID);
+        request.getSession().setAttribute("userHouse",userHouses);
         response.sendRedirect("UserAds.jsp");
-        /*Gson gson = new Gson();
-        String json = new Gson().toJson(userHouses);
-        response.setContentType("application/json");
-        response.setCharacterEncoding("UTF-8");
-        response.getWriter().write(json);*/
         
         /*for(int i=0; i<1; i++){
             ArrayList<Image> images = userHouses.get(i).getImages();

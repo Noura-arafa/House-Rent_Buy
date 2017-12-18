@@ -21,7 +21,7 @@ import java.util.ArrayList;
 public class HouseIO {
         static String url = "jdbc:mysql://localhost:3306/house_buy_rent";
         static String sqluser = "root";
-        static String password = "12345678a";
+        static String password = "n33333";
     
 
     
@@ -66,6 +66,7 @@ public class HouseIO {
         Class.forName("com.mysql.jdbc.Driver");
         Connection conn = DriverManager.getConnection(url, sqluser, password);
         UserIO uio = new UserIO();
+       
         int userid = uio.getUserID(user.getuserName()) ;
         
         String insertQuery = "Insert INTO house "
@@ -75,7 +76,7 @@ public class HouseIO {
         prst.setString(1, house.getDescription());
         prst.setString(2, house.getAdType());
         prst.setInt(3, house.getSize());
-        prst.setInt(4, house.getActive());
+        prst.setInt(4, 1);
         prst.setInt(5, house.getFloor());
         prst.setString(6, house.getStatus());
         prst.setString(7, house.getType());
@@ -86,8 +87,6 @@ public class HouseIO {
         prst.setDouble(12, 0.0);
 
         prst.executeUpdate();
-        
-       
        prst.close();
        conn.close();
     }

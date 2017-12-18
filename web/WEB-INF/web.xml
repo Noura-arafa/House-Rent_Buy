@@ -1,10 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <web-app version="3.1" xmlns="http://xmlns.jcp.org/xml/ns/javaee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd">
     <servlet>
-        <servlet-name>NewServlet</servlet-name>
-        <servlet-class>Controller.NewServlet</servlet-class>
-    </servlet>
-    <servlet>
         <servlet-name>UserAdsServlet</servlet-name>
         <servlet-class>Controller.UserAdsServlet</servlet-class>
     </servlet>
@@ -13,7 +9,7 @@
         <servlet-class>Controller.searchServlet</servlet-class>
     </servlet>
     <servlet>
-<<<<<<< HEAD
+
         <servlet-name>editServlet</servlet-name>
         <servlet-class>Controller.editServlet</servlet-class>
     </servlet>
@@ -29,23 +25,21 @@
         <servlet-name>deleteHouseServlet</servlet-name>
         <servlet-class>Controller.deleteHouseServlet</servlet-class>
     </servlet>
-    <servlet>
-        <servlet-name>searchServlet</servlet-name>
-        <servlet-class>Controller.searchServlet</servlet-class>
-    </servlet>
+    
     <servlet>
         <servlet-name>viewPhotoServlet</servlet-name>
         <servlet-class>Controller.viewPhotoServlet</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>rateServlet</servlet-name>
-        <servlet-class>Controller.rateServlet</servlet-class>
-=======
+        <servlet-class>Controller.rateServlet</servlet-class>   
+    </servlet>
+    <servlet>
         <servlet-name>HomePageServlet</servlet-name>
         <servlet-class>Controller.HomePageServlet</servlet-class>
->>>>>>> 0ef281710e314aa0a72cf319485d54ab6bba8cc2
     </servlet>
-   <servlet-mapping>
+    
+<servlet-mapping>
         <servlet-name>searchServlet</servlet-name>
         <url-pattern>/searchServlet</url-pattern>
     </servlet-mapping>
@@ -54,13 +48,10 @@
         <url-pattern>/UserAdsServlet</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
-        <servlet-name>searchServlet</servlet-name>
-        <url-pattern>/searchServlet</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
         <servlet-name>HomePageServlet</servlet-name>
         <url-pattern>/HomePageServlet</url-pattern>
     </servlet-mapping>
+   
     <session-config>
         <session-timeout>
             30

@@ -18,6 +18,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -26,6 +27,7 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author lenovo
  */
+@WebServlet(name = "viewPhotoServlet", urlPatterns = {"/viewPhotoServlet"})
 public class viewPhotoServlet extends HttpServlet {
 
     /**
@@ -59,16 +61,16 @@ public class viewPhotoServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         try {
-            
+            System.out.println("in viewp jsp");
             HouseLogic houseLogic = new HouseLogic();
             ArrayList<House> aHouses = houseLogic.selectAllHouses();
-            String adName = request.getParameter("adName");
-            System.out.println("adNameee " + adName);
+            int adID = Integer.parseInt(request.getParameter("adID"));
+            System.out.println("adID " + adID);
             int j = Integer.parseInt(request.getParameter("indx"));
             House house = new House();
             System.out.println("iiii " + j);
             for (int i = 0; i < aHouses.size(); i++) {
-                if (aHouses.get(i).getAdName().equals(adName)) {
+                if (aHouses.get(i).getHouseID() == adID) {
                     house = aHouses.get(i);
                     break;
                 }

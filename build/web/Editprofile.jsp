@@ -1,3 +1,6 @@
+<%@page import="Classes.Notification"%>
+<%@page import="java.util.ArrayList"%>
+<%@page import="Logical_layer.NotificationLogic"%>
 <%@page import="Classes.User"%>
 <!doctype html>
 <!--[if IE 7 ]>    <html lang="en-gb" class="isie ie7 oldie no-js"> <![endif]-->
@@ -28,6 +31,8 @@
 <!-- Owl Carousel Assets -->
 <link href="js/owl-carousel/owl.carousel.css" rel="stylesheet">
 <link rel="stylesheet" href="css/styles.css" />
+<link rel="stylesheet" href="css/css.css" />
+
 <!-- Font Awesome -->
 <link href="font/css/font-awesome.min.css" rel="stylesheet">
 </head>
@@ -35,20 +40,49 @@
 <body>
 <header class="header">
   <div class="container">
-    <nav class="navbar navbar-inverse" role="navigation">
+    <nav class="navbar navbar-inverse"  role="navigation" id="primary_nav_wrap">
       <div class="navbar-header">
-        <button type="button" id="nav-toggle" class="navbar-toggle" data-toggle="collapse" data-target="#main-nav"> <span class="sr-only">Toggle navigation</span> <span class="icon-bar"></span> <span class="icon-bar"></span> <span class="icon-bar"></span> </button>
+        
         <a href="#" class="navbar-brand scroll-top logo  animated bounceInLeft"><b><i><img src="images/logo.png" /></i></b></a> </div>
       <!--/.navbar-header-->
       <div id="main-nav" class="collapse navbar-collapse">
         <ul class="nav navbar-nav" id="mainNav">
-          <li class="active" id="firstLink"><a href="#home" class="scroll-link">Home</a></li>
-          <li><a href="#services" class="scroll-link">Services</a></li>
-          <li><a href="#aboutUs" class="scroll-link">About Us</a></li>
-          <li><a href="#work" class="scroll-link">Projects</a></li>
-          <li><a href="#plans" class="scroll-link">Price</a></li>
-          <li><a href="#team" class="scroll-link">Team</a></li>
-          <li><a href="#contactUs" class="scroll-link">Contact Us</a></li>
+          <li><a href="HomePage.jsp" class="scroll-link">Home</a></li>
+          <li class="current-menu-item"><a href="" class="scroll-link">Notifications</a>
+              <% User user= (User) request.getSession().getAttribute("TheUser");
+                    NotificationLogic nio = new NotificationLogic();
+                    ArrayList <Notification> newNotification = nio.selectNewNotification(user);
+                    ArrayList <Notification > oldNotification =nio.selectOldNotification(user);
+                    nio.updateNotification(user);
+       
+               %>
+            <ul>
+               <% 
+                System.out.println(newNotification.size());
+                for(int i =0 ;i<newNotification.size();i++){
+                %>
+              <li id ="notify"><a href="specificHouseServlet?houseID=<%= newNotification.get(i).getLink()%>"><%= newNotification.get(i).getContent()%></a></li>
+              <% } %>
+              <%  
+                for(int i =0 ;i<oldNotification.size();i++){    
+              %>
+              <li id ="notify"><a href="specificHouseServlet?houseID=<%= oldNotification.get(i).getLink()%>"><%= oldNotification.get(i).getContent()%></a></li>
+                
+              <%}%>
+            </ul>
+          </li>
+          
+          <li><a href="viewprofile.jsp" class="scroll-link">Profile</a></li>
+          <li><a href="UserAdsServlet" class="scroll-link">My Ads</a></li>
+          <li><a href="searchHouse.jsp" class="scroll-link">Search</a></li>
+          <li><a href="AddHouse.jsp" class="scroll-link">Add House</a></li>
+          <% if (user.isIsAdmin()==true){
+              
+          %>
+          <li><a href="viewallusers.jsp" class="scroll-link">Users</a></li>
+          <li><a href="suspededHouses.jsp" class="scroll-link">suspended houses</a></li>
+          <%}%>
+          <li><a href="logoutServlet" class="scroll-link">LogOut</a></li>
         </ul>
       </div>
       <!--/.navbar-collapse--> 

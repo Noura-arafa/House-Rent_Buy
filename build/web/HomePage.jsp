@@ -55,9 +55,9 @@
       <!--/.navbar-header-->
       <div id="main-nav" class="collapse navbar-collapse">
         <ul class="nav navbar-nav" id="mainNav">
-          <li class="active" id="firstLink"><a href="#home" class="scroll-link">Home</a></li>
-          <li class="current-menu-item"><a href="#services" class="scroll-link">Services</a>
-              <% User user=new User("marwa", "saied", "456", 010033, "marwa@gmail", "marwas", "bkla", null);
+          <li><a href="HomePage.jsp" class="scroll-link">Home</a></li>
+          <li class="current-menu-item"><a href="" class="scroll-link">Notifications</a>
+              <% User user= (User) request.getSession().getAttribute("TheUser");
                     NotificationLogic nio = new NotificationLogic();
                     ArrayList <Notification> newNotification = nio.selectNewNotification(user);
                     ArrayList <Notification > oldNotification =nio.selectOldNotification(user);
@@ -79,10 +79,18 @@
               <%}%>
             </ul>
           </li>
-          <li><a href="#work" class="scroll-link">Projects</a></li>
-          <li><a href="#plans" class="scroll-link">Price</a></li>
-          <li><a href="#team" class="scroll-link">Team</a></li>
-          <li><a href="#contactUs" class="scroll-link">Contact Us</a></li>
+          
+          <li><a href="viewprofile.jsp" class="scroll-link">Profile</a></li>
+          <li><a href="UserAdsServlet" class="scroll-link">My Ads</a></li>
+          <li><a href="searchHouse.jsp" class="scroll-link">Search</a></li>
+          <li><a href="AddHouse.jsp" class="scroll-link">Add House</a></li>
+          <% if (user.isIsAdmin()==true){
+              
+          %>
+          <li><a href="viewallusers.jsp" class="scroll-link">Users</a></li>
+          <li><a href="suspededHouses.jsp" class="scroll-link">suspended houses</a></li>
+          <%}%>
+          <li><a href="logoutServlet" class="scroll-link">LogOut</a></li>
         </ul>
       </div>
       <!--/.navbar-collapse--> 
@@ -126,6 +134,7 @@
               
                 
                 for (var i = 0; i < houses.length; i++){
+                    
                     var adName =  houses[i]["adName"] ;
                     
                     var cardNameID = 'card '  + houses[i]["adName"] + '' ;
@@ -153,9 +162,13 @@
                      $("#ulCard").append(size);
                      $("#ulCard").append(viewMore);
                      
-                     if(user.get)
-                     $("#ulCard").append(deleteBtn);
-                     $("#ulCard").append(suspendBtn);
+                     var isAdmin=<%=user.isIsAdmin() %>
+                     if(isAdmin){
+                        $("#ulCard").append(deleteBtn);
+                        $("#ulCard").append(suspendBtn);
+                         
+                     }
+                     
                      
                     
                  

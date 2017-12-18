@@ -21,7 +21,7 @@ import java.util.ArrayList;
 public class NotificationIO {
     String url = "jdbc:mysql://localhost:3306/house_buy_rent";
         String username = "root";
-        String password = "12345678a";
+        String password = "n33333";
     public ArrayList<Notification> selectNewNotification(int userID) throws ClassNotFoundException, SQLException{
         ArrayList <Notification> notifications = new ArrayList();
         Class.forName("com.mysql.jdbc.Driver");
