@@ -19,6 +19,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 /**
  *
@@ -54,14 +55,13 @@ public class editHouseinDBServlet extends HttpServlet {
         
         houselogic.editProp(house);
         int hID = houselogic.getHouseID(house);
-        ServletContext application = request.getServletContext();
-        application.setAttribute("houseID", hID);
-        
+        HttpSession session = request.getSession(true);
+        session.setAttribute("houseID", hID);
         String photo_descission = request.getParameter("addPhoto");    
         if(photo_descission.equals("Yes"))
             response.sendRedirect("AddPhoto.jsp");
         else
-            System.out.println("Nooo");  // go to home
+            response.sendRedirect("UserAdsServlet");
         
         
     }

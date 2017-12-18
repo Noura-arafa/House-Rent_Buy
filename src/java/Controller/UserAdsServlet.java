@@ -9,6 +9,7 @@ import Classes.House;
 import Classes.Image;
 import Logical_layer.HouseLogic;
 import Logical_layer.UserLogic;
+import com.google.gson.Gson;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
@@ -23,6 +24,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 /**
  *
@@ -40,7 +42,7 @@ public class UserAdsServlet extends HttpServlet {
      * @throws IOException if an I/O error occurs
      */
     
-    public ArrayList<House> userAds(HttpServletRequest request, HttpServletResponse response)
+    public void userAds(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException, ClassNotFoundException, SQLException {
         /*HttpSession session = (HttpSession) request.getServletContext().getAttribute("thesession");
         User user = (User) session.getAttribute("TheUser");*/
@@ -50,6 +52,15 @@ public class UserAdsServlet extends HttpServlet {
         UserLogic userLogic = new UserLogic();
         //int userID = userLogic.getUserID(user.getuserName());
         userHouses = houseLogic.selectUserHouse(1);
+        HttpSession session = request.getSession(true);
+        session.setAttribute("userHouse",userHouses);
+        response.sendRedirect("UserAds.jsp");
+        /*Gson gson = new Gson();
+        String json = new Gson().toJson(userHouses);
+        response.setContentType("application/json");
+        response.setCharacterEncoding("UTF-8");
+        response.getWriter().write(json);*/
+        
         /*for(int i=0; i<1; i++){
             ArrayList<Image> images = userHouses.get(i).getImages();
             System.out.println("user image "+ userHouses.get(i).getImages().size());
@@ -66,7 +77,7 @@ public class UserAdsServlet extends HttpServlet {
             }
             userHouses.get(i).setImages(images);
         }*/
-        return userHouses;
+       
         
     }
     
@@ -75,11 +86,8 @@ public class UserAdsServlet extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
             /* TODO output your page here. You may use following sample code. */
-            ArrayList<House> Uhouses = new ArrayList<>();
-            Uhouses = userAds(request, response);
-            ServletContext application = request.getServletContext();
-            application.setAttribute("UserHouses", Uhouses);
-            response.sendRedirect("UserAds.jsp");
+           userAds(request, response);
+          
         }
     }
 

@@ -40,6 +40,7 @@ public class HouseIO {
         }
         return userID;
     }
+    
     public static int getHouseID(House house) throws SQLException, ClassNotFoundException
 
     {

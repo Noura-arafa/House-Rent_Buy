@@ -45,7 +45,8 @@ public class searchServlet extends HttpServlet {
             ServletContext application = request.getServletContext();
             
         HttpSession session = (HttpSession) request.getServletContext().getAttribute("thesession");
-        User user =(User) session.getAttribute("TheUser");
+        //User user =(User) session.getAttribute("TheUser");
+        User user = new User("Noura", "Arafa", "noura95", 01113600147, "nouraarafa95@gmil.com", "nouraArafa",null, null);
         House house = new House();
         String adName = request.getParameter("adname");
         String adtype = request.getParameter("adType");

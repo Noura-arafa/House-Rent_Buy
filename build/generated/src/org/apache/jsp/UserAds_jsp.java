@@ -3,6 +3,14 @@ package org.apache.jsp;
 import javax.servlet.*;
 import javax.servlet.http.*;
 import javax.servlet.jsp.*;
+import java.sql.Blob;
+import java.io.OutputStream;
+import Classes.Image;
+import Classes.Image;
+import Controller.UserAdsServlet;
+import java.util.logging.Logger;
+import java.sql.SQLException;
+import java.util.logging.Level;
 import java.util.ArrayList;
 import Classes.House;
 
@@ -43,6 +51,14 @@ public final class UserAds_jsp extends org.apache.jasper.runtime.HttpJspBase
       _jspx_out = out;
       _jspx_resourceInjector = (org.glassfish.jsp.api.ResourceInjector) application.getAttribute("com.sun.appserv.jsp.resource.injector");
 
+      out.write("\n");
+      out.write("\n");
+      out.write("\n");
+      out.write("\n");
+      out.write("\n");
+      out.write("\n");
+      out.write("\n");
+      out.write("\n");
       out.write("\n");
       out.write("\n");
       out.write("<!doctype html>\n");
@@ -116,49 +132,37 @@ public final class UserAds_jsp extends org.apache.jasper.runtime.HttpJspBase
       out.write("      <div class=\"col-md-12\">\n");
       out.write("        <div id=\"portfolio\">\n");
       out.write("          <ul class=\"filters list-inline\">\n");
-      out.write("            <li> <a class=\"active\" data-filter=\"*\" href=\"#\">All</a> </li>\n");
-      out.write("            \n");
-      out.write("          </ul>\n");
+      out.write("            <li> <a class=\"active\" data-filter=\"*\" href=\"#\"></a> </li>\n");
+      out.write("           </ul>\n");
+      out.write("            <div id=\"rowdiv\">\n");
+      out.write("                \n");
+      out.write("            </div>\n");
       out.write("          ");
-
-              ArrayList<House> userHouses = (ArrayList<House>) application.getAttribute("UserHouses");
-              if (userHouses == null) {
-                  System.out.println("user houses are null");
-              }
-              for (int i = 0; i < userHouses.size(); i++) {
+ 
+              ArrayList<House> userHouses = (ArrayList<House>) request.getSession().getAttribute("userHouse");
+              for(int i=0; i<userHouses.size(); i++)
+              {
           
       out.write("\n");
-      out.write("          <ul class=\"items list-unstyled clearfix animated fadeInRight showing\" data-animation=\"fadeInRight\" style=\"position: relative; height: 438px;\">\n");
-      out.write("            <li class=\"item branding\" style=\"position: absolute; left: 0px; top: 0px;\"> \n");
-      out.write("\t\t\t\t\t\t\t\t \t\t\t \n");
-      out.write("\t\t\t  <figure class=\"effect-bubba\">\n");
-      out.write("                            <img src=\"images/work/1.jpg\" alt=\"img02\"/>\n");
-      out.write("                            <figcaption> \n");
-      out.write("                                <h4>");
-      out.print( userHouses.get(i).getAdName() );
-      out.write("</h4> \n");
-      out.write("                               \n");
-      out.write("                            </figcaption>\n");
-      out.write("\t\t\t   </figure> \n");
-      out.write("\t\t          \t\n");
-      out.write("\t\t\t  </li>  \n");
-      out.write("                          <button name=\"submit\" type=\"submit\" class=\"btn btn-lg btn-primary\" onclick=\"location.href='editServlet?adName=");
+      out.write("    <div class=\"row dataTxt\" >\n");
+      out.write("        <div class=\"col-md-6 col-sm-6\" >\n");
+      out.write("          <ul>\n");
+      out.write("              <li class=\"item branding\" style=\"position: absolute; left: 0px; top: 0px;\">\n");
+      out.write("                  <h4><a herf =\"specificHouseServlet\" >");
+      out.print(userHouses.get(i).getAdName() );
+      out.write("</a></h4>\n");
+      out.write("              </li>\n");
+      out.write("                 <button name=\"submit\" type=\"submit\" class=\"btn btn-lg btn-primary\" onclick=\"location.href='editServlet?adName=");
       out.print( userHouses.get(i).getAdName());
       out.write("'\">Edit</button>\n");
-      out.write("                          <button name=\"submit\" type=\"submit\" class=\"btn btn-lg btn-primary\" onclick=\"location.href='deleteHouseServlet?adName=");
+      out.write("                 <button name=\"submit\" type=\"submit\" class=\"btn btn-lg btn-primary\" onclick=\"location.href='deleteHouseServlet?adName=");
       out.print( userHouses.get(i).getAdName());
-      out.write("'\" >Delete</button>\n");
-      out.write("                          <script>\n");
-      out.write("                            function editpage(){\n");
-      out.write("                            //var adName = \"");
-      out.print( userHouses.get(i).getAdName());
-      out.write("\";\n");
-      out.write("                            //document.location.href=\"editServlet?adName=\" + adName;\n");
-      out.write("                            }\n");
-      out.write("                          </script>\n");
-      out.write("           \n");
-      out.write("          </ul>\n");
-      out.write("          ");
+      out.write("'\">Delete</button>\n");
+      out.write("                 </ul>\n");
+      out.write("        </div>\n");
+      out.write("    </div>\n");
+      out.write("      <hr width=\"100%\" size=\"8\" noshade align=\"center\">\n");
+      out.write("      ");
  } 
       out.write("\n");
       out.write("        </div>\n");
@@ -166,7 +170,6 @@ public final class UserAds_jsp extends org.apache.jasper.runtime.HttpJspBase
       out.write("    </div>\n");
       out.write("  </div>\n");
       out.write("</section>\n");
-      out.write("\n");
       out.write("<!--/.page-section-->\n");
       out.write("<section class=\"LastTab\">\n");
       out.write("  <div class=\"container\">\n");
@@ -189,6 +192,8 @@ public final class UserAds_jsp extends org.apache.jasper.runtime.HttpJspBase
       out.write("<script src=\"js/waypoints.js\"></script> \n");
       out.write("<script src=\"js/custom.js\" type=\"text/javascript\"></script> \n");
       out.write("<script src=\"js/owl-carousel/owl.carousel.js\"></script>\n");
+      out.write("\n");
+      out.write("\n");
       out.write("</body>\n");
       out.write("</html>\n");
     } catch (Throwable t) {

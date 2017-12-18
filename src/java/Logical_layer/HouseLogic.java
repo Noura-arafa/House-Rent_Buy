@@ -21,9 +21,8 @@ public class HouseLogic {
     public  int getHouseID(House house) throws SQLException, ClassNotFoundException
 
     {
-        return HouseIO.getHouseID(house);
+        return houseIo.getHouseID(house);
     }
-    
     public void addHouse( House house, User user) throws ClassNotFoundException, SQLException
     {
        

@@ -47,8 +47,7 @@ public class addPhotoServlet extends HttpServlet {
        Collection<Part> photos;
         photos = request.getParts();
         
-        ServletContext application = request.getServletContext();
-        int hID = (int) application.getAttribute("houseID");
+        int hID = (int) request.getSession().getAttribute("houseID");
          
         int count = photos.size() -1;
         for(Part photo : photos)
@@ -62,7 +61,7 @@ public class addPhotoServlet extends HttpServlet {
             count --;
         }
             
-        response.sendRedirect("specificHouseServlet");
+        response.sendRedirect("UserAds.jsp");
         
     }
     

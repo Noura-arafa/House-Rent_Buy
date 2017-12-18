@@ -24,6 +24,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 /**
  *
@@ -69,13 +70,11 @@ public class AddHouseServlet extends HttpServlet {
 
         int hID = houselogic.getHouseID(house);
         RequestDispatcher rd = request.getRequestDispatcher("AddPhoto.jsp");
-        request.setAttribute("houseID", hID);
-
+        HttpSession session = request.getSession(true);
+        session.setAttribute("houseID", hID);
         NotificationLogic notification=new NotificationLogic();
         notification.interestNotification(house);
        
-
-
         houses.add(house);
         application.setAttribute("Houses", houses);
 

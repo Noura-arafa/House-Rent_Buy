@@ -82,8 +82,18 @@ function myFunction() {
     <div class="row dataTxt">   
       <div class="col-md-6 col-sm-6">
         <ul class="listArrow">
-         <% House house = (House) application.getAttribute("house");
-         String adName = house.getAdName();
+         <% //House house = (House) application.getAttribute("house");
+             ArrayList<House> houses = (ArrayList<House>) application.getAttribute("AllHouses");
+             int houseID = Integer.parseInt(request.getParameter("id"));
+             House house = new House();
+             for(int i=0; i<houses.size(); i++)
+             {
+                 if(houses.get(i).getHouseID() == houseID)
+                 {
+                     house = houses.get(i);
+                 }
+             }
+            String adName = house.getAdName();
           %>
           <h2><li><%=adName%></li></h2>
           <h4><li>Type</li></h4>

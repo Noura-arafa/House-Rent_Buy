@@ -6,9 +6,15 @@
 package Controller;
 
 import Classes.House;
+import Logical_layer.HouseLogic;
+import com.google.gson.Gson;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -32,11 +38,11 @@ public class editServlet extends HttpServlet {
      */
     
     public void getHouse(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-            ServletContext application = request.getServletContext();
-            ArrayList<House> uHouses = (ArrayList<House>) application.getAttribute("UserHouses");
+            throws ServletException, IOException, ClassNotFoundException, SQLException {
+            HouseLogic houseLogic = new HouseLogic();
+            ArrayList<House> uHouses = houseLogic.selectAllHouses();
             String adName = request.getParameter("adName");
-          
+          System.out.println("adname  " + adName);
             House house = new House();
             for(int i=0; i<uHouses.size(); i++)
             {
@@ -48,12 +54,15 @@ public class editServlet extends HttpServlet {
                     
             }
             System.out.println("edit servlet: " + house.getAdName());
-            application.setAttribute("UserHouse", house);
-            response.sendRedirect("edit.jsp");
+            Gson gson =new Gson();
+            response.setContentType("text/html;charset=UTF-8");
+            RequestDispatcher rd = request.getRequestDispatcher("edit.jsp");
+            request.setAttribute("house", house);
+            rd.forward(request, response);
     }
     
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
+            throws ServletException, IOException, ClassNotFoundException, SQLException {
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
             /* TODO output your page here. You may use following sample code. */
@@ -73,7 +82,13 @@ public class editServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        try {
+            processRequest(request, response);
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(editServlet.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (SQLException ex) {
+            Logger.getLogger(editServlet.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     /**
@@ -87,7 +102,13 @@ public class editServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        try {
+            processRequest(request, response);
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(editServlet.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (SQLException ex) {
+            Logger.getLogger(editServlet.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     /**

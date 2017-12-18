@@ -39,19 +39,6 @@ public class deleteHouseServlet extends HttpServlet {
         String adName = request.getParameter("adName");
         HouseLogic houseLogic = new HouseLogic();
         houseLogic.deleteHouse(adName);
-        ServletContext application = request.getServletContext();
-        ArrayList<House> uHouses = (ArrayList<House>) application.getAttribute("UserHouses");
-        House house = new House();
-        for(int i=0; i<uHouses.size(); i++)
-            {
-                if(uHouses.get(i).getAdName().equals(adName))
-                {
-                    house = uHouses.get(i);
-                    uHouses.remove(i);
-                    break;
-                }
-                    
-            }
         response.sendRedirect("UserAdsServlet");
     }
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)

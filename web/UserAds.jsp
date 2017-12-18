@@ -79,27 +79,34 @@
       <div class="col-md-12">
         <div id="portfolio">
           <ul class="filters list-inline">
-            <li> <a class="active" data-filter="*" href="#">All</a> </li>
-            
-          </ul>
-          <%
-              ArrayList<House> userHouses = (ArrayList<House>) application.getAttribute("UserHouses");
-              if (userHouses == null) {
-                  System.out.println("user houses are null");
-              }
-              //for (int i = 0; i < userHouses.size(); i++) {
-                  //House house = userHouses.get(i);
+            <li> <a class="active" data-filter="*" href="#"></a> </li>
+           </ul>
+            <div id="rowdiv">
+                
+            </div>
+          <% 
+              ArrayList<House> userHouses = (ArrayList<House>) request.getSession().getAttribute("userHouse");
+              for(int i=0; i<userHouses.size(); i++)
+              {
           %>
-          <div id="Photo">
-              
-          </div>
- <!-- here script ti view image -->         
+    <div class="row dataTxt" >
+        <div class="col-md-6 col-sm-6" >
+          <ul>
+              <li class="item branding" style="position: absolute; left: 0px; top: 0px;">
+                  <a herf ='specificHouseServlet' ><h4><%=userHouses.get(i).getAdName() %></h4></a>
+              </li>
+                 <button name="submit" type="submit" class="btn btn-lg btn-primary" onclick="location.href='editServlet?adName=<%= userHouses.get(i).getAdName()%>'">Edit</button>
+                 <button name="submit" type="submit" class="btn btn-lg btn-primary" onclick="location.href='deleteHouseServlet?adName=<%= userHouses.get(i).getAdName()%>'">Delete</button>
+                 </ul>
+        </div>
+    </div>
+      <hr width="100%" size="8" noshade align="center">
+      <% } %>
         </div>
       </div>
     </div>
   </div>
 </section>
-
 <!--/.page-section-->
 <section class="LastTab">
   <div class="container">
@@ -122,21 +129,7 @@
 <script src="js/waypoints.js"></script> 
 <script src="js/custom.js" type="text/javascript"></script> 
 <script src="js/owl-carousel/owl.carousel.js"></script>
-<script>
-     var uHsize = <%= userHouses.size() %>
-    <% for (int i = 0; i < userHouses.size(); i++) { %>
-         var adName = "<%=userHouses.get(i).getAdName() %>";
-    $("#Photo").prepend(" <ul class='items list-unstyled clearfix animated fadeInRight showing' data-animation='fadeInRight' style='position: relative; height: 438px;'>"
-            +"<li class='item branding' style='position: absolute; left: 0px; top: 0px;'>"
-	     +"<figure class='effect-bubba'>"
-              +"<img  src='viewPhotoServlet?adName=" + adName +"&indx="+ 0 +"' alt='img02'/>"
-                +"<figcaption><h4>" + adName+"</h4></figcaption></figure></li>"
-           	 +"<button name='submit' type='submit' class='btn btn-lg btn-primary' onclick='location.href="+"'editServlet?adName="+adName+"'" + "'>Edit</button>"
-                 +"<button name='submit' type='submit' class='btn btn-lg btn-primary' onclick='location.href="+"'deleteHouseServlet?adName="+adName+"'" +"'>Delete</button></ul>");
-          
- <% } %>   
- </script>
-        
+
 
 </body>
 </html>

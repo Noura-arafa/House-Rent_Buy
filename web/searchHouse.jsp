@@ -107,7 +107,7 @@
              
             <div class="form-group">
               <label for="name">Location </label>
-              <input type="text" class="form-control" name="Location" id="Location" placeholder="Maryam was here B)" title="Please enter the Location">
+              <input type="text" class="form-control" name="Location" id="Location" placeholder="House Location" title="Please enter the Location">
             </div>
               
               <div class="form-group">

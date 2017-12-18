@@ -72,7 +72,7 @@
             <div class="form-group">
               <label for="name">advertisement Name</label>
               <%
-                  House house = (House) application.getAttribute("UserHouse");
+                  House house = (House) request.getAttribute("house");
                   
               %>
               
@@ -115,13 +115,13 @@
               <input type="text" class="form-control" name="Price" id="Price" value="<%=house.getPrice() %>" >
             </div>
 
-              <form action=""  enctype="multipart/form-data">
+            <form action=""  enctype="multipart/form-data">
             <div class="form-group">
               <label for="email">Add Photos</label><br>
               <input type="radio"  name="addPhoto" id="addPhoto" value="Yes" >Yes<br>
-              <input type="radio"  name="addPhoto" id="addPhoto" value="No">No<br>
+              <input type="radio"  name="addPhoto" id="addPhoto" value="No" checked>No<br>
             </div>
-              </form>
+           </form>
             <div class="form-group">
               <label for="name">Location </label>
               <input type="text" class="form-control" name="Location" id="Location" value= "<%=house.getLocation() %>" >
