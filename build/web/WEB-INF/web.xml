@@ -9,11 +9,11 @@
         <servlet-class>Controller.UserAdsServlet</servlet-class>
     </servlet>
     <servlet>
-
-        <servlet-name>HouseImage</servlet-name>
-        <servlet-class>Controller.HouseImage</servlet-class>
+        <servlet-name>searchServlet</servlet-name>
+        <servlet-class>Controller.searchServlet</servlet-class>
     </servlet>
     <servlet>
+<<<<<<< HEAD
         <servlet-name>editServlet</servlet-name>
         <servlet-class>Controller.editServlet</servlet-class>
     </servlet>
@@ -40,6 +40,10 @@
     <servlet>
         <servlet-name>rateServlet</servlet-name>
         <servlet-class>Controller.rateServlet</servlet-class>
+=======
+        <servlet-name>HomePageServlet</servlet-name>
+        <servlet-class>Controller.HomePageServlet</servlet-class>
+>>>>>>> 0ef281710e314aa0a72cf319485d54ab6bba8cc2
     </servlet>
    <servlet-mapping>
         <servlet-name>searchServlet</servlet-name>
@@ -50,34 +54,12 @@
         <url-pattern>/UserAdsServlet</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
-
-        <servlet-name>HouseImage</servlet-name>
-        <url-pattern>/HouseImage</url-pattern>
+        <servlet-name>searchServlet</servlet-name>
+        <url-pattern>/searchServlet</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
-        <servlet-name>editServlet</servlet-name>
-        <url-pattern>/editServlet</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
-        <servlet-name>editHouseinDBServlet</servlet-name>
-        <url-pattern>/editHouseinDBServlet</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
-        <servlet-name>specificHouseServlet</servlet-name>
-        <url-pattern>/specificHouseServlet</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
-        <servlet-name>deleteHouseServlet</servlet-name>
-        <url-pattern>/deleteHouseServlet</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
-        <servlet-name>viewPhotoServlet</servlet-name>
-        <url-pattern>/viewPhotoServlet</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
-        <servlet-name>rateServlet</servlet-name>
-        <url-pattern>/rateServlet</url-pattern>
-
+        <servlet-name>HomePageServlet</servlet-name>
+        <url-pattern>/HomePageServlet</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

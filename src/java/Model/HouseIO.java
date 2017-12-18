@@ -21,7 +21,7 @@ import java.util.ArrayList;
 public class HouseIO {
         static String url = "jdbc:mysql://localhost:3306/house_buy_rent";
         static String sqluser = "root";
-        static String password = "n33333";
+        static String password = "12345678a";
     
 
     
@@ -137,10 +137,7 @@ public class HouseIO {
 "                 type = IFNULL(?,type)and location = IFNULL(?,location)and" +
 "                adName = IFNULL(?,adName) and price = IFNULL (?, price)");
         
-        if (house.getAdType() == null && house.getStatus() == null && house.getType() == null && house.getLocation() == null && house.getAdName() == null)
-            System.out.println("first all clear!");
-        if (house.getFloor() == 0 && house.getRate() == 0.0 && house.getPrice() == 0.0)
-            System.out.println("second all clear!");
+        
         
         if (house.getRate() == 0.0) prst.setNull(1, java.sql.Types.DOUBLE);
         else prst.setDouble(1, house.getRate());
@@ -189,7 +186,7 @@ public class HouseIO {
             newHouse.setPrice(rs.getDouble("price"));
             comments = commentIO.selectAllComments(houseID);
             images = imageIO.selectImages(houseID);
-            
+            newHouse.setHouseID(houseID);
             newHouse.setComments(comments);
             newHouse.setImages(images);
             
@@ -256,6 +253,96 @@ public class HouseIO {
 
     }
 
+    public void suspendHouse(String adName) throws ClassNotFoundException, SQLException{
+        Class.forName("com.mysql.jdbc.Driver");
+        Connection conn = DriverManager.getConnection(url, sqluser, password);
+        PreparedStatement prst = conn.prepareStatement("Select houseID FROM house WHERE adName = ? ");
+        prst.setString(1, adName);
+        prst.executeQuery();
+       
+        ResultSet rs = prst.executeQuery();
+        int id = -1;
+        if(rs.first())
+          id = rs.getInt(1);
+        System.out.println("suspend house fun" + id);
+        String query = "update house set active = 0 where houseID = ?";
+        prst = conn.prepareStatement(query);
+        prst.setInt(1, id);
+        prst.executeUpdate();
+        prst.close();
+        conn.close();
+    }
+    public void unSuspendHouse(String adName) throws ClassNotFoundException, SQLException{
+        Class.forName("com.mysql.jdbc.Driver");
+        Connection conn = DriverManager.getConnection(url, sqluser, password);
+        PreparedStatement prst = conn.prepareStatement("Select houseID FROM house WHERE adName = ? ");
+        prst.setString(1, adName);
+        prst.executeQuery();
+       
+        ResultSet rs = prst.executeQuery();
+        int id = -1;
+        if(rs.first())
+          id = rs.getInt(1);
+        System.out.println("suspend house fun" + id);
+        String query = "update house set active = 1 where houseID = ?";
+        prst = conn.prepareStatement(query);
+        prst.setInt(1, id);
+        prst.executeUpdate();
+        prst.close();
+        conn.close();
+    }
+    
+    public ArrayList<House> selectSuspendedHouses() throws ClassNotFoundException, SQLException{
+        
+        Class.forName("com.mysql.jdbc.Driver");
+        Connection conn = DriverManager.getConnection(url, sqluser, password);
+
+        ArrayList<House> houses = new ArrayList<>();
+        CommentIO commentIO = new CommentIO();
+        ImageIO imageIO = new ImageIO();
+
+        if (conn == null) System.out.println("conn is not working");
+
+        Statement stmt = conn.createStatement();
+        String sql = "select houseID, adName, description, adtype, size, active, floor, status, type,"
+                + " location, rate, countRate, totalRates, price  from house where active = 0";
+        ResultSet rs =stmt.executeQuery(sql);
+        
+        while(rs.next()){
+                
+            House house = new House();
+            ArrayList<Comment> comments = new ArrayList<Comment>();
+            ArrayList<Image> images = new ArrayList<Image>();
+            int houseID = rs.getInt("houseID");
+            house.setAdName(rs.getString("adName"));
+            house.setDescription(rs.getString("description"));
+            house.setAdType(rs.getString("adtype"));
+            house.setSize(rs.getInt("size"));
+            house.setActive(rs.getInt("active"));
+            house.setFloor(rs.getInt("floor"));
+            house.setStatus(rs.getString("status"));
+            house.setType(rs.getString("type"));
+            house.setLocation(rs.getString("location"));
+            house.setRate(rs.getDouble("rate"));
+            house.setCountRate(rs.getInt("countRate"));
+            house.setTotalRates(rs.getInt("totalRates"));
+            house.setPrice(rs.getDouble("price"));
+            comments = commentIO.selectAllComments(houseID);
+            images = imageIO.selectImages(houseID);
+            house.setComments(comments);
+            house.setImages(images);
+            house.setHouseID(houseID);
+            
+            houses.add(house);
+
+        }
+        stmt.close();
+        conn.close();
+        
+        return houses;
+        
+    }
+    
     public void updateHouse (House house) throws ClassNotFoundException, SQLException {
         Class.forName("com.mysql.jdbc.Driver");
         Connection conn = DriverManager.getConnection(url, sqluser, password);
@@ -314,7 +401,7 @@ public class HouseIO {
             house.setPrice(rs.getDouble("price"));
             comments = commentIO.selectAllComments(rs.getInt("houseID"));
             images = imageIO.selectImages(rs.getInt("houseID"));
-            
+            house.setHouseID(rs.getInt("houseID"));
             house.setComments(comments);
             house.setImages(images);
             
@@ -336,7 +423,7 @@ public class HouseIO {
 
         Statement stmt = conn.createStatement();
         String sql = "select houseID, adName, description, adtype, size, active, floor, status, type,"
-                + " location, rate, countRate, totalRates, price  from house";
+                + " location, rate, countRate, totalRates, price  from house where active = 1";
         ResultSet rs =stmt.executeQuery(sql);
         
         while(rs.next()){
@@ -362,7 +449,7 @@ public class HouseIO {
             images = imageIO.selectImages(houseID);
             house.setComments(comments);
             house.setImages(images);
-            
+            house.setHouseID(houseID);
             houses.add(house);
 
         }
@@ -414,7 +501,7 @@ public class HouseIO {
             house.setPrice(rs.getDouble("price"));
             comments = commentIO.selectAllComments(houseID);
             images = imageIO.selectImages(houseID);
-
+            house.setHouseID(houseID);
             house.setComments(comments);
             house.setImages(images);
 

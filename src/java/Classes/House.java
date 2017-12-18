@@ -15,6 +15,9 @@ public class House {
     private String description;
     private String adType;
     private int size;
+    int houseID;
+
+    
     
     //gededa
     int countRate=0;
@@ -186,7 +189,13 @@ public class House {
         return rate;
     }
     
-    
+    public int getHouseID() {
+        return houseID;
+    }
+
+    public void setHouseID(int houseID) {
+        this.houseID = houseID;
+    }
     
     
     

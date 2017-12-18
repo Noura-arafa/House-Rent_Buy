@@ -23,48 +23,58 @@ public class InterestIO {
     String user = "root";
     String password = "n33333";
     
-    public int findInterest(Interest interest) throws SQLException, ClassNotFoundException{
+    public  int findInterest(Interest interest) throws SQLException, ClassNotFoundException{
         Class.forName("com.mysql.jdbc.Driver");
         String url = "jdbc:mysql://localhost:3306/house_buy_rent";
        
         ResultSet RS = null;
+        System.out.println("interessssttt "+interest.getSize() +"tpe "+interest.getType()+"  status "+interest.getStatus());
         Connection Con =(Connection) DriverManager.getConnection(url, user, password);
-        String selsectTableSQL = "SELECT interestID FROM interest WHERE tadtype=(?) and size=(?) and floor=(?) and status=(?)and "
-                + "type=(?)and location=(?) and rate=(?) and price=(?)";
-        PreparedStatement preparedStatement = Con.prepareStatement(selsectTableSQL);
-        preparedStatement.setString(1, interest.getAdType());
-        preparedStatement.setInt(2, interest.getSize());
-        preparedStatement.setInt(3, interest.getFloor());
-        preparedStatement.setString(4, interest.getStatus());
-        preparedStatement.setString(5, interest.getType());
-        preparedStatement.setString(6, interest.getLocation());
-        preparedStatement.setDouble(7, interest.getRate());
-        preparedStatement.setDouble(8, interest.getPrice());
-        RS=preparedStatement.executeQuery();
+        String selsectTableSQL = "select interestID FROM interest WHERE "+
+                 "adtype = (?) and size = (?) and floor  = (?) "+
+                "and status = (?) and type = (?) and location = (?)"+
+                " and rate = (?) and price = (?)";
+        PreparedStatement prst = Con.prepareStatement(selsectTableSQL);
+        
+        
+        if (interest.getAdType() == null)
+            prst.setString(1, "adtype");
+        else prst.setString(1, interest.getAdType());
+        if (interest.getSize() == 0)
+            prst.setInt(2, -1);
+        else prst.setInt(2, interest.getSize());
+        if (interest.getFloor() == 0)
+            prst.setInt(3, -1);
+        else prst.setInt(3, interest.getFloor());
+        if(interest.getStatus() == null)
+            prst.setString(4, "status");
+        else prst.setString(4, interest.getStatus());
+        if (interest.getType() == null)
+            prst.setString(5, "type");
+        else prst.setString(5, interest.getType());
+        if (interest.getLocation() == null)
+                prst.setString(6, "location");
+        else prst.setString(6, interest.getLocation());
+        if (interest.getRate()== 0.0)
+            prst.setDouble(7, -1);
+        else prst.setDouble(7, interest.getRate());
+        if (interest.getPrice() == 0.0) 
+            prst.setDouble(8, -1);
+        else prst.setDouble(8, interest.getPrice());
+        
+        RS = prst.executeQuery();
         int interestID=-1;
         if(RS!=null){
             while(RS.next()){
+                System.out.println("heeeeey");
                 interestID=RS.getInt("interestID");
             }
             
         }
         return interestID;
     }
-    public  void insert(int size,String status,String type) throws ClassNotFoundException, SQLException{   
-        Class.forName("com.mysql.jdbc.Driver");
-        String url = "jdbc:mysql://localhost:3306/house_buy_rent";
-        ResultSet RS = null;
-        Connection Con =(Connection) DriverManager.getConnection(url, user, password);
-        String insertTableSQL = "INSERT INTO interest "+ "(type, size,status) VALUES" + "(?,?,?)";
-        PreparedStatement preparedStatement = Con.prepareStatement(insertTableSQL);
-        preparedStatement.setString(1, type);
-        preparedStatement.setInt(2, size);
-        preparedStatement.setString(3, status);       
-        preparedStatement .executeUpdate();
-        
-        }
-    
-    
+
+   
     public ArrayList<Integer> select (House house) throws ClassNotFoundException, SQLException{
         Class.forName("com.mysql.jdbc.Driver");
         String url = "jdbc:mysql://localhost:3306/house_buy_rent";
@@ -75,35 +85,35 @@ public class InterestIO {
         
         String selsectTableSQL = "SELECT interestID FROM interest WHERE "+
         "case" +
-"	when adtype is null then adtype is null" +
+"	when adtype = 'adtype' then adtype = 'adtype' " +
 "       else adtype = ? "+
-"	end       "+
+"	end     and   "+
         "case"  +
-"	when size is null then size is null" +
+"	when size = -1 then size = -1" +
 "       else size = ?" +
-"	end" +
+"	end and " +
         "case" +
-"	when floor is null then floor is null" +
+"	when floor = -1 then floor = -1" +
 "       else floor = ? "+
-"	end "+
+"	end and "+
         "case" +
-"	when status is null then status is null" +
+"	when status = 'status' then status = 'status'" +
 "       else status = ? "+
-"	end       "+
+"	end  and "+
         "case" +
-"	when type is null then type is null" +
+"	when type = 'type' then type = 'type' " +
 "       else type = ? "+
-"	end "+
+"	end  and "+
         "case" +
-"	when location is null then location is null" +
+"	when location = 'location' then location = 'location'" +
 "       else location = ? "+
-"	end       "+
+"	end and      "+
         "case" +
-"	when rate is null then rate is null" +
+"	when rate = -1 then rate = -1 " +
 "       else rate = ? "+
-"	end"+
+"	end and "+
         "case"+
-"       when price is null then price is null" +
+"       when price = -1 then price = -1" +
 "       else price = ?"+
 "       end";
                 
@@ -142,24 +152,48 @@ public class InterestIO {
         String insertTableSQL = "INSERT INTO interest (adtype, size, floor, status,"
                 + "type, location, rate, price) VALUES" + "(?,?,?,?,?,?,?,?)";
         PreparedStatement prst = Con.prepareStatement(insertTableSQL);
-        prst.setString(1, interest.getAdType());
+        if (interest.getAdType() == null)
+            prst.setString(1, "adtype");
+        else prst.setString(1, interest.getAdType());
         if (interest.getSize() == 0)
-            prst.setNull(2, java.sql.Types.INTEGER);
+            prst.setInt(2, -1);
         else prst.setInt(2, interest.getSize());
         if (interest.getFloor() == 0)
-            prst.setNull(3, java.sql.Types.INTEGER);
+            prst.setInt(3, -1);
         else prst.setInt(3, interest.getFloor());
-        prst.setString(4, interest.getStatus());
-        prst.setString(5, interest.getType());
-        prst.setString(6, interest.getLocation());
+        if(interest.getStatus() == null)
+            prst.setString(4, "status");
+        else prst.setString(4, interest.getStatus());
+        if (interest.getType() == null)
+            prst.setString(5, "type");
+        else prst.setString(5, interest.getType());
+        if (interest.getLocation() == null)
+                prst.setString(6, "location");
+        else prst.setString(6, interest.getLocation());
         if (interest.getRate()== 0.0)
-            prst.setNull(7, java.sql.Types.DOUBLE);
+            prst.setDouble(7, -1);
         else prst.setDouble(7, interest.getRate());
-        if (interest.getPrice() == 0.0) prst.setNull(8, java.sql.Types.DOUBLE);
+        if (interest.getPrice() == 0.0) 
+            prst.setDouble(8, -1);
         else prst.setDouble(8, interest.getPrice());
         prst .executeUpdate();
 
         
     }
+        public static void main(String args[]) throws SQLException, ClassNotFoundException{
+            Interest in =new Interest(null, 100, 0, "finished", "va", null, 0.0,0.0);
+            House house = new House("bla", "bla", 200, 1, 100, "finished", "villa", "bla", 5.0, "ay 7aga", 100.0);
+            
+            
+            //Interest  i = new Interest(adType, 0, 0, status, type, location, Double.NaN, Double.NaN)
+            InterestIO n= new InterestIO();
+            ArrayList<Integer> ids = n.select(house);
+            for (int i = 0; i < ids.size(); i++)
+                System.out.println("ids: " + ids.get(i));
+            
+            
+            int ID=n.findInterest(in);
+            System.out.println("wWWWWWWWWWWWWWWWW  "+ID);
+        }
     
 }

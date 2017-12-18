@@ -188,23 +188,18 @@ public final class view_0020Notification_jsp extends org.apache.jasper.runtime.H
       out.write("            <br>\n");
       out.write("              \n");
       out.write("\n");
-      out.write("\t\t\t\t\t\t</div>\n");
+      out.write("</div>\n");
       out.write("\n");
-      out.write("            \n");
+      out.write("         \n");
       out.write("<div class=\"col-md-6 col-sm-12\"> \n");
+      out.write("  \n");
+      out.write("</section>\n");
       out.write("\n");
       out.write("  </div>\n");
       out.write("</section> \n");
       out.write("\n");
       out.write("<!--/.page-section-->\n");
-      out.write("<section class=\"copyright\">\n");
-      out.write("  <div class=\"container\">\n");
-      out.write("    <div class=\"row\">\n");
-      out.write("      <div class=\"col-sm-12 text-center\"> </div>\n");
-      out.write("    </div>\n");
-      out.write("    <!-- / .row --> \n");
-      out.write("  </div>\n");
-      out.write("</section>\n");
+      out.write("\n");
       out.write("<a href=\"#top\" class=\"topHome\"><i class=\"fa fa-chevron-up fa-2x\"></i></a> \n");
       out.write("\n");
       out.write("<!--[if lte IE 8]><script src=\"//ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js\"></script><![endif]--> \n");
@@ -221,6 +216,8 @@ public final class view_0020Notification_jsp extends org.apache.jasper.runtime.H
       out.write("<script>\n");
       out.write("\n");
       out.write("</script>\n");
+      out.write("\n");
+      out.write("\n");
       out.write("</body>\n");
       out.write("</html>\n");
     } catch (Throwable t) {

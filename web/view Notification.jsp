@@ -85,7 +85,6 @@ function myFunction() {
        ArrayList <Notification > oldNotification =nio.selectOldNotification(user);
        nio.updateNotification(user);
        
-       int houseID= 0;
       %>
             <h1>  Notification </h1>
             <% 
@@ -123,23 +122,18 @@ function myFunction() {
             <br>
               
 
-						</div>
+</div>
 
-            
+         
 <div class="col-md-6 col-sm-12"> 
+  
+</section>
 
   </div>
 </section> 
 
 <!--/.page-section-->
-<section class="copyright">
-  <div class="container">
-    <div class="row">
-      <div class="col-sm-12 text-center"> </div>
-    </div>
-    <!-- / .row --> 
-  </div>
-</section>
+
 <a href="#top" class="topHome"><i class="fa fa-chevron-up fa-2x"></i></a> 
 
 <!--[if lte IE 8]><script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script><![endif]--> 
@@ -156,5 +150,7 @@ function myFunction() {
 <script>
 
 </script>
+
+
 </body>
 </html>

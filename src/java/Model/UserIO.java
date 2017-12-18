@@ -22,7 +22,7 @@ public class UserIO {
     String url = "jdbc:mysql://localhost:3306/house_buy_rent";
     String sqluser = "root";
 
-    String password = "n33333";
+    String password = "12345678a";
 
     public int getUserID(String userName) throws ClassNotFoundException, SQLException {
         Class.forName("com.mysql.jdbc.Driver");

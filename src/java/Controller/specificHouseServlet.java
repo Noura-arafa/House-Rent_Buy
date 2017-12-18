@@ -43,6 +43,7 @@ public class specificHouseServlet extends HttpServlet {
         try (PrintWriter out = response.getWriter()) {
             /* TODO output your page here. You may use following sample code. */
             ServletContext application = request.getServletContext();
+<<<<<<< HEAD
             HouseLogic houseLogic = new HouseLogic();
             String houseId =request.getParameter("houseID");
             int houseID = Integer.parseInt(houseId); 
@@ -51,6 +52,25 @@ public class specificHouseServlet extends HttpServlet {
             application.setAttribute("AllHouses", houses);
             House house = houseLogic.getHouseByID(houseID);
             //application.setAttribute("house", house);
+=======
+            //dah el mafrod ely gylena mn el page ely feha kol el houses
+           // int houseID=(int) request.getAttribute("houseID");
+           
+            //to be removed!!!
+            String houseId =request.getParameter("houseID");
+            
+            int houseID = Integer.parseInt(houseId);            
+            HouseLogic HouseLogic = new HouseLogic();
+            
+            House house = HouseLogic.getHouseByID(houseID);
+         
+            HouseLogic houseLogic = new HouseLogic();
+            ArrayList<House> houses = houseLogic.selectAllHouses();
+            application.setAttribute("AllHouses", houses);
+            //String houseId =request.getParameter("houseID");
+           // int houseID = 5;//Integer.parseInt(houseId);            
+            application.setAttribute("house", house);
+>>>>>>> 0ef281710e314aa0a72cf319485d54ab6bba8cc2
             response.sendRedirect("specificHouseJSP.jsp?id="+houseID);
    
         }

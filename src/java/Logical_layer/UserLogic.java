@@ -74,6 +74,7 @@ public class UserLogic {
         return userio.getContactData(Uname);
     }
 
+
     public void editfname(String Uname, String changedfirstname) {
         userio.updatefname(Uname, changedfirstname);
     }

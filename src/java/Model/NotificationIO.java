@@ -6,6 +6,7 @@
 package Model;
 
 import Classes.Notification;
+import Classes.User;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -20,7 +21,7 @@ import java.util.ArrayList;
 public class NotificationIO {
     String url = "jdbc:mysql://localhost:3306/house_buy_rent";
         String username = "root";
-        String password = "n33333";
+        String password = "12345678a";
     public ArrayList<Notification> selectNewNotification(int userID) throws ClassNotFoundException, SQLException{
         ArrayList <Notification> notifications = new ArrayList();
         Class.forName("com.mysql.jdbc.Driver");
@@ -80,7 +81,11 @@ public class NotificationIO {
     public void interestNotification(int userID,int houseID) throws ClassNotFoundException, SQLException{
         Class.forName("com.mysql.jdbc.Driver");
         Connection Con =(Connection) DriverManager.getConnection(url, username, password);
-        String content="there's new house that match your preferences in the website right now";
+        HouseIO houseIO =new HouseIO();
+        int hUserID= houseIO.getUser(houseID);
+        UserIO userIO = new UserIO();
+        User user=userIO.selectUser(hUserID);
+        String content=user.getuserName()+" added new House, Go check it:)";
         String insertTableSQL = "INSERT INTO notification "+ "(nUserID, notification.read, content,link) VALUES" + "(?,?,?,?)";
         PreparedStatement preparedStatement = Con.prepareStatement(insertTableSQL);
         preparedStatement.setInt(1, userID);

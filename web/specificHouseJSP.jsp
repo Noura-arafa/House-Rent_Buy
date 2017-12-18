@@ -79,6 +79,7 @@ function myFunction() {
       <h2>About Us</h2>
     </div>
   
+
     <div class="row dataTxt">   
       <div class="col-md-6 col-sm-6">
         <ul class="listArrow">
@@ -164,6 +165,7 @@ function myFunction() {
             </div>
             <br>
               <label for="comments"><h4>Comments</h4></label>
+
               <% ArrayList<Comment> comments = house.getComments();
                 for (int i = 0; i < comments.size(); i++) {
               %>

@@ -1558,4 +1558,8 @@ nav#filter li {
 khadega.hover{
 	color: red;
 }
+#map {
+            height: 400px;
+            width: 100%;
+          }
 
