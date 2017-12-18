@@ -73,6 +73,12 @@ public class HouseLogic {
         ArrayList<House> houses = houseIo.selectUserHouse(userID);
         return houses;
     }
+    public ArrayList<House> selectSuspendedHouses() throws ClassNotFoundException, SQLException{
+        HouseIO houseIO =new HouseIO();
+        ArrayList<House> suspendedHoeses =houseIO.selectSuspendedHouses();
+        return suspendedHoeses;
+        
+    }
     
     
     public  static void main(String[] args) throws ClassNotFoundException, SQLException{

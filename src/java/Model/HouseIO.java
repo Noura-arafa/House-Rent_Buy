@@ -271,6 +271,25 @@ public class HouseIO {
         prst.close();
         conn.close();
     }
+    public void unSuspendHouse(String adName) throws ClassNotFoundException, SQLException{
+        Class.forName("com.mysql.jdbc.Driver");
+        Connection conn = DriverManager.getConnection(url, sqluser, password);
+        PreparedStatement prst = conn.prepareStatement("Select houseID FROM house WHERE adName = ? ");
+        prst.setString(1, adName);
+        prst.executeQuery();
+       
+        ResultSet rs = prst.executeQuery();
+        int id = -1;
+        if(rs.first())
+          id = rs.getInt(1);
+        System.out.println("suspend house fun" + id);
+        String query = "update house set active = 1 where houseID = ?";
+        prst = conn.prepareStatement(query);
+        prst.setInt(1, id);
+        prst.executeUpdate();
+        prst.close();
+        conn.close();
+    }
     
     public ArrayList<House> selectSuspendedHouses() throws ClassNotFoundException, SQLException{
         

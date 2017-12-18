@@ -117,6 +117,8 @@
 
         <script src="http://code.jquery.com/jquery-latest.min.js"></script>
         <script type="text/javascript">
+           
+                
             $(document).ready(function(){
                 $.get("HomePageServlet", null, function (houses){
                 
@@ -151,7 +153,7 @@
                      $("#ulCard").append(size);
                      $("#ulCard").append(viewMore);
                      
-                     
+                     if(user.get)
                      $("#ulCard").append(deleteBtn);
                      $("#ulCard").append(suspendBtn);
                      

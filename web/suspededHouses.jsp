@@ -117,10 +117,8 @@
 
         <script src="http://code.jquery.com/jquery-latest.min.js"></script>
         <script type="text/javascript">
-           
-                
             $(document).ready(function(){
-                $.get("HomePageServlet", null, function (houses){
+                $.get("viewSuspendedHouses", null, function (houses){
                 
                 
               
@@ -142,8 +140,7 @@
                     var status = '<li>  Status <strong>' + houses[i]["status"] + '</strong> </li>';
                     var size = '<li> Size <strong>' + houses[i]["size"] + '</strong>  </li>';
                     var viewMore = '<li class="plan-action"> <a href="specificHouseServlet?houseID='+ houseID +'" class="btn btn-danger btn-lg">View More</a> </li>';
-                    var deleteBtn = '<button name="submit" type="submit" class="btn btn-lg btn-primary"  id = "deleteBtn" value = "' + houses[i]["adName"] +'" >Delete </button>';
-                    var suspendBtn = '<button name="submit" type="submit" class="btn btn-lg btn-primary"  id = "suspenedBtn" value = "' + houses[i]["adName"] +'"> Suspend</button>';
+                    var unSuspend = '<button name="submit" type="submit" class="btn btn-lg btn-primary"  id = "unSuspend" value = "' + houses[i]["adName"] +'" >Un SusPend </button>';
 
                      
                      var houseID = houses[i]["houseID"];
@@ -153,33 +150,24 @@
                      $("#ulCard").append(size);
                      $("#ulCard").append(viewMore);
                      
-                     if(user.get)
-                     $("#ulCard").append(deleteBtn);
-                     $("#ulCard").append(suspendBtn);
+                     
+                     $("#ulCard").append(unSuspend);
                      
                     
                  
                 
         }
-              $(document).on('click', '#deleteBtn', function () {
+              $(document).on('click', '#unSuspend', function () {
                         
                     var adName = $(this).val();
                     var cardID = adName.replace(/\s+/g, '');
-                    $.get("RemoveHouseServlet", "adName=" + adName, function () {
+                    $.get("unSuspendHouse", "adName=" + adName, function () {
                         $('#card' + cardID ).remove();
                     });
                     
                });
                     
-              $(document).on('click', '#suspenedBtn', function(){
-                  var adName = $(this).val();
-                  var cardID = adName.replace(/\s+/g, '');
-                  console.log(adName);
-                $.get("SuspepndHouseServlet", "adName=" + adName, function () {
-                        $('#card' + cardID ).remove();
-                    });
-                    
-              });
+             
             });
     });
         </script>

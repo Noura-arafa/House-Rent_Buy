@@ -10,7 +10,7 @@ import Classes.User;
 import Logical_layer.HouseLogic;
 import Model.HouseIO;
 
-public final class HomePage_jsp extends org.apache.jasper.runtime.HttpJspBase
+public final class suspededHouses_jsp extends org.apache.jasper.runtime.HttpJspBase
     implements org.apache.jasper.runtime.JspSourceDependent {
 
   private static final JspFactory _jspxFactory = JspFactory.getDefaultFactory();
@@ -182,10 +182,8 @@ public final class HomePage_jsp extends org.apache.jasper.runtime.HttpJspBase
       out.write("\n");
       out.write("        <script src=\"http://code.jquery.com/jquery-latest.min.js\"></script>\n");
       out.write("        <script type=\"text/javascript\">\n");
-      out.write("           \n");
-      out.write("                \n");
       out.write("            $(document).ready(function(){\n");
-      out.write("                $.get(\"HomePageServlet\", null, function (houses){\n");
+      out.write("                $.get(\"viewSuspendedHouses\", null, function (houses){\n");
       out.write("                \n");
       out.write("                \n");
       out.write("              \n");
@@ -207,8 +205,7 @@ public final class HomePage_jsp extends org.apache.jasper.runtime.HttpJspBase
       out.write("                    var status = '<li>  Status <strong>' + houses[i][\"status\"] + '</strong> </li>';\n");
       out.write("                    var size = '<li> Size <strong>' + houses[i][\"size\"] + '</strong>  </li>';\n");
       out.write("                    var viewMore = '<li class=\"plan-action\"> <a href=\"specificHouseServlet?houseID='+ houseID +'\" class=\"btn btn-danger btn-lg\">View More</a> </li>';\n");
-      out.write("                    var deleteBtn = '<button name=\"submit\" type=\"submit\" class=\"btn btn-lg btn-primary\"  id = \"deleteBtn\" value = \"' + houses[i][\"adName\"] +'\" >Delete </button>';\n");
-      out.write("                    var suspendBtn = '<button name=\"submit\" type=\"submit\" class=\"btn btn-lg btn-primary\"  id = \"suspenedBtn\" value = \"' + houses[i][\"adName\"] +'\"> Suspend</button>';\n");
+      out.write("                    var unSuspend = '<button name=\"submit\" type=\"submit\" class=\"btn btn-lg btn-primary\"  id = \"unSuspend\" value = \"' + houses[i][\"adName\"] +'\" >Delete </button>';\n");
       out.write("\n");
       out.write("                     \n");
       out.write("                     var houseID = houses[i][\"houseID\"];\n");
@@ -218,33 +215,24 @@ public final class HomePage_jsp extends org.apache.jasper.runtime.HttpJspBase
       out.write("                     $(\"#ulCard\").append(size);\n");
       out.write("                     $(\"#ulCard\").append(viewMore);\n");
       out.write("                     \n");
-      out.write("                     if(user.get)\n");
-      out.write("                     $(\"#ulCard\").append(deleteBtn);\n");
-      out.write("                     $(\"#ulCard\").append(suspendBtn);\n");
+      out.write("                     \n");
+      out.write("                     $(\"#ulCard\").append(unSuspend);\n");
       out.write("                     \n");
       out.write("                    \n");
       out.write("                 \n");
       out.write("                \n");
       out.write("        }\n");
-      out.write("              $(document).on('click', '#deleteBtn', function () {\n");
+      out.write("              $(document).on('click', '#unSuspend', function () {\n");
       out.write("                        \n");
       out.write("                    var adName = $(this).val();\n");
       out.write("                    var cardID = adName.replace(/\\s+/g, '');\n");
-      out.write("                    $.get(\"RemoveHouseServlet\", \"adName=\" + adName, function () {\n");
+      out.write("                    $.get(\"unSuspendHouse\", \"adName=\" + adName, function () {\n");
       out.write("                        $('#card' + cardID ).remove();\n");
       out.write("                    });\n");
       out.write("                    \n");
       out.write("               });\n");
       out.write("                    \n");
-      out.write("              $(document).on('click', '#suspenedBtn', function(){\n");
-      out.write("                  var adName = $(this).val();\n");
-      out.write("                  var cardID = adName.replace(/\\s+/g, '');\n");
-      out.write("                  console.log(adName);\n");
-      out.write("                $.get(\"SuspepndHouseServlet\", \"adName=\" + adName, function () {\n");
-      out.write("                        $('#card' + cardID ).remove();\n");
-      out.write("                    });\n");
-      out.write("                    \n");
-      out.write("              });\n");
+      out.write("             \n");
       out.write("            });\n");
       out.write("    });\n");
       out.write("        </script>\n");
